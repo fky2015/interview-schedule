@@ -20,7 +20,6 @@ class UserProfile(AbstractUser):
     studentID = models.TextField(verbose_name="student id", max_length=10)
     wechat_openID = models.CharField(max_length=100, blank=True)
     mobile = models.CharField(max_length=11)
-    email = models.EmailField()
     avatar = models.ImageField(upload_to='image', blank=True, null=True, default="image/default.png", max_length=100)
 
     class Meta:
