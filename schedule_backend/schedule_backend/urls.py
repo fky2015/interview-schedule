@@ -16,19 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from django.contrib.auth.models import User
+from users.models import UserProfile
 from rest_framework import routers, serializers, viewsets
+
 
 # Serializers define the API representation
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
+        model = UserProfile
         fields = ('url', 'username', 'email', 'is_staff')
+
 
 # ViewSets define the view behavior
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = UserProfile.objects.all()
     serializer_class = UserSerializer
+
 
 # Routers provide an esay way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -38,6 +41,6 @@ router.register(r'users', UserViewSet)
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'api/',include(router.urls)),
+    path(r'api/', include(router.urls)),
     url(r'api-auth/', include('rest_framework.urls'))
 ]

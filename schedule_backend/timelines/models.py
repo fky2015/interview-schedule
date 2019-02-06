@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import UserProfile
 from users.models import Club
 # Create your models here.
 
@@ -17,6 +17,6 @@ class timeline(models.Model):
     interviewTimelines = models.ForeignKey(
         InterviewTimelines, on_delete=models.CASCADE)
     user = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, blank=True)
+        UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
     startTime = models.DateTimeField()
     duration = models.IntegerField(verbose_name="duration( /minutes)")
