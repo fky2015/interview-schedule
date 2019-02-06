@@ -24,3 +24,13 @@ class Club(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Membership(models.Model):
+    MEMBERSHIP_LEVEL = (
+        ('S', 'Small'),
+    )# TODO: 加入更合理的选项
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    date_joined = models.DateField()
+    level = models.CharField(max_length=5, choices=MEMBERSHIP_LEVEL)
