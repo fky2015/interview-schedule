@@ -5,17 +5,23 @@ from users.models import Club
 
 
 class Interview(models.Model):
-    name = models.CharField(max_length=100)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    title = models.CharField(verbose_name="Interview Title", max_length=100)
 
+    class Meta():
+        order_with_respect_to = 'club'
 
-class InterviewTimelines(models.Model):
+class InterviewTimeline(models.Model):
     interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
     location = models.TextField(max_length=100)
 
+    class Meta():
+        order_with_respect_to = 'interview'
 
-class timeline(models.Model):
+
+class Timeline(models.Model):
     interviewTimelines = models.ForeignKey(
-        InterviewTimelines, on_delete=models.CASCADE)
+        InterviewTimeline, on_delete=models.CASCADE)
     user = models.ForeignKey(
         UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
     startTime = models.DateTimeField()
