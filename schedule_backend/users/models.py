@@ -18,7 +18,7 @@ class UserProfile(AbstractUser):
     real_name = models.CharField(verbose_name="real name", max_length=50)
     gender = models.CharField(
         verbose_name="性别", choices=GENDER_CHOICE, default='secret', max_length=8)
-    studentID = models.TextField(verbose_name="student id", max_length=10)
+    studentID = models.CharField(verbose_name="student id", max_length=10, help_text='学号，一般来说是十位（BIT）')
     wechat_openID = models.CharField(max_length=100, blank=True)
     mobile = models.CharField(max_length=11)
     avatar = models.ImageField(upload_to='image', blank=True,
