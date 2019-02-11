@@ -44,6 +44,9 @@ class Club(models.Model):
         return self.name
 
 
+# 存在的意义尚不明确，尤其是被面试的关系不应当在里面体现
+
+
 class Membership(models.Model):
     MEMBERSHIP_LEVEL = (
         ('interviewer', '面试者'),
