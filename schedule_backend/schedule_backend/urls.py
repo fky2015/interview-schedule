@@ -17,18 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from rest_framework import routers, serializers, viewsets
-from users import views as UsersView
-from timelines import views as TimelineView
-
+from users import views as user_view
+from timelines import views as timeline_view
 
 router = routers.DefaultRouter()
-router.register('users',UsersView.UserProfileViewSet)
-router.register('club',UsersView.ClubViewSet)
-router.register('interview',TimelineView.InterviewViewSet)
-router.register('interviewTimeline', TimelineView.InterviewTimelineViewSet)
-router.register('timeline', TimelineView.TimelineViewSet)
-
-
+router.register('users', user_view.UserProfileViewSet)
+router.register('club', user_view.ClubViewSet)
+router.register('interview', timeline_view.InterviewViewSet)
+router.register('interviewTimeline', timeline_view.InterviewTimelineViewSet)
+router.register('timeline', timeline_view.TimelineViewSet)
 
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.

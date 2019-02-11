@@ -10,7 +10,7 @@ class Interview(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     title = models.CharField(verbose_name="Interview Title", max_length=100)
 
-    class Meta():
+    class Meta:
         order_with_respect_to = 'club'
 
 
