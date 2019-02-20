@@ -31,6 +31,7 @@ router.register('timeline', timeline_view.TimelineViewSet)
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/user/', user_view.CurrentUserView.as_view()), # get current user
     path(r'api/', include(router.urls)),
     url(r'api-auth/', include('rest_framework.urls'), name='rest_framework')
 ]

@@ -17,4 +17,5 @@ class InterviewTimelineSerializer(serializers.HyperlinkedModelSerializer):
 class TimelineSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Timeline
-        fields = ('url', 'interviewTimeline', 'startTime', 'duration')
+        fields = ('url', 'interviewTimeline', 'user',
+                  'startTime', 'duration')

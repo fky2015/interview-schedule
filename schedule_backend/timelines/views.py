@@ -13,10 +13,11 @@ class InterviewViewSet(viewsets.ModelViewSet):
 
 class InterviewTimelineViewSet(viewsets.ModelViewSet):
     queryset = InterviewTimeline.objects.all()
-    serializer_class = InterviewSerializer()
+    serializer_class = InterviewTimelineSerializer
 
 class TimelineViewSet(viewsets.ModelViewSet):
     queryset = Timeline.objects.all()
-    serializer_class = InterviewSerializer()
+    serializer_class = TimelineSerializer
+
 
 
