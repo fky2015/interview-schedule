@@ -1,4 +1,6 @@
 language: python
+python:
+  - "3.6"
 
 branches:
   only:
@@ -8,7 +10,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH .
+  - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH ./schedule_backend
 
 deploy:
   provider: script
