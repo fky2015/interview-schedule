@@ -7,7 +7,7 @@ COPY . /usr/src/app
 RUN apt-get update && \
     apt-get install -y nginx supervisor && \
     rm -rf /var/lib/apt/lists/* && \
-    pip install -r schedule_backend/requirements.txt --no-cache-dir && \
+    pip install -r requirements.txt --no-cache-dir && \
     rm -rf /var/lib/apt/lists/* && \
     echo "daemon off;" >> /etc/nginx/nginx.conf && \
     python manage.py collectstatic --noinput
