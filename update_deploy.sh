@@ -1,2 +1,5 @@
-echo 1
-echo 1 > success.scs
+DOSE=docker-compose
+
+$DOSE down
+$DOSE pull
+$DOSE up
