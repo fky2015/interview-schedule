@@ -15,7 +15,7 @@ deploy:
   script: bash docker_push.sh
 
 after_success:
-  - ssh travis@$DEPLOY_HOST "./update_deploy.sh"
+  - ssh travis@59.110.233.235 "./update_deploy.sh"
 
 addons:
-  ssh_known_hosts: $DEPLOY_HOST
+  ssh_known_hosts: 59.110.233.235
