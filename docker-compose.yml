@@ -8,6 +8,6 @@ services:
   db:
     image: postgres
     restart: always
-    environments:
+    environment:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: myapp
