@@ -1,0 +1,7 @@
+version: "2"
+services:
+  app:
+    image: fkynjyq/interview_schedule.web:master
+    restart: always
+    ports:
+      - 10101:80

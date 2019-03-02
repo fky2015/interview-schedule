@@ -15,7 +15,7 @@ deploy:
   script: bash docker_push.sh
 
 after_success:
-  - ssh travis@59.110.233.235 "bash interview-schedule/update_deploy.sh"
+  - ssh travis@59.110.233.235 "(cd interview-schedule && bash update_deploy.sh)"
 
 addons:
   ssh_known_hosts: 59.110.233.235
