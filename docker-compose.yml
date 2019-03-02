@@ -5,3 +5,9 @@ services:
     restart: always
     ports:
       - 10101:80
+  db:
+    image: postgres
+    restart: always
+    environments:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: myapp
