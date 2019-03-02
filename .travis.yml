@@ -8,10 +8,13 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_62608a1c5d92_key -iv $encrypted_62608a1c5d92_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH ./schedule_backend
-addons:
-  ssh_known_hosts: $DEPLOY_HOST
+
 deploy:
   provider: script
   script: bash docker_push.sh
+  
 after_success:
   - ssh travis@$DEPLOY_HOST "./update_deploy.sh"
+
+addons:
+  ssh_known_hosts: $DEPLOY_HOST
