@@ -7,7 +7,8 @@ from users.models import Club
 
 
 class Interview(models.Model):
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    club = models.ForeignKey(
+        Club, related_name="interview", on_delete=models.CASCADE)
     title = models.CharField(verbose_name="Interview Title", max_length=100)
 
     class Meta:
@@ -15,7 +16,8 @@ class Interview(models.Model):
 
 
 class InterviewTimeline(models.Model):
-    interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
+    interview = models.ForeignKey(
+        Interview, related_name="InterviewTimeline", on_delete=models.CASCADE)
     location = models.TextField(max_length=100)
 
     class Meta:

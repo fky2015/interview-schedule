@@ -7,6 +7,8 @@ services:
       - 10101:80
     depends_on:
       - db
+    environment:
+        DEPLOY_MOD: 1
   db:
     image: postgres
     restart: always

@@ -23,9 +23,9 @@ SECRET_KEY = '&y&q+-uf03y!h8hmbukee4)+qvqclka&es(#$pjp5&ym4oovtw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.getenv("DEPLOY_MOD"):
-    DEBUG = True
-else:
     DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
