@@ -1,0 +1,38 @@
+{
+    "pages": [
+        "pages/Authorize/Authorize",
+        "pages/HomePage/HomePage",
+        "pages/LogIn/LogIn",
+        "pages/User/User"
+    ],
+    
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTitleText": "i社团",
+        "navigationBarTextStyle": "black",
+        "enablePullDownRefresh": true,
+        "backgroundColor": "#eeeeee"
+    },
+
+    "tabBar": {
+        "color": "#000000",
+        "selectedColor": "#ffffff",
+        "backgroundColor": "#aaaaaa",
+        "borderStyle": "black",
+        "list": [
+            {
+                "pagePath": "pages/HomePage/HomePage",
+                "text": "广场"
+            },
+            {
+                "pagePath": "pages/User/User",
+                "text": "我"
+            }
+        ]
+    },
+
+    "debug": true,
+
+    "plugins": {}
+}
