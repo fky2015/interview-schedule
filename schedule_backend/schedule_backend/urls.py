@@ -23,6 +23,7 @@ from timelines import views as timeline_view
 router = routers.DefaultRouter()
 router.register('users', user_view.UserProfileViewSet)
 router.register('club', user_view.ClubViewSet)
+router.register('userclub',user_view.UserProfileClubViewSet)
 router.register('interview', timeline_view.InterviewViewSet)
 router.register('interviewTimeline', timeline_view.InterviewTimelineViewSet)
 router.register('timeline', timeline_view.TimelineViewSet)

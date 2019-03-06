@@ -19,5 +19,5 @@ class TimelineViewSet(viewsets.ModelViewSet):
     queryset = Timeline.objects.all()
     serializer_class = TimelineSerializer
 
-
+    
 

@@ -9,6 +9,9 @@ services:
       - db
     environment:
         DEPLOY_MOD: 1
+        VIRTUAL_HOST: dev.fkynjyq.com
+        LETSENCRYPT_HOST: dev.fkynjyq.com
+        LETSENCRYPT_MAIL: mail@fkynjyq.com
   db:
     image: postgres
     restart: always
