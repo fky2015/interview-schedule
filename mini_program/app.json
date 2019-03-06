@@ -23,11 +23,15 @@
         "list": [
             {
                 "pagePath": "pages/HomePage/HomePage",
-                "text": "广场"
+                "text": "广场",
+                "iconPath": "./lib/plaza0.png",
+                "selectedIconPath": "./lib/plaza1.png"
             },
             {
                 "pagePath": "pages/User/User",
-                "text": "我"
+                "text": "我",
+                "iconPath": "./lib/me0.png",
+                "selectedIconPath": "./lib/me1.png"
             }
         ]
     },

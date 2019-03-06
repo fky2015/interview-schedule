@@ -28,7 +28,8 @@
         </view>
 
         <view class="btnView">
-            <button class='btn' hover-class='hoverBtn' formType="submit">注册</button>
+            <!--<button class='btn' hover-class='hoverBtn' formType="submit">注册</button> 完成后取消该语句的注释-->
+            <button class='btn' hover-class='hoverBtn' bindtap='skipToHome'>注册</button>
         </view>
 
     </form>

@@ -10,6 +10,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     
+    /*
     //登陆
     wx.login({
         success: res => {
@@ -42,7 +43,8 @@ App({
                 })
             }
         }
-    })  
+    })
+    */  
   },
 
   /**
@@ -67,6 +69,10 @@ App({
   },
 
     globalData: {
-        userInfo: null
+        userInfo: null,
+        userName: '',
+        openID: '',
+        userLevel: '',
+        studentID: ''
     }
 })

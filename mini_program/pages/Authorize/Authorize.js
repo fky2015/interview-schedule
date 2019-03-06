@@ -11,8 +11,23 @@ Page({
         hasUserInfo: false,
     },
 
+    //该函数用于用户第一次登陆授权及获取微信用户信息
     bindGetUserInfo(e) {
-        console.log(e.detail.userInfo)
+
+        wx.getSetting({
+            success(res) {
+                console.log(res.authSetting);
+                if (res.authSetting['scope.userInfo']) {
+                    wx.getUserInfo({
+                        success(res) {
+                            app.globalData.userInfo = res.userInfo;
+                            console.log(app.globalData.userInfo);
+                        }
+                    })
+                }
+            }
+        })
+
         if(e.detail.userInfo) {
             wx.navigateTo({
                 url: '../LogIn/LogIn',
@@ -36,7 +51,8 @@ Page({
 
                     wx.getUserInfo({
                         success(res) {
-                            console.log(res.userInfo)
+                            app.globalData.userInfo = res.userInfo;
+                            console.log(app.globalData.userInfo);
                         }
                     })
 
@@ -48,7 +64,7 @@ Page({
                         }, 2000
                     )*/ //该部分在完成login页面后要取消注释
 
-                    //下面的跳转api要在之后删除，此处增加是为了方便调试
+                    //下面的跳转api要在之后注释掉，此处增加是为了方便调试
                     wx.navigateTo({
                         url: '../LogIn/LogIn',
                     })
@@ -61,18 +77,7 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        wx.getSetting({
-            success(res) {
-                console.log(res.authSetting);
-                if (res.authSetting['scope.userInfo']) {
-                    wx.getUserInfo({
-                        success(res) {
-                            console.log(res.userInfo)
-                        }
-                    })
-                }
-            }
-        })
+        
     },
 
     /**

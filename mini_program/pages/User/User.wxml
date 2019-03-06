@@ -1,2 +1,11 @@
 <!--pages/User/User.wxml-->
-<text>pages/User/User.wxml</text>
+<view class='back'>
+
+    <view class="userInfo">
+        
+        <image class="userInfoAvatar" src="{{avatarUrl}}" mode="cover"></image>
+        <text class="userInfoName">{{name}}</text>
+    
+    </view>
+
+</view>

@@ -8,6 +8,13 @@ Page({
 
     },
 
+    //该函数用于跳转至主页便于调试，请在上线之前将其注释掉
+    skipToHome: function () {
+        wx.switchTab({
+            url: '../HomePage/HomePage',
+        })
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */

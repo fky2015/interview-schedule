@@ -1,1 +1,11 @@
 /* pages/HomePage/HomePage.wxss */
+
+.back{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    color: #000000;
+    background-color: #ffffff;
+}
