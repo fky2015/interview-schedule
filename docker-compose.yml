@@ -12,9 +12,15 @@ services:
         VIRTUAL_HOST: dev.fkynjyq.com
         LETSENCRYPT_HOST: dev.fkynjyq.com
         LETSENCRYPT_MAIL: mail@fkynjyq.com
+    networks:
+      - default
+      - nginx-proxy
   db:
     image: postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: myapp
+networks:
+  nginx-proxy:
+    external: true
