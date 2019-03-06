@@ -21,9 +21,10 @@ from users import views as user_view
 from timelines import views as timeline_view
 
 router = routers.DefaultRouter()
+router.register('user', user_view.CurrentUserViewSet, basename='user')
 router.register('users', user_view.UserProfileViewSet)
 router.register('club', user_view.ClubViewSet)
-router.register('userclub',user_view.UserProfileClubViewSet)
+router.register('userclub', user_view.UserProfileClubViewSet)
 router.register('interview', timeline_view.InterviewViewSet)
 router.register('interviewTimeline', timeline_view.InterviewTimelineViewSet)
 router.register('timeline', timeline_view.TimelineViewSet)
@@ -31,8 +32,7 @@ router.register('timeline', timeline_view.TimelineViewSet)
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/user/', user_view.CurrentUserView.as_view()), # get current user
+    path('admin/', admin.site.urls),  # get current user
     path(r'api/', include(router.urls)),
     url(r'api-auth/', include('rest_framework.urls'), name='rest_framework')
 ]

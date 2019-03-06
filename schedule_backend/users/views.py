@@ -1,26 +1,27 @@
 from django.shortcuts import render
-from .models import UserProfile, Club,UserProfileClub
+from .models import UserProfile, Club, UserProfileClub
 from rest_framework.response import Response
 from rest_framework import viewsets, views
 from rest_framework.permissions import IsAuthenticated
-from .serializer import UserProfileSerializer, ClubSerializer, UserProfileClubSerializer
+from .serializer import CurrentUserProfileSerializer, UserProfileSerializer, ClubSerializer, UserProfileClubSerializer
 from rest_framework.decorators import action
 # Create your views here.
+
+
+class CurrentUserViewSet(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = CurrentUserProfileSerializer
+
+    def get_object(self):
+        return self.request.user
+
+    def list(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-
-    @action(detail=False)
-    def current(self, request):
-        serializer = UserProfileSerializer(
-            request.user, context={"request": request})
-        return Response(serializer.data)
-
-    @action(detail=False)
-    def my_club(self, request):
-        pass
 
 
 class ClubViewSet(viewsets.ModelViewSet):
@@ -32,15 +33,7 @@ class UserProfileClubViewSet(viewsets.ModelViewSet):
     queryset = UserProfileClub.objects.all()
     serializer_class = UserProfileClubSerializer
 
-class CurrentUserView(views.APIView):
-
-    # 解决报错
-    # Cannot apply DjangoModelPermissionsOrAnonReadOnly on a view
-    # that does not set `.queryset` or have a `.get_queryset()` method.
-    permission_classes = (IsAuthenticated,)
-
-    # 按照要求返回当前user TODO 不知道这几个方法速度差异怎样
-    def get(self, request):
-        serializer = UserProfileSerializer(
-            request.user, context={"request": request})
+    def list(self, request):
+        queryset = UserProfileClub.objects.filter(userProfile = request.user)
+        serializer = UserProfileClubSerializer(queryset, many = True,context={'request': request})
         return Response(serializer.data)
