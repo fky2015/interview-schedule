@@ -1,0 +1,4 @@
+<!--pages/HomePage/HomePage.wxml-->
+<view class='back'>
+    欢迎来到素质广场
+</view>

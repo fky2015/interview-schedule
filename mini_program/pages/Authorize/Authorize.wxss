@@ -1,0 +1,42 @@
+/* pages/Authorize/Authorize.wxss */
+
+.back{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100vh;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.salutatory{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 150rpx;
+    width: 70vw;
+    background-color: #ffffff;
+}
+
+.btnView{
+    flex: 0 0 auto;
+    height: 110rpx;
+    width: 70vw;
+    margin-bottom: 500rpx;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.btn{
+    background-color: #dddddd;
+    color: #000000;
+}
+
+.btn::after{
+    border: 3px solid #333333;
+}
+
+.hoverBtn{
+    background-color: #aaaaaa;
+}

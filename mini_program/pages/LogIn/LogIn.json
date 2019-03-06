@@ -1,0 +1,13 @@
+{
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTitleText": "注册",
+        "navigationBarTextStyle": "black",
+        "enablePullDownRefresh": true,
+        "backgroundColor": "#eeeeee"
+    },
+
+    "enablePullDownRefresh": false,
+    "disableScroll": true
+}
