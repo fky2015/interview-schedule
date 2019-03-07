@@ -3,6 +3,7 @@
 **/*__pycache__
 
 schedule_backend/image
+schedule_backend/db.sqlite3
 
 reated by https://www.gitignore.io
 
