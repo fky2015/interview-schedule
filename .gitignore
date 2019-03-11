@@ -3,6 +3,7 @@
 **/*__pycache__
 
 schedule_backend/image
+schedule_backend/db.sqlite3
 
 reated by https://www.gitignore.io
 
@@ -92,4 +93,4 @@ __pycache__/
 local_settings.py
 
 .env
-Db.sqlite3
+schedule_backend/db.sqlite3

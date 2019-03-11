@@ -61,14 +61,11 @@ class UserProfileClub(models.Model):
     def __str__(self):
         return '['+str(self.userProfile) + ']-[' + str(self.club)+']'
 
-# issue #7
+
 
 
 class Membership(models.Model):
-    # MEMBERSHIP_LEVEL = (
-    #    ('interviewer', '面试者'),
-    #    ('interviewee', '被面试者')
-    # )  # TODO: 加入更合理的选项
+    # 外键： Club interview
     club = models.ForeignKey(
         Club, related_name="membership", on_delete=models.CASCADE)  # 一个 社团有多个角色
     interview = models.ManyToManyField(
@@ -82,3 +79,6 @@ class Membership(models.Model):
     class Meta():
         verbose_name = 'membership'
         verbose_name_plural = verbose_name
+    
+    def __str__(self):
+        return f"{self.club} - {self.name}"

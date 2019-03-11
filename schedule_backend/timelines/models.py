@@ -14,14 +14,22 @@ class Interview(models.Model):
     class Meta:
         order_with_respect_to = 'club'
 
+    def __str__(self):
+        # TODO format string ?
+        return str(self.club) + ' - ' + self.title
+
 
 class InterviewTimeline(models.Model):
     interview = models.ForeignKey(
         Interview, related_name="InterviewTimeline", on_delete=models.CASCADE)
     location = models.TextField(max_length=100)
+    # TODO 是否需要继续增加字段 ，title ，descrip
 
     class Meta:
         order_with_respect_to = 'interview'
+
+    def __str__(self):
+        return str(self.interview) + '-' + self.location
 
 
 class Timeline(models.Model):

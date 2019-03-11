@@ -21,13 +21,14 @@ from users import views as user_view
 from timelines import views as timeline_view
 
 router = routers.DefaultRouter()
-router.register('user', user_view.CurrentUserViewSet, basename='user')
-router.register('users', user_view.UserProfileViewSet)
-router.register('club', user_view.ClubViewSet)
-router.register('userclub', user_view.UserProfileClubViewSet)
-router.register('interview', timeline_view.InterviewViewSet)
-router.register('interviewTimeline', timeline_view.InterviewTimelineViewSet)
-router.register('timeline', timeline_view.TimelineViewSet)
+router.register('user/info', user_view.CurrentUserViewSet, basename='user')
+router.register('public/users', user_view.UserProfileViewSet)
+router.register('public/club', user_view.ClubViewSet)
+router.register('user/membership', user_view.MembershipViewSet)
+router.register('user/club', user_view.UserProfileClubViewSet)
+router.register('user/interview', timeline_view.InterviewViewSet)
+router.register('user/interviewTimeline', timeline_view.InterviewTimelineViewSet)
+router.register('user/timeline', timeline_view.TimelineViewSet)
 
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
