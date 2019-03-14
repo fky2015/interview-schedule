@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
-# 采用继承AbstractUser 的方式，而不是使用 OneToOneFiled
+# 用户
 
 
 class UserProfile(AbstractUser):
@@ -31,6 +31,7 @@ class UserProfile(AbstractUser):
         return self.username
 
 
+# 社团
 class Club(models.Model):
     # userProfile = models.ManyToManyField(UserProfile)
     name = models.CharField(verbose_name="社团名称", max_length=100)
@@ -62,8 +63,6 @@ class UserProfileClub(models.Model):
         return '['+str(self.userProfile) + ']-[' + str(self.club)+']'
 
 
-
-
 class Membership(models.Model):
     # 外键： Club interview
     club = models.ForeignKey(
@@ -79,6 +78,6 @@ class Membership(models.Model):
     class Meta():
         verbose_name = 'membership'
         verbose_name_plural = verbose_name
-    
+
     def __str__(self):
         return f"{self.club} - {self.name}"
