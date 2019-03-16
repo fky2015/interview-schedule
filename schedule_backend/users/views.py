@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from .serializer import CurrentUserProfileSerializer, \
     UserProfileSerializer, ClubSerializer, \
     UserProfileClubSerializer, MembershipSerializer
+from timelines.serializer import InterviewSerializer
+from timelines.models import Interview
 from rest_framework.decorators import action
 # Create your views here.
 
@@ -15,6 +17,7 @@ from rest_framework.decorators import action
 class CurrentUserViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = CurrentUserProfileSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_object(self):
         return self.request.user
@@ -34,6 +37,16 @@ class ClubViewSet(viewsets.ModelViewSet):
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
 
+    @action(detail=True, methods=['GET'])
+    def interview(self, request, pk=None):
+        queryset = Interview.objects.filter(pk=pk)
+        # 如果该面试同意公开，或者自己与社团的关系符合在in_state中，才会显示
+        # TODO
+        serializer = InterviewSerializer(
+            queryset, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
+
 # user 类别
 
 
@@ -46,6 +59,7 @@ class UserProfileClubViewSet(viewsets.ModelViewSet):
         serializer = UserProfileClubSerializer(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
+
 
 class MembershipViewSet(viewsets.ModelViewSet):
     queryset = Membership.objects.all()

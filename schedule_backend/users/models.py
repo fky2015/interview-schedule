@@ -67,13 +67,13 @@ class Membership(models.Model):
     # 外键： Club interview
     club = models.ForeignKey(
         Club, related_name="membership", on_delete=models.CASCADE)  # 一个 社团有多个角色
-    interview = models.ManyToManyField(
-        'timelines.Interview', related_name="membership")
+    # interview = models.ManyToManyField(
+    #     'timelines.Interview', related_name="membership", blank=True)
     name = models.CharField(verbose_name="关系名称", max_length=50)
     can_edit = models.BooleanField(verbose_name="是否可以修改社团信息", default=False)
     can_schedule = models.BooleanField(verbose_name="是否可以安排面试")
     can_export = models.BooleanField(verbose_name="是否可以导出信息")
-    date_created = models.DateField()
+    date_created = models.DateField(auto_now=True)
 
     class Meta():
         verbose_name = 'membership'

@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 
 class CurrentUserProfileSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = UserProfile
         fields = ('url',
@@ -27,8 +28,8 @@ class ClubSerializer(serializers.HyperlinkedModelSerializer):
 
 class UserProfileClubSerializer(serializers.HyperlinkedModelSerializer):
 
-    userProfile = UserProfileSerializer()
-    club = ClubSerializer()
+    # userProfile = UserProfileSerializer()
+    # club = ClubSerializer()
 
     class Meta:
         model = UserProfileClub
@@ -42,7 +43,7 @@ class MembershipSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Membership
         fields = (
-            "url", "club", "interview", "name",
+            "url", "club",  "name",
             "can_edit", "can_schedule", "can_export",
             "date_created"
         )
