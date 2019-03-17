@@ -66,11 +66,12 @@ class Timeline(models.Model):
         InterviewTimeline, on_delete=models.CASCADE)
     user = models.ForeignKey(
         UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
+    timeID = models.IntegerField(max_length=10, default=0)
     startTime = models.DateTimeField()
     duration = models.IntegerField(verbose_name="duration( /minutes)")
     passed = models.BooleanField(
         verbose_name="pass the interview", default=False)
 
     class Meta:
-        unique_together = ('interviewTimeline', 'user')  # 多列联合唯一性约束
+        unique_together = ('interviewTimeline', 'user', 'timeID')  # 多列联合唯一性约束
         # 一个人在一个面试场最多只能报名一次
