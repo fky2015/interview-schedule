@@ -17,8 +17,6 @@ before_install:
   - docker build -t fkynjyq/interview_schedule.docs:$TRAVIS_BRANCH ./docs       
   - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH ./schedule_backend
 
-cache:
-  yarn: true
 
 deploy:
   provider: script
