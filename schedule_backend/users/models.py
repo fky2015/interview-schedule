@@ -53,7 +53,7 @@ class UserProfileClub(models.Model):
         UserProfile, related_name="userProfileClub", on_delete=models.CASCADE)
     club = models.ForeignKey(
         Club, related_name="userProfileClub", on_delete=models.CASCADE)
-    membership = models.ForeignKey("Membership", on_delete=models.SET_NULL, blank=True,
+    membership = models.ForeignKey("Membership", related_name="userProfileClub", on_delete=models.SET_NULL, blank=True,
                                    null=True,)  # 当存在这条，而membership为NULL和不存在这条有什么区别呢
 
     class Meta:

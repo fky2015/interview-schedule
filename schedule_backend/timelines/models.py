@@ -14,6 +14,9 @@ class Interview(models.Model):
         Club, related_name="interview", on_delete=models.CASCADE)
     title = models.CharField(verbose_name="Interview Title", max_length=100)
     description = models.TextField(max_length=600)
+    edit_finish = models.BooleanField(default=False)  # 是否处于可编辑状态
+    is_public = models.BooleanField(
+        verbose_name="if it's public", default=False)
     out_state = models.FileField(Membership)  # 面试成功后要到达的状态
 
     class Meta:
@@ -65,6 +68,8 @@ class Timeline(models.Model):
         UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
     startTime = models.DateTimeField()
     duration = models.IntegerField(verbose_name="duration( /minutes)")
+    passed = models.BooleanField(
+        verbose_name="pass the interview", default=False)
 
     class Meta:
         unique_together = ('interviewTimeline', 'user')  # 多列联合唯一性约束

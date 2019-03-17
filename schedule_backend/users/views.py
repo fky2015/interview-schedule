@@ -9,6 +9,7 @@ from .serializer import CurrentUserProfileSerializer, \
 from timelines.serializer import InterviewSerializer
 from timelines.models import Interview
 from rest_framework.decorators import action
+from django.db.models import Q
 # Create your views here.
 
 # user类别
@@ -39,9 +40,22 @@ class ClubViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['GET'])
     def interview(self, request, pk=None):
-        queryset = Interview.objects.filter(pk=pk)
-        # 如果该面试同意公开，或者自己与社团的关系符合在in_state中，才会显示
-        # TODO
+        # edit_finish == False 必不可见
+        # is_public 控制 无关系情况下是否可见
+        # in_state 控制有关系情况下
+        queryset = Interview.objects.filter(club__pk=pk,
+                                            edit_finish=True)
+        me = UserProfile.objects.get(username=request.user)
+        userProfileClub = UserProfileClub.objects.get(
+            userProfile=request.user, club__pk=pk)
+
+        if userProfileClub and userProfileClub.membership:
+            # if membership exist
+            queryset = queryset.filter(
+                in_state__membership=userProfileClub.membership)
+        else:
+            queryset = queryset.filter(is_public=True)
+
         serializer = InterviewSerializer(
             queryset, many=True, context={'request': request}
         )
