@@ -21,15 +21,23 @@ from users import views as user_view
 from timelines import views as timeline_view
 
 router = routers.DefaultRouter()
-router.register('user/info', user_view.CurrentUserViewSet, basename='user')
+# public 共有信息
 router.register('public/users', user_view.UserProfileViewSet)
 router.register('public/club', user_view.ClubViewSet)
+# TODO 需要有public的timeline 以及interviewtimeline
+# 要根据interview 来查询
+
+
+# user 用户自己的信息
+router.register('user/info', user_view.CurrentUserViewSet, basename='user')
 router.register('user/membership', user_view.MembershipViewSet)
 router.register('user/club', user_view.UserProfileClubViewSet)
-router.register('user/interview', timeline_view.InterviewViewSet)
-router.register('user/interviewTimeline', timeline_view.InterviewTimelineViewSet)
 router.register('user/timeline', timeline_view.TimelineViewSet)
 
+# club 后台管理者相关的
+router.register('admin/interviewTimeline', timeline_view.InterviewTimelineViewSet)
+router.register('admin/interview', timeline_view.InterviewViewSet)
+router.register('admin/instate',timeline_view.InStateViewSet)
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [
