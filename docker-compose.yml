@@ -30,6 +30,9 @@ services:
       VIRTUAL_HOST: devdocs.fkynjyq.com
       LETSENCRYPT_HOST: devdocs.fkynjyq.com
       LETSENCRYPT_MAIL: mail@fkynjyq.com
+    networks:
+      - default
+      - nginx-proxy
 networks:
   nginx-proxy:
     external: true
