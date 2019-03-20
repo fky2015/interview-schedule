@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        name: '熊子淳',
+        name: '路德维希·冯·贝多芬',
         avatarUrl: ''
     },
 

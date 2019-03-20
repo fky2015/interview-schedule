@@ -1,21 +1,21 @@
 /* pages/User/User.wxss */
 
 .back{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    color: #000000;
-    background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  color: #000000;
+  background-color: #ffffff;
 }
 
 .userInfo {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-right: 30vw;
   height: 250rpx;
+  width: 100vw;
   background-color: #ffffff;
 }
 
@@ -28,9 +28,12 @@
 }
 
 .userInfoName {
+  width: 50vw;
   color: #000000;
   background-color: #ffffff;
   margin-bottom: 70rpx;
   margin-left: 20rpx;
+  word-break: keep-all;
+  word-wrap: break-word;
   font-size: 50rpx;
 }
