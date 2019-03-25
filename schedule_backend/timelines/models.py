@@ -66,7 +66,7 @@ class Timeline(models.Model):
         InterviewTimeline, on_delete=models.CASCADE)
     user = models.ForeignKey(
         UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
-    timeID = models.IntegerField(max_length=10, default=0)
+    timeID = models.IntegerField(default=0)
     startTime = models.DateTimeField()
     duration = models.IntegerField(verbose_name="duration( /minutes)")
     passed = models.BooleanField(

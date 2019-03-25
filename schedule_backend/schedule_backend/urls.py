@@ -22,22 +22,26 @@ from timelines import views as timeline_view
 
 router = routers.DefaultRouter()
 # public 共有信息
-router.register('public/users', user_view.UserProfileViewSet)
-router.register('public/club', user_view.ClubViewSet)
-# TODO 需要有public的timeline 以及interviewtimeline
-# 要根据interview 来查询
+router.register('public/users', user_view.UserProfileViewSetPUBLIC)
+router.register('public/club', user_view.ClubViewSetPUBLIC)
+router.register('public/interview', timeline_view.InterviewViewSetPUBLIC)
+router.register('public/interviewTimeline', timeline_view.InterviewTimelineViewSetPUBLIC)
+router.register('public/timeline',timeline_view.TimelineViewSetPUBLIC)
 
 
 # user 用户自己的信息
-router.register('user/info', user_view.CurrentUserViewSet, basename='user')
-router.register('user/membership', user_view.MembershipViewSet)
-router.register('user/club', user_view.UserProfileClubViewSet)
-router.register('user/timeline', timeline_view.TimelineViewSet)
+router.register('user/info', user_view.CurrentUserViewSetUSER, basename='user')
+router.register('user/membership', user_view.MembershipViewSetUSER)
+router.register('user/club', user_view.UserProfileClubViewSetUSER)
+router.register('user/timeline', timeline_view.TimelineViewSetUSER)
 
 # club 后台管理者相关的
-router.register('admin/interviewTimeline', timeline_view.InterviewTimelineViewSet)
-router.register('admin/interview', timeline_view.InterviewViewSet)
-router.register('admin/instate',timeline_view.InStateViewSet)
+router.register('admin/instate',timeline_view.InStateViewSetADMIN)
+router.register('admin/club',user_view.ClubViewSetADMIN)
+router.register('admin/interview',timeline_view.InterviewViewSetADMIN)
+router.register('admin/interviewTimeline',timeline_view.InterviewTimelineViewSetADMIN)
+router.register('admin/timeline',timeline_view.TimelineViewSetADMIN)
+
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [

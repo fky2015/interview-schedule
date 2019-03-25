@@ -1,37 +1,43 @@
 from django.shortcuts import render
 from .models import InterviewTimeline, Interview, Timeline,\
     InState
-from .serializer import InterviewSerializer, \
-    InterviewTimelineSerializer, TimelineSerializer, \
-    InStateSerializer
+from .serializer import InterviewSerializerPUBLIC, \
+    InterviewTimelineSerializerPUBLIC, TimelineSerializerUSER, \
+    InStateSerializerADMIN, TimelineSerializerPUBLIC, \
+        InterviewSerializerADMIN, InterviewTimelineSerializerADMIN, \
+            TimelineSerializerADMIN
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
 
-class InterviewViewSet(viewsets.ModelViewSet):
+class InterviewViewSetPUBLIC(viewsets.ModelViewSet):
     queryset = Interview.objects.all()
-    serializer_class = InterviewSerializer
+    serializer_class = InterviewSerializerPUBLIC
 
 # for User,
 # 用户只能看见可以选的
-class InterviewViewSet_User(viewsets.ModelViewSet):
+class InterviewViewSetUSER(viewsets.ModelViewSet):
     queryset = Interview.objects.all()
-    serializer_class = InterviewSerializer
+    serializer_class = InterviewSerializerPUBLIC
+
+class InterviewViewSetADMIN(viewsets.ModelViewSet):
+    queryset = Interview.objects.all()
+    serializer_class = InterviewSerializerADMIN
 
 
-class InterviewTimelineViewSet(viewsets.ModelViewSet):
+class InterviewTimelineViewSetPUBLIC(viewsets.ModelViewSet):
     queryset = InterviewTimeline.objects.all()
-    serializer_class = InterviewTimelineSerializer
+    serializer_class = InterviewTimelineSerializerPUBLIC
 
 
-class TimelineViewSet(viewsets.ModelViewSet):
+class TimelineViewSetUSER(viewsets.ModelViewSet):
     queryset = Timeline.objects.all()
-    serializer_class = TimelineSerializer
+    serializer_class = TimelineSerializerUSER
 
     def list(self, request):
         queryset = Timeline.objects.filter(user=request.user)
-        serializer = TimelineSerializer(
+        serializer = TimelineSerializerUSER(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
@@ -39,7 +45,21 @@ class TimelineViewSet(viewsets.ModelViewSet):
     # 普通用户只对它的user字段有操作能力
     # admin用户才能修改其他部分
 
+class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
+    queryset = InterviewTimeline.objects.all()
+    serializer_class = InterviewTimelineSerializerADMIN
 
-class InStateViewSet(viewsets.ModelViewSet):
+class TimelineViewSetPUBLIC(viewsets.ModelViewSet):
+    queryset = Timeline.objects.all()
+    serializer_class = TimelineSerializerPUBLIC
+
+class TimelineViewSetADMIN(viewsets.ModelViewSet):
+    queryset = Timeline.objects.all()
+    serializer_class = TimelineSerializerADMIN
+
+
+
+
+class InStateViewSetADMIN(viewsets.ModelViewSet):
     queryset = InState.objects.all()
-    serializer_class = InStateSerializer
+    serializer_class = InStateSerializerADMIN
