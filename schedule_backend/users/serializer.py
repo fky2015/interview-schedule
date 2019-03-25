@@ -2,7 +2,7 @@ from .models import UserProfile, Club, UserProfileClub, Membership
 from rest_framework import serializers
 
 
-class CurrentUserProfileSerializer(serializers.HyperlinkedModelSerializer):
+class UserProfileSerializerUSER(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = UserProfile
@@ -11,7 +11,7 @@ class CurrentUserProfileSerializer(serializers.HyperlinkedModelSerializer):
                   'email', 'mobile', 'groups')
 
 
-class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+class UserProfileSerializerUSER(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('url',
@@ -19,14 +19,19 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
                   'email', 'mobile', 'groups')
 
 
-class ClubSerializer(serializers.HyperlinkedModelSerializer):
+class ClubSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Club
         fields = ('url',
                   'name', 'intro', 'avatar')
 
+class ClubSerializerADMIN(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Club
+        fields = ('url',
+                  'name', 'intro', 'avatar')
 
-class UserProfileClubSerializer(serializers.HyperlinkedModelSerializer):
+class UserProfileClubSerializerUSER(serializers.HyperlinkedModelSerializer):
 
     # userProfile = UserProfileSerializer()
     # club = ClubSerializer()
@@ -38,7 +43,7 @@ class UserProfileClubSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class MembershipSerializer(serializers.HyperlinkedModelSerializer):
+class MembershipSerializerUSER(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Membership

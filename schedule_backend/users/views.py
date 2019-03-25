@@ -3,10 +3,11 @@ from .models import UserProfile, Club, UserProfileClub, Membership
 from rest_framework.response import Response
 from rest_framework import viewsets, views
 from rest_framework.permissions import IsAuthenticated
-from .serializer import CurrentUserProfileSerializer, \
-    UserProfileSerializer, ClubSerializer, \
-    UserProfileClubSerializer, MembershipSerializer
-from timelines.serializer import InterviewSerializer
+from .serializer import UserProfileSerializerUSER, \
+    UserProfileSerializerUSER, ClubSerializerPUBLIC, \
+    UserProfileClubSerializerUSER, MembershipSerializerUSER, \
+    ClubSerializerADMIN
+from timelines.serializer import InterviewSerializerPUBLIC
 from timelines.models import Interview
 from rest_framework.decorators import action
 from django.db.models import Q
@@ -15,9 +16,9 @@ from django.db.models import Q
 # user类别
 
 
-class CurrentUserViewSet(viewsets.ModelViewSet):
+class CurrentUserViewSetUSER(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
-    serializer_class = CurrentUserProfileSerializer
+    serializer_class = UserProfileSerializerUSER
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):
@@ -28,15 +29,15 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
 
 
 # TODO 应该在未来禁用
-class UserProfileViewSet(viewsets.ModelViewSet):
+class UserProfileViewSetPUBLIC(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+    serializer_class = UserProfileSerializerUSER
 
 
 # public 类别
-class ClubViewSet(viewsets.ModelViewSet):
+class ClubViewSetPUBLIC(viewsets.ModelViewSet):
     queryset = Club.objects.all()
-    serializer_class = ClubSerializer
+    serializer_class = ClubSerializerPUBLIC
 
     @action(detail=True, methods=['GET'])
     def interview(self, request, pk=None):
@@ -56,25 +57,28 @@ class ClubViewSet(viewsets.ModelViewSet):
         else:
             queryset = queryset.filter(is_public=True)
 
-        serializer = InterviewSerializer(
+        serializer = InterviewSerializerPUBLIC(
             queryset, many=True, context={'request': request}
         )
         return Response(serializer.data)
 
-# user 类别
 
+class ClubViewSetADMIN(viewsets.ModelViewSet):
+    queryset = Club.objects.all()
+    serializer_class = ClubSerializerADMIN
+    
 
-class UserProfileClubViewSet(viewsets.ModelViewSet):
+class UserProfileClubViewSetUSER(viewsets.ModelViewSet):
     queryset = UserProfileClub.objects.all()
-    serializer_class = UserProfileClubSerializer
+    serializer_class = UserProfileClubSerializerUSER
 
     def list(self, request):
         queryset = UserProfileClub.objects.filter(userProfile=request.user)
-        serializer = UserProfileClubSerializer(
+        serializer = UserProfileClubSerializerUSER(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
 
-class MembershipViewSet(viewsets.ModelViewSet):
+class MembershipViewSetUSER(viewsets.ModelViewSet):
     queryset = Membership.objects.all()
-    serializer_class = MembershipSerializer
+    serializer_class = MembershipSerializerUSER
