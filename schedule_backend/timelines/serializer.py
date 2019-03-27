@@ -7,6 +7,7 @@ class InterviewSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
         model = Interview
         fields = ('url', 'club', 'title')
 
+
 class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Interview
@@ -14,26 +15,31 @@ class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
 
 class InterviewTimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
+
+    interview = InterviewSerializerPUBLIC()
+
     class Meta:
         model = InterviewTimeline
         fields = ('url', 'interview', 'location')
 
 # 仅仅被用户使用的话，不需要user这个field
+
+
 class InterviewTimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = InterviewTimeline
         fields = ('url', 'interview', 'location')
 
 
-
 class TimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
 
-    # interviewTimeline = InterviewTimelineSerializer()
+    interviewTimeline = InterviewTimelineSerializerPUBLIC(read_only=True)
 
     class Meta:
         model = Timeline
-        fields = ('url', 'interviewTimeline', 'user',
+        fields = ('url', 'interviewTimeline','user',
                   'startTime', 'duration', 'timeID')
+
 
 class TimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -41,13 +47,12 @@ class TimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'interviewTimeline', 'user',
                   'startTime', 'duration', 'timeID')
 
+
 class TimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Timeline
         fields = ('url', 'interviewTimeline', 'user',
                   'startTime', 'duration', 'timeID')
-
-
 
 
 class InStateSerializerADMIN(serializers.HyperlinkedModelSerializer):

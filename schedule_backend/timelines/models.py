@@ -73,5 +73,8 @@ class Timeline(models.Model):
         verbose_name="pass the interview", default=False)
 
     class Meta:
-        unique_together = ('interviewTimeline', 'user', 'timeID')  # 多列联合唯一性约束
+        unique_together = ('interviewTimeline', 'user')  # 多列联合唯一性约束
         # 一个人在一个面试场最多只能报名一次
+
+    def __str__(self):
+        return f"{self.interviewTimeline}-{self.user}-{self.timeID}"
