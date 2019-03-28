@@ -6,7 +6,7 @@ from .models import UserProfile, Club
 # Register your models here.
 class UserProfileAdmin(admin.ModelAdmin):
     fields = (
-        'username', 'studentID', 'mobile', 'real_name',
+        'username','password','mobile', 'realname',
         'is_staff', 'is_active',
         'email', 'first_name', 'last_name',
         'intro', 'gender',

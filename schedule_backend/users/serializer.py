@@ -8,10 +8,10 @@ class UserProfileSerializerUSER(serializers.HyperlinkedModelSerializer):
         model = UserProfile
         fields = ('url',
                   'username', 'realname',
-                  'email', 'mobile', 'groups')
+                  'email', 'mobile')
 
 
-class UserProfileSerializerUSER(serializers.HyperlinkedModelSerializer):
+class UserProfileSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('url',
@@ -25,25 +25,31 @@ class ClubSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
         fields = ('url',
                   'name', 'intro', 'avatar')
 
+
 class ClubSerializerADMIN(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Club
         fields = ('url',
                   'name', 'intro', 'avatar')
 
+
 class UserProfileClubSerializerUSER(serializers.HyperlinkedModelSerializer):
 
-    # userProfile = UserProfileSerializer()
-    # club = ClubSerializer()
+    club = ClubSerializerPUBLIC(read_only=True)
+    # club = serializers.HyperlinkedRelatedField(
+    #     read_only=True,
+    #     view_name="club-detail"
+    # )
 
     class Meta:
         model = UserProfileClub
         fields = (
-            'url', 'userProfile', 'club', 'membership'
+            'url', 'club', 'membership'
         )
 
 
 class MembershipSerializerUSER(serializers.HyperlinkedModelSerializer):
+    club = ClubSerializerPUBLIC()
 
     class Meta:
         model = Membership
