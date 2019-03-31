@@ -12,12 +12,28 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser
 
 
-class InterviewViewSetPUBLIC(viewsets.ModelViewSet):
+class InterviewViewSet(viewsets.ModelViewSet):
+    """面试"""
     queryset = Interview.objects.all()
     serializer_class = InterviewSerializerPUBLIC
 
-# for User,
-# 用户只能看见可以选的
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve', 'interviewTimeline']:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
+
+    @action(detail=True, methods=['GET'])
+    def interviewTimeline(self, request, pk=None):
+        """返回该面试下的所有面试表"""
+        interview = self.get_object()
+        queryset = InterviewTimeline.objects.filter(interview=interview)
+
+        serializer = InterviewTimelineSerializerPUBLIC(
+            queryset, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
 
 
 class InterviewViewSetUSER(viewsets.ModelViewSet):
@@ -30,12 +46,28 @@ class InterviewViewSetADMIN(viewsets.ModelViewSet):
     serializer_class = InterviewSerializerADMIN
 
 
-class InterviewTimelineViewSetPUBLIC(viewsets.ModelViewSet):
+class InterviewTimelineViewSet(viewsets.ModelViewSet):
     queryset = InterviewTimeline.objects.all()
     serializer_class = InterviewTimelineSerializerPUBLIC
 
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve', 'timeline']:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
 
-class TimelineViewSetUSER(viewsets.ModelViewSet):
+    @action(detail=True, methods=['GET'])
+    def timeline(self, request, pk=None):
+        obj = self.get_object()
+        queryset = Timeline.objects.filter(interviewTimeline=obj)
+        serializer = TimelineSerializerUSER(
+            queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+
+
+class TimelineViewSet(viewsets.ModelViewSet):
+    """时间片，对具体的时间片，可以报名（apply）或者取消报名（cancel）"""
     queryset = Timeline.objects.all()
     serializer_class = TimelineSerializerUSER
 
@@ -46,7 +78,7 @@ class TimelineViewSetUSER(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def get_permissions(self):
-        if self.action == 'list':
+        if self.action in ['list', 'retrieve', 'apply', 'cancel']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAdminUser]
@@ -83,16 +115,11 @@ class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
     serializer_class = InterviewTimelineSerializerADMIN
 
 
-class TimelineViewSetPUBLIC(viewsets.ModelViewSet):
-    queryset = Timeline.objects.all()
-    serializer_class = TimelineSerializerPUBLIC
-
-
 class TimelineViewSetADMIN(viewsets.ModelViewSet):
     queryset = Timeline.objects.all()
     serializer_class = TimelineSerializerADMIN
 
 
-class InStateViewSetADMIN(viewsets.ModelViewSet):
+class InStateViewSet(viewsets.ModelViewSet):
     queryset = InState.objects.all()
     serializer_class = InStateSerializerADMIN

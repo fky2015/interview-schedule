@@ -5,7 +5,8 @@ from rest_framework import serializers
 class InterviewSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Interview
-        fields = ('url', 'club', 'title')
+        fields = ('url', 'club', 'title',
+                  'description', 'edit_finish', 'is_public', 'out_state')
 
 
 class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
@@ -16,7 +17,7 @@ class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
 class InterviewTimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
 
-    interview = InterviewSerializerPUBLIC()
+    # interview = InterviewSerializerPUBLIC()
 
     class Meta:
         model = InterviewTimeline
@@ -37,7 +38,7 @@ class TimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Timeline
-        fields = ('url', 'interviewTimeline','user',
+        fields = ('url', 'interviewTimeline', 'user',
                   'startTime', 'duration', 'timeID')
 
 

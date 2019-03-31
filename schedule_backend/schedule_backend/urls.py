@@ -23,28 +23,27 @@ from timelines import views as timeline_view
 router = routers.DefaultRouter()
 # public 共有信息
 # router.register('public/users', user_view.UserProfileViewSetPUBLIC)
-router.register('public/club', user_view.ClubViewSetPUBLIC)
-router.register('public/interview', timeline_view.InterviewViewSetPUBLIC)
-router.register('public/interviewTimeline',
-                timeline_view.InterviewTimelineViewSetPUBLIC)
-router.register('public/timeline', timeline_view.TimelineViewSetPUBLIC)
+router.register('club', user_view.ClubViewSet)
+router.register('interview', timeline_view.InterviewViewSet)
+router.register('interviewTimeline',
+                timeline_view.InterviewTimelineViewSet)
+router.register('timeline', timeline_view.TimelineViewSet)
 
 
 # user 用户自己的信息
-router.register('user/info', user_view.CurrentUserViewSetUSER)
-router.register('user/membership', user_view.MembershipViewSetUSER)
-router.register('user/club', user_view.UserProfileClubViewSetUSER)
-router.register('user/timeline', timeline_view.TimelineViewSetUSER)
+router.register('user', user_view.CurrentUserViewSet)
+router.register('membership', user_view.MembershipViewSet)
+router.register('userProfileClub', user_view.UserProfileClubViewSet)
 
-# club 后台管理者相关的
-router.register('admin/instate', timeline_view.InStateViewSetADMIN)
-router.register('admin/club', user_view.ClubViewSetADMIN, basename="admin")
-router.register('admin/interview',
-                timeline_view.InterviewViewSetADMIN, basename="admin")
-router.register('admin/interviewTimeline',
-                timeline_view.InterviewTimelineViewSetADMIN, basename="admin")
-router.register('admin/timeline',
-                timeline_view.TimelineViewSetADMIN, basename="admin")
+# # club 后台管理者相关的
+router.register('instate', timeline_view.InStateViewSet)
+# router.register('admin/club', user_view.ClubViewSetADMIN, basename="admin")
+# router.register('admin/interview',
+#                 timeline_view.InterviewViewSetADMIN, basename="admin")
+# router.register('admin/interviewTimeline',
+#                 timeline_view.InterviewTimelineViewSetADMIN)
+# router.register('admin/timeline',
+#                 timeline_view.TimelineViewSetADMIN, basename="admin")
 
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
