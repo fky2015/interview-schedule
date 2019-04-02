@@ -56,19 +56,25 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
 
 
 # TODO 应该在未来禁用
-class UserProfileViewSetPUBLIC(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializerUSER
+# class UserProfileViewSetPUBLIC(viewsets.ModelViewSet):
+#     queryset = UserProfile.objects.all()
+#     serializer_class = UserProfileSerializerUSER
 
+
+def get_userProfile_Club(user, club):
+    """retrieve relation of user and club"""
+    return UserProfileClub.objects.get(userProfile=user, club=club)
 
 # public 类别
+
+
 class ClubViewSet(viewsets.ModelViewSet):
     """获得所有社团，并可进一步获得某个社团的面试"""
     queryset = Club.objects.all()
     serializer_class = ClubSerializerPUBLIC
 
     def get_permissions(self):
-        if self.action in ['list', 'retrieve', 'interview']:
+        if self.action in ['create', 'list', 'retrieve', 'interview', 'update']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAdminUser]
@@ -98,10 +104,42 @@ class ClubViewSet(viewsets.ModelViewSet):
         )
         return Response(serializer.data)
 
+    def update(self, request, *args, **kwargs):
+        """有权限更新的人才能更新"""
+        """未测试"""
+        instance = self.get_object()
+        club_user = get_userProfile_Club(request.user, instance)
+        if club_user.membership.can_edit:
+            return super().update(request, *args, **kwargs)
+        else:
+            return Response({"msg": "denied"})
 
-class ClubViewSetADMIN(viewsets.ModelViewSet):
-    queryset = Club.objects.all()
-    serializer_class = ClubSerializerADMIN
+    def get_user(self):
+        return UserProfile.objects.get(username=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save()
+        print("save success")
+        # 最笨的办法，查找，然后创建
+        club = Club.objects.filter(name=self.request.data['name'])[0]
+        user = self.get_user()
+        adminer = Membership(club=club, name="admin",
+                             can_edit=True, can_schedule=True, can_export=True)
+        common_user = Membership(club=club,name="user")
+        adminer.save()
+        common_user.save()
+        print(user)
+        # 这里的user或许可以优化，不用取出user
+        UserProfileClub(userProfile=user,club=club,membership=adminer).save()
+        # serializer.save()
+    # def create(self,request, *args, **kwargs):
+    #     """默认创建社团管理员和普通用户两种角色，会默认建立自己与社团的管理员关系"""
+    #     self.get_se
+    #     super().create(request,*args,**kwargs)
+
+# class ClubViewSetADMIN(viewsets.ModelViewSet):
+#     queryset = Club.objects.all()
+#     serializer_class = ClubSerializerADMIN
 
 
 class UserProfileClubViewSet(viewsets.ModelViewSet):

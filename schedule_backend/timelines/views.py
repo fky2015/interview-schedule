@@ -36,14 +36,14 @@ class InterviewViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class InterviewViewSetUSER(viewsets.ModelViewSet):
-    queryset = Interview.objects.all()
-    serializer_class = InterviewSerializerPUBLIC
+# class InterviewViewSetUSER(viewsets.ModelViewSet):
+#     queryset = Interview.objects.all()
+#     serializer_class = InterviewSerializerPUBLIC
 
 
-class InterviewViewSetADMIN(viewsets.ModelViewSet):
-    queryset = Interview.objects.all()
-    serializer_class = InterviewSerializerADMIN
+# class InterviewViewSetADMIN(viewsets.ModelViewSet):
+#     queryset = Interview.objects.all()
+    # serializer_class = InterviewSerializerADMIN
 
 
 class InterviewTimelineViewSet(viewsets.ModelViewSet):
@@ -110,14 +110,14 @@ class TimelineViewSet(viewsets.ModelViewSet):
         return Response({"msg": "无法报名"})
 
 
-class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
-    queryset = InterviewTimeline.objects.all()
-    serializer_class = InterviewTimelineSerializerADMIN
+# class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
+#     queryset = InterviewTimeline.objects.all()
+#     serializer_class = InterviewTimelineSerializerADMIN
 
 
-class TimelineViewSetADMIN(viewsets.ModelViewSet):
-    queryset = Timeline.objects.all()
-    serializer_class = TimelineSerializerADMIN
+# class TimelineViewSetADMIN(viewsets.ModelViewSet):
+#     queryset = Timeline.objects.all()
+#     serializer_class = TimelineSerializerADMIN
 
 
 class InStateViewSet(viewsets.ModelViewSet):

@@ -18,7 +18,7 @@ class UserProfile(AbstractUser):
     gender = models.CharField(
         verbose_name="性别", choices=GENDER_CHOICE, default='secret', max_length=8)
     wechat_openID = models.CharField(max_length=100, blank=True)
-    mobile = models.CharField(max_length=11)
+    mobile = models.CharField(max_length=11, unique=True)
     avatar = models.ImageField(upload_to='image', blank=True,
                                null=True, default="image/default.png", max_length=100)
 
@@ -34,7 +34,7 @@ class UserProfile(AbstractUser):
 # 社团
 class Club(models.Model):
     # userProfile = models.ManyToManyField(UserProfile)
-    name = models.CharField(verbose_name="社团名称", max_length=100)
+    name = models.CharField(verbose_name="社团名称", max_length=100, unique=True)
     intro = models.TextField(verbose_name="self_introduction", blank=True)
     avatar = models.ImageField(
         upload_to='image', blank=True, null=True, max_length=100)
@@ -67,17 +67,17 @@ class Membership(models.Model):
     # 外键： Club interview
     club = models.ForeignKey(
         Club, related_name="membership", on_delete=models.CASCADE)  # 一个 社团有多个角色
-    # interview = models.ManyToManyField(
-    #     'timelines.Interview', related_name="membership", blank=True)
+    # 名称唯一
     name = models.CharField(verbose_name="关系名称", max_length=50)
     can_edit = models.BooleanField(verbose_name="是否可以修改社团信息", default=False)
-    can_schedule = models.BooleanField(verbose_name="是否可以安排面试")
-    can_export = models.BooleanField(verbose_name="是否可以导出信息")
+    can_schedule = models.BooleanField(verbose_name="是否可以安排面试",default=False)
+    can_export = models.BooleanField(verbose_name="是否可以导出信息",default=False)
     date_created = models.DateField(auto_now=True)
 
-    class Meta():
+    class Meta:
         verbose_name = 'membership'
         verbose_name_plural = verbose_name
+        unique_together = ('club', 'name')  # 多列联合唯一性约束
 
     def __str__(self):
         return f"{self.club} - {self.name}"
