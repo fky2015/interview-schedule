@@ -34,7 +34,6 @@ class ClubSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
 
 class UserProfileClubSerializerUSER(serializers.HyperlinkedModelSerializer):
-
     club = ClubSerializerPUBLIC(read_only=True)
     # club = serializers.HyperlinkedRelatedField(
     #     read_only=True,

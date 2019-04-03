@@ -5,7 +5,8 @@ from rest_framework import serializers
 class InterviewSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Interview
-        fields = ('url', 'club', 'title')
+        fields = ('url', 'club', 'title',
+                  'description', 'edit_finish', 'is_public', 'out_state')
 
 
 class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
@@ -16,7 +17,7 @@ class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
 class InterviewTimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
 
-    interview = InterviewSerializerPUBLIC()
+    # interview = InterviewSerializerPUBLIC()
 
     class Meta:
         model = InterviewTimeline
@@ -32,16 +33,19 @@ class InterviewTimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
 
 class TimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
+    """用于user查看自己的timeline"""
 
     interviewTimeline = InterviewTimelineSerializerPUBLIC(read_only=True)
+    # TODO may be 换成 USER的？
 
     class Meta:
         model = Timeline
-        fields = ('url', 'interviewTimeline','user',
+        fields = ('url', 'interviewTimeline', 'user',
                   'startTime', 'duration', 'timeID')
 
 
 class TimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
+    """用于public api"""
     class Meta:
         model = Timeline
         fields = ('url', 'interviewTimeline', 'user',

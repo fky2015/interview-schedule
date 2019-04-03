@@ -24,7 +24,7 @@ module.exports = {
 						children: [
 							['/showdoc/datadict/users/UserProfile.md', '用户'],
 							['/showdoc/datadict/users/Club.md', '社团'],
-							['/showdoc/datadict/users/UserProfileClub.md','用户-社团'],
+							['/showdoc/datadict/users/UserProfileClub.md', '用户-社团'],
 							['/showdoc/datadict/users/Membership.md', '关系']
 						]
 					}, {
@@ -46,25 +46,17 @@ module.exports = {
 				path: '/showdoc/api/', // optional, which should be a absolute path.
 				collapsable: false, // optional, defaults to true
 				sidebarDepth: 1, // optional, defaults to 1
-				children: [
-					{
-						title: "用户相关",
-						path: '/showdoc/api/user/',
-						children:[
-							["/showdoc/api/user/info.md","info"],
-							["/showdoc/api/user/club.md","club"],
-							["/showdoc/api/user/membership.md","membership"],
-						]
-					}	
-					,
-					{
-						title: "公共接口",
-						path: "/showdoc/api/public",
-						children:[
-							["/showdoc/api/public/club.md","club"]
-						]
-					}
-				]
+				children: [{
+					title: "普通用户相关",
+					path: '/showdoc/api/',
+					children: [
+						["/showdoc/api/user.md", "user"],
+						["/showdoc/api/club.md", "club"],
+						["/showdoc/api/interview.md", "interview"],
+						["/showdoc/api/interviewTimeline.md", "interviewTimeline"],
+						["/showdoc/api/timeline.md", "timeline"],
+					]
+				}]
 			},
 
 		]

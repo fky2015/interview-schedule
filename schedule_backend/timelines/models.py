@@ -2,7 +2,6 @@ from django.db import models
 from users.models import UserProfile, Membership
 from users.models import Club
 
-# TODO if it's reasonable to use CASCADE on every foreignkey
 
 # 记录一次面试的信息
 # 一次面试是指有一定意义的一场面试，比如春招、秋招等
@@ -17,7 +16,7 @@ class Interview(models.Model):
     edit_finish = models.BooleanField(default=False)  # 是否处于可编辑状态
     is_public = models.BooleanField(
         verbose_name="if it's public", default=False)
-    out_state = models.FileField(Membership)  # 面试成功后要到达的状态
+    out_state = models.ForeignKey(Membership,on_delete=models.PROTECT)  # 面试成功后要到达的状态
 
     class Meta:
         order_with_respect_to = 'club'
@@ -40,6 +39,9 @@ class InState(models.Model):
     class Meta:
         unique_together = ('interview', 'membership')
 
+    def __str__(self):
+        return f"{self.interview}-{self.membership}"
+
 # 记录场面试的面试表
 # 面试表是指一次面试中某一个有具体地点和时间长度的面试
 
@@ -54,7 +56,7 @@ class InterviewTimeline(models.Model):
         order_with_respect_to = 'interview'
 
     def __str__(self):
-        return str(self.interview) + '-' + self.location
+        return f'{self.interview}-{self.location}'
 
 
 # 时间片是指对于一个人来说的,
