@@ -34,3 +34,12 @@
 | 用户\方法 | user | club | timeline |
 | --------- | --------- | ---- | -------- |
 | 所有用户  | 自己 rw   | r    | r        |
+
+
+### club
+
+所有和自己有关系（membership）的，并且`verified`为`pass`的（通过验证的）
+
+### timeline
+
+所有自己的timeline，也会进一步显示所属interviewTimeline。

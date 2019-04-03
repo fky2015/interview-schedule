@@ -69,7 +69,7 @@ class InterviewTimelineViewSet(viewsets.ModelViewSet):
 class TimelineViewSet(viewsets.ModelViewSet):
     """时间片，对具体的时间片，可以报名（apply）或者取消报名（cancel）"""
     queryset = Timeline.objects.all()
-    serializer_class = TimelineSerializerUSER
+    serializer_class = TimelineSerializerPUBLIC
 
     def list(self, request):
         queryset = Timeline.objects.filter(user=request.user)

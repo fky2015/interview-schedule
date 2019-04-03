@@ -32,11 +32,11 @@ router.register('timeline', timeline_view.TimelineViewSet)
 
 # user 用户自己的信息
 router.register('user', user_view.CurrentUserViewSet)
-router.register('membership', user_view.MembershipViewSet)
-router.register('userProfileClub', user_view.UserProfileClubViewSet)
+# router.register('membership', user_view.MembershipViewSet)
+# router.register('userProfileClub', user_view.UserProfileClubViewSet)
 
 # # club 后台管理者相关的
-router.register('instate', timeline_view.InStateViewSet)
+# router.register('instate', timeline_view.InStateViewSet)
 # router.register('admin/club', user_view.ClubViewSetADMIN, basename="admin")
 # router.register('admin/interview',
 #                 timeline_view.InterviewViewSetADMIN, basename="admin")

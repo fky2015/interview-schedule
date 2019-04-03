@@ -33,11 +33,19 @@ class UserProfile(AbstractUser):
 
 # 社团
 class Club(models.Model):
+    VERIFY_CHOICE = (
+        ('unverified', '验证中'),
+        ('failed', '未通过'),
+        ('pass', '通过'),
+    )
+
     # userProfile = models.ManyToManyField(UserProfile)
     name = models.CharField(verbose_name="社团名称", max_length=100, unique=True)
     intro = models.TextField(verbose_name="self_introduction", blank=True)
     avatar = models.ImageField(
         upload_to='image', blank=True, null=True, max_length=100)
+    verified = models.CharField(
+        verbose_name="验证状态", choices=VERIFY_CHOICE, default='unverified', max_length=10)  # TODO
 
     class Meta():
         verbose_name = 'club'
@@ -70,8 +78,8 @@ class Membership(models.Model):
     # 名称唯一
     name = models.CharField(verbose_name="关系名称", max_length=50)
     can_edit = models.BooleanField(verbose_name="是否可以修改社团信息", default=False)
-    can_schedule = models.BooleanField(verbose_name="是否可以安排面试",default=False)
-    can_export = models.BooleanField(verbose_name="是否可以导出信息",default=False)
+    can_schedule = models.BooleanField(verbose_name="是否可以安排面试", default=False)
+    can_export = models.BooleanField(verbose_name="是否可以导出信息", default=False)
     date_created = models.DateField(auto_now=True)
 
     class Meta:

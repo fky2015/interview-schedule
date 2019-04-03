@@ -33,8 +33,10 @@ class InterviewTimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
 
 class TimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
+    """用于user查看自己的timeline"""
 
     interviewTimeline = InterviewTimelineSerializerPUBLIC(read_only=True)
+    # TODO may be 换成 USER的？
 
     class Meta:
         model = Timeline
@@ -43,6 +45,7 @@ class TimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
 
 
 class TimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
+    """用于public api"""
     class Meta:
         model = Timeline
         fields = ('url', 'interviewTimeline', 'user',
