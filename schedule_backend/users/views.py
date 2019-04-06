@@ -27,7 +27,7 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
     # TODO: set password method
 
     def get_permissions(self):
-        if self.action in ['destroy']:
+        if self.action in ['destroy','create']:
             permission_classes = [IsAdminUser]
         else:
             permission_classes = [AllowAny]
