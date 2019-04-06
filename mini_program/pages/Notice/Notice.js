@@ -1,4 +1,4 @@
-// pages/HomePage/HomePage.js
+// pages/Notice/Notice.js
 Page({
 
     /**
@@ -62,17 +62,5 @@ Page({
      */
     onShareAppMessage: function () {
 
-    },
-
-    gotoClubList: function () {
-        wx.navigateTo({
-            url: '../ClubList/ClubList',
-        })
-    },
-
-    gotoNotice: function () {
-        wx.navigateTo({
-            url: '../Notice/Notice',
-        })
-    },
+    }
 })

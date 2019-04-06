@@ -1,4 +1,4 @@
-// pages/HomePage/HomePage.js
+// pages/ClubList/ClubList.js
 Page({
 
     /**
@@ -64,15 +64,9 @@ Page({
 
     },
 
-    gotoClubList: function () {
+    gotoInterview: function () {
         wx.navigateTo({
-            url: '../ClubList/ClubList',
-        })
-    },
-
-    gotoNotice: function () {
-        wx.navigateTo({
-            url: '../Notice/Notice',
+            url: '../Interview/Interview',
         })
     },
 })

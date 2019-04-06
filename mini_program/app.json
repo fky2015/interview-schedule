@@ -3,7 +3,11 @@
         "pages/Authorize/Authorize",
         "pages/HomePage/HomePage",
         "pages/LogIn/LogIn",
-        "pages/User/User"
+        "pages/User/User",
+        "pages/ClubList/ClubList",
+        "pages/Interview/Interview",
+        "pages/MyInterview/MyInterview",
+        "pages/Notice/Notice"
     ],
     
     "window": {
@@ -12,13 +16,13 @@
         "navigationBarTitleText": "i社团",
         "navigationBarTextStyle": "black",
         "enablePullDownRefresh": true,
-        "backgroundColor": "#eeeeee"
+        "backgroundColor": "#ffffff"
     },
 
     "tabBar": {
-        "color": "#000000",
-        "selectedColor": "#ffffff",
-        "backgroundColor": "#aaaaaa",
+        "color": "#aaaaaa",
+        "selectedColor": "#1d83fe",
+        "backgroundColor": "#ffffff",
         "borderStyle": "black",
         "list": [
             {

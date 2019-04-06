@@ -1,0 +1,107 @@
+<!--pages/Interview/Interview.wxml-->
+<view wx:if='{{showTimeline}}' class='mask' style='animation-name: {{animateMask}}; -webkit-animation-name: {{animateMask}};'></view>
+
+<view wx:if='{{showTimeline}}' bindtap='hideTimeline' class='timelineContainer' style='animation-name={{animateTimeline}}; -webkit-animation-name: {{animateTimeline}};'>
+
+    <view class='timelineHeader'>
+        <text class='headerClubName'>学生电视中心</text>
+        <text class='headerTitle'>秋季面试第一场</text>
+        <text class='headerDateTime'>2019年9月20日 9:00-11:30</text>
+        <text class='headerPlace'>地点：2B-201</text>
+    </view>
+    
+    <view class='timeline' hover-class='hover'
+     hover-stay-time='100'>
+        <text class='interval'>9:00-9:10</text>
+    </view>
+
+    <view class='timeline' hover-class='hover'
+     hover-stay-time='100'>
+        <text class='interval'>9:00-9:10</text>
+    </view>
+
+    <view class='timeline' hover-class='hover'
+     hover-stay-time='100'>
+        <text class='interval'>9:00-9:10</text>
+    </view>
+
+    <view class='timeline' hover-class='hover'
+     hover-stay-time='100'>
+        <text class='interval'>9:00-9:10</text>
+    </view>
+
+</view>
+
+<view class='back' style='overflow: hidden;'>
+
+    <view class='interview'>
+
+        <view class='items' bindtap='showTimeline' hover-class='hover'
+         hover-stay-time='100'>
+            <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                <view class='infomation'>
+                    <text class='title'>秋季面试第一场</text>
+                    <text class='dateTime'>2019年9月20日 9:00-11:30</text>
+                    <text class='place'>地点：2B-201</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='items' bindtap='showTimeline' hover-class='hover'
+         hover-stay-time='100'>
+            <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                <view class='infomation'>
+                    <text class='title'>秋季面试第一场</text>
+                    <text class='dateTime'>2019年9月20日 9:00-11:30</text>
+                    <text class='place'>地点：2B-201</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='items' bindtap='showTimeline' hover-class='hover'
+         hover-stay-time='100'>
+            <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                <view class='infomation'>
+                    <text class='title'>秋季面试第一场</text>
+                    <text class='dateTime'>2019年9月20日 9:00-11:30</text>
+                    <text class='place'>地点：2B-201</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='items' bindtap='showTimeline' hover-class='hover'
+         hover-stay-time='100'>
+            <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                <view class='infomation'>
+                    <text class='title'>秋季面试第一场</text>
+                    <text class='dateTime'>2019年9月20日 9:00-11:30</text>
+                    <text class='place'>地点：2B-201</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='items' bindtap='showTimeline' hover-class='hover'
+         hover-stay-time='100'>
+            <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                <view class='infomation'>
+                    <text class='title'>秋季面试第一场</text>
+                    <text class='dateTime'>2019年9月20日 9:00-11:30</text>
+                    <text class='place'>地点：2B-201</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='items' bindtap='showTimeline' hover-class='hover'
+         hover-stay-time='100'>
+            <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                <view class='infomation'>
+                    <text class='title'>秋季面试第一场</text>
+                    <text class='dateTime'>2019年9月20日 9:00-11:30</text>
+                    <text class='place'>地点：2B-201</text>
+                </view>
+            </image>
+        </view>
+
+    </view>
+
+</view>

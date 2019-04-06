@@ -1,0 +1,219 @@
+/* pages/Interview/Interview.wxss */
+.mask{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1;
+    animation-duration: 300ms;
+    animation-timing-function: ease;
+    animation-iteration-count: 1; 
+    -webkit-animation-duration: 300ms;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-iteration-count: 1;
+}
+
+@keyframes showMask {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hideMask {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.timelineContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    margin-top: 10%;
+    width: 100vw;
+    min-height: 100vh;
+    z-index: 2;
+    animation-duration: 300ms;
+    animation-timing-function: ease;
+    animation-iteration-count: 1; 
+    -webkit-animation-duration: 300ms;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-iteration-count: 1;
+}
+
+@keyframes showTimeline {
+  from {
+    opacity: 0;
+    transform: translateY(100vh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes hideTimeline {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 10%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.timelineHeader{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 300rpx;
+    width: 600rpx;
+    border-radius: 20rpx;
+    background-color: #ffffff;
+}
+
+.headerClubName{
+    margin-top: 20rpx;
+    margin-left: 30rpx;
+    width: 600rpx;
+    font-size: 40rpx;
+    font-weight: 500;
+}
+
+.headerTitle{
+    bottom: 10rpx;
+    margin-left: 30rpx;
+    width: 600rpx;
+    font-size: 40rpx;
+    font-weight: 500;
+}
+
+.headerDateTime{
+    margin-top: 10rpx;
+    margin-left: 30rpx;
+    width: 600rpx;
+    font-size: 35rpx;
+    font-weight: 400;
+}
+
+.headerPlace{
+    margin-top: 5rpx;
+    margin-left: 30rpx;
+    width: 600rpx;
+    font-size: 35rpx;
+    font-weight: 400;
+}
+
+.timeline{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    top: 30rpx;
+    margin: 15rpx;
+    height: 400rpx;
+    width: 600rpx;
+    border-radius: 20rpx;
+    background-color: #ffffff;
+}
+
+.interval{
+    margin-left: 30rpx;
+    font-size: 40rpx;
+    font-weight: bold;
+}
+
+.back{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto;
+    right: 0px;
+    left: 0px;
+    min-height: 100vh;
+    color: #000000;
+    background-color: #ffffff;
+    z-index: 0;
+}
+
+.interview{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.items{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 650rpx;
+    height: 200rpx;
+    margin: 30rpx;
+    border-radius: 35rpx;
+    box-shadow: 5rpx 5rpx 10rpx 10rpx #aaaaaa;
+}
+
+.hover{
+    transform: scale(0.97, 0.97);
+}
+
+.logo{
+    width: 650rpx;
+    height: 200rpx;
+    border-radius: 35rpx;
+}
+
+.infomation{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    bottom: 200rpx;
+    width: 650rpx;
+    height: 200rpx;
+    border-radius: 35rpx;
+    background-color: rgba(255,255,255,0.9);
+}
+
+.title{
+    margin-top: 20rpx;
+    margin-left: 30rpx;
+    width: 600rpx;
+    font-size: 50rpx;
+    font-weight: 500;
+}
+
+.dateTime{
+    margin-top: 10rpx;
+    margin-left: 30rpx;
+    width: 600rpx;
+    font-size: 30rpx;
+    font-weight: 400;
+}
+
+.place{
+    margin-top: 5rpx;
+    margin-left: 30rpx;
+    width: 600rpx;
+    font-size: 30rpx;
+    font-weight: 400;
+}

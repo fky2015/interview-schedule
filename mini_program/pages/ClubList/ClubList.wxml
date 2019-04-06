@@ -1,0 +1,60 @@
+<!--pages/ClubList/ClubList.wxml-->
+<view class='back'>
+
+    <view class='clubList'>
+        <view class='club' bindtap='gotoInterview' hover-class='hoverClub'>
+            <image class='clubImage' src='../../lib/pv2.jpg' 
+            mode='aspectFill'></image>
+            <text class='clubName'>学生电视电视电视电视电视电视中心</text>
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>  
+        </view>
+
+        <view class='club' bindtap='gotoInterview' hover-class='hoverClub'>
+            <image class='clubImage' src='../../lib/pv3.png' 
+            mode='aspectFill'></image>
+            <text class='clubName'>网络开拓者协会</text>
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>
+        </view>
+
+        <view class='club' bindtap='gotoInterview' hover-class='hoverClub'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <text class='clubName'>学生电视中心</text>
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>
+        </view>
+
+        <view class='club' bindtap='gotoInterview' hover-class='hoverClub'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <text class='clubName'>学生电视中心</text>
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>
+        </view>
+
+        <view class='club' bindtap='gotoInterview' hover-class='hoverClub'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <text class='clubName'>学生电视中心</text>
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>
+        </view>
+
+        <view class='club' bindtap='gotoInterview' hover-class='hoverClub'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <text class='clubName'>学生电视中心</text>
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>
+        </view>
+    </view>
+
+</view>

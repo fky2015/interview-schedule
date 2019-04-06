@@ -1,9 +1,9 @@
 {
+    "usingComponents": {},
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "注册",
+    "navigationBarTitleText": "面试",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#eeeeee",
     "enablePullDownRefresh": false,
-    "disableScroll": true
+    "backgroundColor": "#ffffff"
 }
