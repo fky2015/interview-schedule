@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        name: '路德维希·冯·贝多芬',
+        name: '赵日天',
         avatarUrl: ''
     },
 
@@ -68,5 +68,11 @@ Page({
      */
     onShareAppMessage: function () {
 
-    }
+    },
+
+    gotoMyInterview: function () {
+        wx.navigateTo({
+            url: '../MyInterview/MyInterview',
+        })
+    },
 })
