@@ -1,2 +1,4 @@
 <!--pages/MyInterview/MyInterview.wxml-->
-<text>pages/MyInterview/MyInterview.wxml</text>
+<view class='back'>
+    
+</view>

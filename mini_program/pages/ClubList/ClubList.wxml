@@ -5,7 +5,7 @@
         <view class='club' bindtap='gotoInterview' hover-class='hoverClub'>
             <image class='clubImage' src='../../lib/pv2.jpg' 
             mode='aspectFill'></image>
-            <text class='clubName'>学生电视电视电视电视电视电视中心</text>
+            <text class='clubName'>学生电视中心</text>
             <view class='arrow' hover-class='hoverArrow'>
                 <view class='blank' hover-class='hoverBlank'></view>
             </view>  

@@ -74,5 +74,5 @@ Page({
         wx.navigateTo({
             url: '../Notice/Notice',
         })
-    },
+    }
 })

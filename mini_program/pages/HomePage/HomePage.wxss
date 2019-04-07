@@ -84,10 +84,14 @@
     margin: 30rpx;
     border-radius: 35rpx;
     box-shadow: 5rpx 5rpx 10rpx 10rpx #aaaaaa;
+    transition: 300ms;
+    transition-delay: 10ms;
 }
 
 .hoverNotice{
-    transform: scale(0.97, 0.97);
+    transform: scale(0.95, 0.95);
+    transition: 300ms;
+    transition-delay: 10ms;
 }
 
 .title{
