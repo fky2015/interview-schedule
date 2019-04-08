@@ -1,36 +1,147 @@
 /* pages/User/User.wxss */
 
 .back{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    color: #000000;
-    background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  color: #000000;
+  background-color: #ffffff;
 }
 
 .userInfo {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-right: 30vw;
-  height: 250rpx;
-  background-color: #ffffff;
+  justify-content: flex-start;
+  position: fixed;
+  height: 350rpx;
+  width: 100vw;
+  background-color: rgba(255,255,255,0.9);
+  border-bottom: 1px #bbbbbb solid;
+}
+
+.userInfo::before{
+    content:'';
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	backdrop-filter:blur(10rpx);
+	z-index:-1;
 }
 
 .userInfoAvatar {
   width: 200rpx;
   height: 200rpx;
   margin: 50rpx;
+  margin-bottom: 130rpx;
   border-radius: 50%;
-  border: 2px solid #aaaaaa;
+  border: 2px solid #bbbbbb;
 }
 
 .userInfoName {
-  color: #000000;
-  background-color: #ffffff;
-  margin-bottom: 70rpx;
-  margin-left: 20rpx;
-  font-size: 50rpx;
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    margin-bottom: 100rpx;
+    margin-right: 10rpx;
+    color: #000000;
+    background-color:rgba(255,255,255,0);
+    word-break: keep-all;
+    word-wrap: break-word;
+    font-size: 60rpx;
+    font-weight: 600;
+}
+
+.myClub{
+    position: absolute;
+    top: 300rpx;
+    right: 45vw;
+    width: 50vw;
+    color: #bbbbbb;
+    background-color:rgba(255,255,255,0);
+    margin-left: 20rpx;
+    font-size: 35rpx;
+    font-weight: 400;
+}
+
+.topButton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 290rpx;
+    height: 8vh;
+    color: #1d83fe;
+}
+
+.hoverBtn{
+    color: #c7dffe;
+}
+
+.arrow{
+    width: 20rpx;
+    height: 20rpx;
+    border-top: 6rpx solid #1d83fe;
+    border-right: 6rpx solid #1d83fe;
+    transform: rotate(45deg);
+}
+
+.hoverArrow{
+    border-top: 6rpx solid #c7dffe;
+    border-right: 6rpx solid #c7dffe;
+}
+
+.blank{
+   width: 200rpx;
+    height: 100rpx;
+    position: relative;
+    right: 140rpx;
+    top: 20rpx;
+    background-color: rgba(55,55,55,0);
+    transform: rotate(-45deg);
+}
+
+.hoverBlank{
+    background-color: rgba(55,55,55,0);
+}
+
+.usersClub{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100vw;
+    margin-top: 350rpx;
+}
+
+.club{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 250rpx;
+    width: 100vw;
+    border-bottom: 1px #bbbbbb solid;
+}
+
+.clubImage{
+    margin-top: 7rpx;
+    margin-left: 40rpx;
+    height: 180rpx;
+    width: 180rpx;
+    border-radius: 20rpx;
+    box-shadow: 2rpx 2rpx 5rpx 5rpx #aaaaaa;
+}
+
+.clubName{
+    margin-left: 30rpx;
+    width: 50vw;
+    word-break: keep-all;
+    word-wrap: break-word;
+    font-size: 45rpx;
+    font-weight: 400;
 }

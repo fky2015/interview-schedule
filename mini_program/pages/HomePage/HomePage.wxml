@@ -1,4 +1,53 @@
 <!--pages/HomePage/HomePage.wxml-->
 <view class='back'>
-    欢迎来到素质广场
+    <view class='topBar'>
+        <view class='plaza'>广场</view>
+        <view class='topButton' bindtap='gotoClubList' hover-class='hoverBtn'>
+            所有社团
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>
+        </view>
+        
+    </view>
+
+    <view class='billboard'>
+        <view class='notice' hover-class='hoverNotice' hover-stay-time='100'>
+            <image class='image' src='../../lib/pv1.jpeg' mode='aspectFill'  
+            bindtap='gotoNotice'>
+                <view class='title'>
+                    <text class="text">Hello world! \n欢迎使用我们的小程序！</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='notice' hover-class='hoverNotice' hover-stay-time='100'>
+            <image class='image' src='../../lib/pv4.jpeg' mode='aspectFill'  
+            bindtap='gotoNotice'>
+                <view class='title'>
+                    <text class="text">开发者说：\n如何成为一个合格的肝帝？</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='notice' hover-class='hoverNotice' hover-stay-time='100'>
+            <image class='image' src='../../lib/pv2.jpg' mode='aspectFill'
+            bindtap='gotoNotice'>
+                <view class='title'>
+                    <text class="text">学生电视中心\n招新了！</text>
+                </view>
+            </image>
+        </view>
+
+        <view class='notice' hover-class='hoverNotice' hover-stay-time='100'>
+            <image class='image' src='../../lib/pv3.png' mode='aspectFill'
+            bindtap='gotoNotice'>
+                <view class='title'>
+                    <text class="text">这是一份网络开拓者协会各部门的详细介绍，请查收！</text>
+                </view>
+            </image>
+        </view>
+    </view>
+
+    <view class='endOfNotice'>——仅显示最近三天的公告——</view>
 </view>

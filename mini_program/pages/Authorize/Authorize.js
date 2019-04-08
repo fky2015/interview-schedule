@@ -8,7 +8,7 @@ Page({
      */
     data: {
         userInfo: {},
-        hasUserInfo: false,
+        hasUserInfo: true,
     },
 
     //该函数用于用户第一次登陆授权及获取微信用户信息
@@ -44,10 +44,12 @@ Page({
         wx.getSetting({
             success(res) {
                 console.log(res.authSetting);
+
                 if(res.authSetting['scope.userInfo']) {
                     that.setData({
                         hasUserInfo: true
                     })
+                    console.log(that.data.hasUserInfo);
 
                     wx.getUserInfo({
                         success(res) {
@@ -56,18 +58,25 @@ Page({
                         }
                     })
 
-                    /*setTimeout(
+                    setTimeout(
                         function () {
                             wx.switchTab({
                                 url: '../HomePage/HomePage',
                             })
                         }, 2000
-                    )*/ //该部分在完成login页面后要取消注释
+                    ) //该部分在完成login页面后要取消注释
 
                     //下面的跳转api要在之后注释掉，此处增加是为了方便调试
-                    wx.navigateTo({
+                    /*wx.navigateTo({
                         url: '../LogIn/LogIn',
+                    })*/
+                }
+
+                else {
+                    that.setData({
+                        hasUserInfo: false
                     })
+                    console.log(that.data.hasUserInfo);
                 }
             }
         })

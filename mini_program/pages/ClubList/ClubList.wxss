@@ -1,0 +1,59 @@
+/* pages/ClubList/ClubList.wxss */
+.back{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.clubList{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100vw;
+}
+
+.club{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 250rpx;
+    width: 100vw;
+    border-bottom: 1px #bbbbbb solid;
+}
+
+.hoverClub{
+    background-color: #eeeeee;
+}
+
+.clubImage{
+    margin-left: 40rpx;
+    height: 180rpx;
+    width: 180rpx;
+    border-radius: 20rpx;
+    box-shadow: 2rpx 2rpx 5rpx 5rpx #aaaaaa;
+}
+
+.clubName{
+    margin-left: 30rpx;
+    width: 50vw;
+    word-break: keep-all;
+    word-wrap: break-word;
+    font-size: 45rpx;
+    font-weight: 400;
+}
+
+.arrow{
+    position: absolute;
+    right: 30rpx;
+    width: 25rpx;
+    height: 25rpx;
+    border-top: 6rpx solid #555555;
+    border-right: 6rpx solid #555555;
+    transform: rotate(45deg);
+}

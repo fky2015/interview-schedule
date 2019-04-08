@@ -1,0 +1,36 @@
+<!--pages/Interview/Interview.wxml-->
+<view hidden='{{hideTimeline}}' class='mask' style='animation-name: {{animateMask}}; -webkit-animation-name: {{animateMask}};'></view>
+
+<view class='back'>
+
+    <view class='head'>
+        <view wx:for='{{head}}' catchtap='showTimeline' class='items' hover-class='hover' hover-stay-time='100' data-id='{{item.id}}'>
+            <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                <view class='infomation'>
+                    <text class='title'>{{item.title}}</text>
+                    <text class='dateTime'>{{item.dateTime}}</text>
+                    <text class='place'>地点：{{item.place}}</text>
+                </view>
+            </image>
+        </view>
+    </view>
+
+    <view hidden='{{hideTimeline}}' class='timelineContainer' style='top: {{containDist}}rpx; animation-name={{animateTimeline}}; -webkit-animation-name: {{animateTimeline}};'>
+        <view wx:for='{{timeline}}' catchtap='joinInterview' class='timeline' hover-class='hover' hover-stay-time='100'>
+            <text class='interval'>{{item}}</text>
+        </view>
+    </view>
+
+        <view class='{{classInterview}}' style='margin-top: {{footDist}}rpx;'>
+            <view wx:for='{{foot}}' catchtap='showTimeline' class='items' hover-class='hover' hover-stay-time='100' data-id='{{item.id}}'>
+                <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+                    <view class='infomation'>
+                        <text class='title'>{{item.title}}</text>
+                        <text class='dateTime'>{{item.dateTime}}</text>
+                        <text class='place'>地点：{{item.place}}</text>
+                    </view>
+                </image>
+            </view>
+        </view>
+
+</view>
