@@ -16,9 +16,9 @@ module.exports = {
 			collapsable: false, // optional, defaults to true
 			sidebarDepth: 1, // optional, defaults to 1
 			children: [
-				["/docs/1开发流程.md","开发流程"],
-				["/docs/2需求分析.md","需求分析"],
-				["/docs/3开发流程建议.md","开发流程建议"],
+				["/1开发流程.md","开发流程"],
+				["/2需求分析.md","需求分析"],
+				["/3开发流程建议.md","开发流程建议"],
 				["/社团面试系统需求文档.md","社团面试系统需求文档"],
 			]
 		},
