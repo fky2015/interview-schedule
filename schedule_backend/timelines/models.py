@@ -16,7 +16,8 @@ class Interview(models.Model):
     edit_finish = models.BooleanField(default=False)  # 是否处于可编辑状态
     is_public = models.BooleanField(
         verbose_name="if it's public", default=False)
-    out_state = models.ForeignKey(Membership,on_delete=models.PROTECT)  # 面试成功后要到达的状态
+    out_state = models.ForeignKey(
+        Membership, on_delete=models.PROTECT, null=True)  # 面试成功后要到达的状态
 
     class Meta:
         order_with_respect_to = 'club'

@@ -4,9 +4,28 @@ module.exports = {
 	themeConfig: {
 		navbar: false,
 		sidebar: [{
+			title: '前端开发', // required
+			collapsable: false, // optional, defaults to true
+			sidebarDepth: 1, // optional, defaults to 1
+			children: [
+				['/小程序页面目录树及页面简介.md', "小程序页面目录树及页面简介"],
+				['/小程序调用api.md', "小程序调用api"],
+			]
+		},{
+			title: '需求文档以及技术选型', // required
+			collapsable: false, // optional, defaults to true
+			sidebarDepth: 1, // optional, defaults to 1
+			children: [
+				["/docs/1开发流程.md","开发流程"],
+				["/docs/2需求分析.md","需求分析"],
+				["/docs/3开发流程建议.md","开发流程建议"],
+				["/社团面试系统需求文档.md","社团面试系统需求文档"],
+			]
+		},
+		
+		{
 				title: '后端开发', // required
-				path: '/社团面试系统需求文档.md', // optional, which should be a absolute path.
-				collapsable: true, // optional, defaults to true
+				collapsable: false, // optional, defaults to true
 				sidebarDepth: 1, // optional, defaults to 1
 				children: [
 					['/后端开发日志.md', "后端开发日志"],
@@ -48,15 +67,29 @@ module.exports = {
 				sidebarDepth: 1, // optional, defaults to 1
 				children: [{
 					title: "普通用户相关",
-					path: '/showdoc/api/',
+					path: '/showdoc/api/user/',
 					children: [
-						["/showdoc/api/user.md", "user"],
-						["/showdoc/api/club.md", "club"],
-						["/showdoc/api/interview.md", "interview"],
-						["/showdoc/api/interviewTimeline.md", "interviewTimeline"],
-						["/showdoc/api/timeline.md", "timeline"],
+						["/showdoc/api/user/user.md", "user"],
+						["/showdoc/api/user/club.md", "club"],
+						["/showdoc/api/user/interview.md", "interview"],
+						["/showdoc/api/user/interviewTimeline.md", "interviewTimeline"],
+						["/showdoc/api/user/timeline.md", "timeline"],
 					]
-				}]
+				},
+				{
+					title: "社团管理相关",
+					path: '/showdoc/api/admin/',
+					children: [
+						["/showdoc/api/admin/user.md", "user"],
+						["/showdoc/api/admin/club.md", "club"],
+						["/showdoc/api/admin/interview.md", "interview"],
+						["/showdoc/api/admin/interviewTimeline.md", "interviewTimeline"],
+						["/showdoc/api/admin/timeline.md", "timeline"],
+						["/showdoc/api/admin/membership.md", "membership"],
+						["/showdoc/api/admin/instate.md", "instate"],
+					]
+				}
+			]
 			},
 
 		]

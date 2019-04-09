@@ -4,16 +4,14 @@ from rest_framework.response import Response
 from rest_framework import viewsets, views
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .serializer import UserProfileSerializerUSER, \
-    UserProfileSerializerUSER, ClubSerializerPUBLIC, \
-    UserProfileClubSerializerUSER, MembershipSerializerUSER, \
-    ClubSerializerADMIN
-from timelines.serializer import InterviewSerializerPUBLIC, \
+    UserProfileSerializerUSER, ClubSerializerUSER, \
+    UserProfileClubSerializerUSER, MembershipSerializerUSER
+from timelines.serializer import InterviewSerializerUSER, \
     TimelineSerializerUSER
 from timelines.models import Interview, Timeline
 from rest_framework.decorators import action, api_view
 from django.db.models import Q
 from django.db import transaction  # 原子性
-# Create your views here.
 
 # user类别
 
@@ -27,7 +25,10 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
     # TODO: set password method
 
     def get_permissions(self):
-        if self.action in ['destroy','create']:
+
+        if self.action in ['create']:
+            permission_classes = [AllowAny]
+        elif self.action in ['destroy']:
             permission_classes = [IsAdminUser]
         else:
             permission_classes = [AllowAny]
@@ -56,28 +57,20 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
         # print(queryset)
         # queryset = UserProfileClub.objects.filter(userProfile=request.user)
 
-        serializer = ClubSerializerPUBLIC(
+        serializer = ClubSerializerUSER(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
-
-
-# TODO 应该在未来禁用
-# class UserProfileViewSetPUBLIC(viewsets.ModelViewSet):
-#     queryset = UserProfile.objects.all()
-#     serializer_class = UserProfileSerializerUSER
 
 
 def get_userProfile_Club(user, club):
     """retrieve relation of user and club"""
     return UserProfileClub.objects.get(userProfile=user, club=club)
 
-# public 类别
-
 
 class ClubViewSet(viewsets.ModelViewSet):
     """获得所有社团，并可进一步获得某个社团的面试"""
     queryset = Club.objects.all()
-    serializer_class = ClubSerializerPUBLIC
+    serializer_class = ClubSerializerUSER
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve', 'interview']:
@@ -105,7 +98,7 @@ class ClubViewSet(viewsets.ModelViewSet):
         else:
             queryset = queryset.filter(is_public=True)
 
-        serializer = InterviewSerializerPUBLIC(
+        serializer = InterviewSerializerUSER(
             queryset, many=True, context={'request': request}
         )
         return Response(serializer.data)

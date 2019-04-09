@@ -1,21 +1,37 @@
 from django.shortcuts import render
 from .models import InterviewTimeline, Interview, Timeline,\
     InState
-from .serializer import InterviewSerializerPUBLIC, \
-    InterviewTimelineSerializerPUBLIC, TimelineSerializerUSER, \
-    InStateSerializerADMIN, TimelineSerializerPUBLIC, \
-    InterviewSerializerADMIN, InterviewTimelineSerializerADMIN, \
-    TimelineSerializerADMIN
+from .serializer import InterviewSerializerUSER, \
+    InterviewTimelineSerializerUSER, TimelineSerializerUSER, \
+    InStateSerializerUSER, TimelineSerializerPUBLIC
+from users.models import Membership
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser
+from django.db import transaction  # 原子性
 
 
 class InterviewViewSet(viewsets.ModelViewSet):
     """面试"""
     queryset = Interview.objects.all()
-    serializer_class = InterviewSerializerPUBLIC
+    serializer_class = InterviewSerializerUSER
+
+    # TODO 创建Interview时自动创建out_state
+    # TODO 放入后台管理接口
+    def create(self, request, *args, **kwargs):
+        print(request.data)
+        return super().create(request, *args, **kwargs)
+
+    # TODO 放入后台管理接口
+
+    @transaction.atomic
+    def perform_create(self, serializer):
+        obj = serializer.save()
+        mem = Membership.objects.filter(club=obj.club).first()
+        obj.out_state = mem
+        print(mem)
+        obj.save()
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve', 'interviewTimeline']:
@@ -30,7 +46,7 @@ class InterviewViewSet(viewsets.ModelViewSet):
         interview = self.get_object()
         queryset = InterviewTimeline.objects.filter(interview=interview)
 
-        serializer = InterviewTimelineSerializerPUBLIC(
+        serializer = InterviewTimelineSerializerUSER(
             queryset, many=True, context={'request': request}
         )
         return Response(serializer.data)
@@ -48,7 +64,7 @@ class InterviewViewSet(viewsets.ModelViewSet):
 
 class InterviewTimelineViewSet(viewsets.ModelViewSet):
     queryset = InterviewTimeline.objects.all()
-    serializer_class = InterviewTimelineSerializerPUBLIC
+    serializer_class = InterviewTimelineSerializerUSER
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve', 'timeline']:
@@ -122,4 +138,4 @@ class TimelineViewSet(viewsets.ModelViewSet):
 
 class InStateViewSet(viewsets.ModelViewSet):
     queryset = InState.objects.all()
-    serializer_class = InStateSerializerADMIN
+    serializer_class = InStateSerializerUSER

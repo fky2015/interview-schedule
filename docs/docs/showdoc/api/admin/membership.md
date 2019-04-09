@@ -1,6 +1,6 @@
 
     
-**简要描述：** 
+## 简要描述： 
 
 <!-- - 查看自己所有的membership -->
 
@@ -9,12 +9,12 @@
 超级管理员
 貌似就不应该对外开放的
 
-**请求URL：** 
+## 请求URL： 
 
 `/api/user/info/`
 
   
-**详见url**
+## 详见url
 
 (https://dev.fkynjyq.com/api/user/membership/)[https://dev.fkynjyq.com/api/user/membership/]
 
