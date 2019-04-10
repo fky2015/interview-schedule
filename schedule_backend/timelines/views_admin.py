@@ -17,6 +17,18 @@ class InterviewViewSet(viewsets.ModelViewSet):
     serializer_class = InterviewSerializerADMIN
 
 
+    def create(self, request, *args, **kwargs):
+        print(request.data)
+        return super().create(request, *args, **kwargs)
+
+    @transaction.atomic
+    def perform_create(self, serializer):
+        obj = serializer.save()
+        mem = Membership.objects.filter(club=obj.club).first()
+        obj.out_state = mem
+        print(mem)
+        obj.save()
+
 class InterviewTimelineViewSet(viewsets.ModelViewSet):
     queryset = InterviewTimeline.objects.all()
     serializer_class = InterviewTimelineSerializerADMIN

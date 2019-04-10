@@ -103,16 +103,7 @@ class ClubViewSet(viewsets.ModelViewSet):
         )
         return Response(serializer.data)
 
-    # TODO 在管理api中使用，暂时注释掉
-    # def update(self, request, *args, **kwargs):
-    #     """有权限更新的人才能更新"""
-    #     """未测试"""
-    #     instance = self.get_object()
-    #     club_user = get_userProfile_Club(request.user, instance)
-    #     if club_user.membership.can_edit:
-    #         return super().update(request, *args, **kwargs)
-    #     else:
-    #         return Response({"msg": "denied"})
+
 
     def get_user(self):
         return UserProfile.objects.get(username=self.request.user)
@@ -130,32 +121,6 @@ class ClubViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         return self.query_restrain(queryset)
 
-    @transaction.atomic
-    def perform_create(self, serializer):
-        """默认创建社团管理员和普通用户两种角色，会默认建立自己与社团的管理员关系"""
-        # transaction 保持事务原子性
-        serializer.save()
-        print("save success")
-        # 最笨的办法，查找，然后创建
-        club = Club.objects.filter(name=self.request.data['name'])[0]
-        user = self.get_user()
-        adminer = Membership(club=club, name="admin",
-                             can_edit=True, can_schedule=True, can_export=True)
-        common_user = Membership(club=club, name="user")
-        adminer.save()
-        common_user.save()
-        print(user)
-        # 这里的user或许可以优化，不用取出user
-        UserProfileClub(userProfile=user, club=club, membership=adminer).save()
-        # serializer.save()
-    # def create(self,request, *args, **kwargs):
-    #     """默认创建社团管理员和普通用户两种角色，会默认建立自己与社团的管理员关系"""
-    #     self.get_se
-    #     super().create(request,*args,**kwargs)
-
-# class ClubViewSetADMIN(viewsets.ModelViewSet):
-#     queryset = Club.objects.all()
-#     serializer_class = ClubSerializerADMIN
 
 
 class UserProfileClubViewSet(viewsets.ModelViewSet):

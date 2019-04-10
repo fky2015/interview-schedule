@@ -17,21 +17,7 @@ class InterviewViewSet(viewsets.ModelViewSet):
     queryset = Interview.objects.all()
     serializer_class = InterviewSerializerUSER
 
-    # TODO 创建Interview时自动创建out_state
-    # TODO 放入后台管理接口
-    def create(self, request, *args, **kwargs):
-        print(request.data)
-        return super().create(request, *args, **kwargs)
 
-    # TODO 放入后台管理接口
-
-    @transaction.atomic
-    def perform_create(self, serializer):
-        obj = serializer.save()
-        mem = Membership.objects.filter(club=obj.club).first()
-        obj.out_state = mem
-        print(mem)
-        obj.save()
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve', 'interviewTimeline']:

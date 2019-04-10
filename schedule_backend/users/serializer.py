@@ -39,7 +39,7 @@ class MembershipSerializerUSER(serializers.HyperlinkedModelSerializer):
         model = Membership
         fields = (
             "url", "club",  "name",
-            "can_edit", "can_schedule", "can_export",
+            "is_admin",
             "date_created"
         )
 
@@ -72,6 +72,6 @@ class MembershipSerializerADMIN(serializers.HyperlinkedModelSerializer):
         model = Membership
         fields = (
             "url", "club",  "name",
-            "can_edit", "can_schedule", "can_export",
+            "is_admin",
             "date_created"
         )
