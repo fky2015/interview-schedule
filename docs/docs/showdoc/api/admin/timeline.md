@@ -1,6 +1,6 @@
 
     
-**简要描述：** 
+## 简要描述
 
 - 查看自己所有的timeline
 - 并且可以取消报名
@@ -9,24 +9,23 @@
 
 只读，除非是超级管理员
 
-**请求URL：** 
+## 请求URL
 
-`/api/timeline/`
+`/api-admin/timeline/`
 
-- apply
-- cancel
 
 分别报名和取消，详见api
   
-**详见url**
+## 详见url
 
-(https://dev.fkynjyq.com/api/timeline/)[https://dev.fkynjyq.com/api/timeline/]
+(https://dev.fkynjyq.com/api-admin/timeline/)[https://dev.fkynjyq.com/api-admin/timeline/]
 
 
-### apply
+list、retrieve
 
-将自己加入
+只显示自己有权限修改的
 
-### cancel
+create destroy update
 
-将自己退出
+只能创建、删除、修改有权限的社团的
+

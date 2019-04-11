@@ -20,13 +20,13 @@ update
   
 ## 详见url
 
-(https://dev.fkynjyq.com/api/user/membership/)[https://dev.fkynjyq.com/api/user/membership/]
+(https://dev.fkynjyq.com/api-admin/user/membership/)[https://dev.fkynjyq.com/api-admin/user/membership/]
 
 
-list
+list、retrieve
 
-并无用
+只显示自己有权限修改的
 
-retrieve
+create destroy update
 
-只能获得有权限的
+只能创建、删除、修改有权限的社团的

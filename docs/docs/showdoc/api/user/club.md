@@ -1,17 +1,17 @@
 
     
-**简要描述：** 
+## 简要描述 
 
 - 所有club 
 
-**请求URL：** 
+## 请求URL
 
-`/api/club/`
+`/api-admin/club/`
 
   
-**详见url**
+## 详见url
 
-(https://dev.fkynjyq.com/api/club/)[https://dev.fkynjyq.com/api/club/]
+(https://dev.fkynjyq.com/api-admin/club/)[https://dev.fkynjyq.com/api-admin/club/]
 
 ## 权限
 

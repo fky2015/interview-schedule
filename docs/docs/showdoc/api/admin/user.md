@@ -1,5 +1,3 @@
-
-    
 ## 简要描述
 
 返回个人信息 
@@ -10,12 +8,12 @@
 
 ## 请求URL
 
-`/api/user/`
+`/api-admin/user/`
 
   
-**详见url**
+## 详见url
 
-(https://dev.fkynjyq.com/api/user/)[https://dev.fkynjyq.com/api/user/]
+(https://dev.fkynjyq.com/api-admin/user/)[https://dev.fkynjyq.com/api-admin/user/]
 
 
 注意属性中有`url`一项，该`url`唯一标识用户身份。
@@ -24,20 +22,7 @@
 
 也就是不能在`user/`修改，而是在`user/n/`
 
-## 额外方法
-
-- `club` 查看自己所有的club
-- `timeline` 查看自己所有的timeline
 
 ## 权限
 
 readonly
-
-
-### club
-
-所有和自己有关系（membership）的，并且`verified`为`pass`的（通过验证的）
-
-### timeline
-
-所有自己的timeline，也会进一步显示所属interviewTimeline。

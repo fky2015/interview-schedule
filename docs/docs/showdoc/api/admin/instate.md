@@ -4,11 +4,11 @@
 
 ## 请求URL
 
-`/api/`
+`/api-admin/instate/`
   
 ## 详见url
 
-[]()
+(https://dev.fkynjyq.com/api-admin/instate/)[https://dev.fkynjyq.com/api-admin/instate/]
 
 ## 权限设计
 

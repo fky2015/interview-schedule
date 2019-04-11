@@ -72,6 +72,7 @@ class Timeline(models.Model):
     timeID = models.IntegerField(default=0)
     startTime = models.DateTimeField()
     duration = models.IntegerField(verbose_name="duration( /minutes)")
+    comment = models.TextField(verbose_name="comment", max_length=200,default="")
     passed = models.BooleanField(
         verbose_name="pass the interview", default=False)
 

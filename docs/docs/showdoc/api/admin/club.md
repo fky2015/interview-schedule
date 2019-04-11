@@ -6,21 +6,20 @@
 
 ## 请求URL 
 
-`/api/club/`
+`/api-admin/club/`
 
   
 ## 详见url 
 
-(https://dev.fkynjyq.com/api/club/)[https://dev.fkynjyq.com/api/club/]
+(https://dev.fkynjyq.com/api-admin/club/)[https://dev.fkynjyq.com/api-admin/club/]
 
 ## 权限
+<!-- 
+| 用户\方法  | create | retrieve | update | destroy | list | interview      |
+| ---------- | ------ | -------- | ------ | ------- | ---- | -------------- |  |
+| 管理员     | y      | y        | n      | n       | y    | ro  只有可见的 |
+| 超级管理员 | y      | y        | y      | y       | y    | ro  只有可见的 | -->
 
-| 用户\方法  | create | retrieve | update | destroy | list | interview      | verification |
-| ---------- | ------ | -------- | ------ | ------- | ---- | -------------- | ------------ |
-| 管理员   | y      | y        | n      | n       | y    | ro  只有可见的 | n            |
-| 超级管理员 | y      | y        | y      | y       | y    | ro  只有可见的 | y            |  |
-
-<!-- | 管理员     |        | y        | y      | n       | y    | ro  只有可见的 | n            | -->
 
 create
 
