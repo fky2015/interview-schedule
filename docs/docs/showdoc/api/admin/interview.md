@@ -8,10 +8,19 @@
   
 ## 详见url
 
-[https://dev.fkynjyq.com/api/interview/](https://dev.fkynjyq.com/api/interview/)
+[https://dev.fkynjyq.com/api-admin/interview/](https://dev.fkynjyq.com/api-admin/interview/)
 
 ## 权限设计
 
+list、retrieve
+
+只显示自己有权限修改的
+
+create destroy update
+
+只能创建、删除、修改有权限的社团的
+
+<!-- #### TODO -->
 
 ### interviewTimeline
 

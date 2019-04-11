@@ -16,8 +16,15 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializerADMIN
 
-# 有机会的话整合一下吧
+    def get_permissions(self):
+        if self.action in ['destroy', 'create', 'update']:
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
+
+# 有机会的话整合一下吧
 
 def get_userProfile_Club(user, club):
     """retrieve relation of user and club"""
@@ -32,7 +39,7 @@ class ClubViewSet(viewsets.ModelViewSet):
         if self.action in ['destroy']:
             permission_classes = [IsAdminUser]
         else:
-            permission_classes = [AllowAny]
+            permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
     def update(self, request, *args, **kwargs):
@@ -70,10 +77,11 @@ class ClubViewSet(viewsets.ModelViewSet):
         """基本的query集合约束，非常有用"""
         return queryset.filter(userProfileClub__userProfile=self.request.user, userProfileClub__membership__is_admin=True)
 
-    def get_object_or_404(self, queryset, *filter_args, **filter_kwargs):
-        """被get_object调用，用于自定义retrieve"""
-        queryset = self.query_restrain(queryset)
-        return super().get_object_or_404(queryset, *filter_args, **filter_kwargs)
+    # list行为改变后，retreive也会改变 欧耶
+    # def get_object_or_404(self, queryset, *filter_args, **filter_kwargs):
+    #     """被get_object调用，用于自定义retrieve"""
+    #     queryset = self.query_restrain(queryset)
+    #     return super().get_object_or_404(queryset, *filter_args, **filter_kwargs)
 
     def get_queryset(self):
         """list 时进行自定义的过滤，
@@ -81,7 +89,39 @@ class ClubViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         return self.query_restrain(queryset)
 
+    @action(detail=True, methods=['GET'])
+    def membership(self, request, pk=None):
+        """当前社团拥有的所有membership"""
+        queryset = Membership.objects.filter(club=self.get_object())
+        serializer = MembershipSerializerADMIN(
+            queryset, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
+
 
 class MembershipViewSet(viewsets.ModelViewSet):
     queryset = Membership.objects.all()
     serializer_class = MembershipSerializerADMIN
+
+    def get_permissions(self):
+        if self.action in ['list']:
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
+    def query_restrain(self, queryset)->queryset:
+        """基本的query集合约束，非常有用"""
+        return queryset.filter(club__userProfileClub__userProfile=self.request.user,
+                               club__userProfileClub__membership__is_admin=True)
+
+    # def get_object_or_404(self, queryset, *filter_args, **filter_kwargs):
+    #     """被get_object调用，用于自定义retrieve"""
+    #     queryset = self.query_restrain(queryset)
+    #     return super().get_object_or_404(queryset, *filter_args, **filter_kwargs)
+
+    def get_queryset(self):
+        """list 时进行自定义的过滤，
+            只列出自己管理的Club"""
+        queryset = super().get_queryset()
+        return self.query_restrain(queryset)
