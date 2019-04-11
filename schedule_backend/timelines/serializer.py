@@ -72,7 +72,7 @@ class TimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Timeline
         fields = ('url', 'interviewTimeline', 'user',
-                  'startTime', 'duration', 'timeID')
+                  'startTime', 'duration','passed', 'timeID')
 
 
 class InStateSerializerADMIN(serializers.HyperlinkedModelSerializer):
