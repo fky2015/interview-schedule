@@ -7,26 +7,11 @@ class UserProfileSerializerUSER(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('url',
-                  'username', 'realname',
+                  'username', 'realname', 'wechat_openID',
                   'email', 'mobile')
 
 
-class UserProfileSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ('url',
-                  'username', 'realname',
-                  'email', 'mobile', 'groups')
-
-
-class ClubSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Club
-        fields = ('url',
-                  'name', 'intro', 'avatar')
-
-
-class ClubSerializerADMIN(serializers.HyperlinkedModelSerializer):
+class ClubSerializerUSER(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Club
         fields = ('url',
@@ -34,7 +19,7 @@ class ClubSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
 
 class UserProfileClubSerializerUSER(serializers.HyperlinkedModelSerializer):
-    club = ClubSerializerPUBLIC(read_only=True)
+    club = ClubSerializerUSER(read_only=True)
     # club = serializers.HyperlinkedRelatedField(
     #     read_only=True,
     #     view_name="club-detail"
@@ -48,12 +33,45 @@ class UserProfileClubSerializerUSER(serializers.HyperlinkedModelSerializer):
 
 
 class MembershipSerializerUSER(serializers.HyperlinkedModelSerializer):
-    club = ClubSerializerPUBLIC()
+    club = ClubSerializerUSER()
 
     class Meta:
         model = Membership
         fields = (
             "url", "club",  "name",
-            "can_edit", "can_schedule", "can_export",
+            "is_admin",
+            "date_created"
+        )
+
+
+##########################################
+#
+# #      USER ABOVE, ADMIN BELOW
+#
+##########################################
+
+class UserProfileSerializerADMIN(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('url',
+                  'username', 'realname',
+                  'email', 'mobile', 'groups')
+
+
+class ClubSerializerADMIN(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Club
+        fields = ('url',
+                  'name', 'intro', 'avatar')
+
+
+class MembershipSerializerADMIN(serializers.HyperlinkedModelSerializer):
+    club = ClubSerializerADMIN()
+
+    class Meta:
+        model = Membership
+        fields = (
+            "url", "club",  "name",
+            "is_admin",
             "date_created"
         )

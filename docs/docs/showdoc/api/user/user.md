@@ -13,7 +13,7 @@
 `/api/user/`
 
   
-**详见url**
+## 详见url
 
 (https://dev.fkynjyq.com/api/user/)[https://dev.fkynjyq.com/api/user/]
 
@@ -31,9 +31,9 @@
 
 ## 权限
 
-| 用户\方法 | user | club | timeline |
+| 用户\方法 | update| | club | timeline |
 | --------- | --------- | ---- | -------- |
-| 所有用户  | 自己 rw   | r    | r        |
+| 普通用户  |y | r    | r        ||\
 
 
 ### club

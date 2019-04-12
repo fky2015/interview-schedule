@@ -1,21 +1,18 @@
 from .models import Interview, InterviewTimeline, Timeline, InState
+from users.serializer import MembershipSerializerUSER
 from rest_framework import serializers
 
 
-class InterviewSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
+class InterviewSerializerUSER(serializers.HyperlinkedModelSerializer):
+    # out_state = MembershipSerializerUSER(read_only=True)
+
     class Meta:
         model = Interview
-        fields = ('url', 'club', 'title',
-                  'description', 'edit_finish', 'is_public', 'out_state')
+        fields = ('url', 'club', 'title', 'description',
+                  'edit_finish', 'is_public', 'out_state')
 
 
-class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Interview
-        fields = ('url', 'club', 'title')
-
-
-class InterviewTimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
+class InterviewTimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
 
     # interview = InterviewSerializerPUBLIC()
 
@@ -26,16 +23,10 @@ class InterviewTimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
 # 仅仅被用户使用的话，不需要user这个field
 
 
-class InterviewTimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = InterviewTimeline
-        fields = ('url', 'interview', 'location')
-
-
 class TimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
     """用于user查看自己的timeline"""
 
-    interviewTimeline = InterviewTimelineSerializerPUBLIC(read_only=True)
+    interviewTimeline = InterviewTimelineSerializerUSER(read_only=True)
     # TODO may be 换成 USER的？
 
     class Meta:
@@ -52,11 +43,36 @@ class TimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
                   'startTime', 'duration', 'timeID')
 
 
+class InStateSerializerUSER(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = InState
+        fields = ('url', 'interview', 'membership')
+
+##########################################
+#
+# #      USER ABOVE, ADMIN BELOW
+#
+##########################################
+
+
+class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Interview
+        fields = ('url', 'club', 'title')
+
+
+class InterviewTimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = InterviewTimeline
+        fields = ('url', 'interview', 'location')
+
+
 class TimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Timeline
         fields = ('url', 'interviewTimeline', 'user',
-                  'startTime', 'duration', 'timeID')
+                  'startTime', 'duration','passed', 'timeID')
 
 
 class InStateSerializerADMIN(serializers.HyperlinkedModelSerializer):

@@ -1,6 +1,6 @@
 
     
-**简要描述：** 
+## 简要描述 
 
 - 查看自己所有的timeline
 - 并且可以取消报名
@@ -9,7 +9,7 @@
 
 只读，除非是超级管理员
 
-**请求URL：** 
+## 请求URL 
 
 `/api/timeline/`
 
@@ -18,7 +18,7 @@
 
 分别报名和取消，详见api
   
-**详见url**
+## 详见url
 
 (https://dev.fkynjyq.com/api/timeline/)[https://dev.fkynjyq.com/api/timeline/]
 

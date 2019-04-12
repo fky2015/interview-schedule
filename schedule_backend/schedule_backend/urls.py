@@ -17,38 +17,37 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from rest_framework import routers, serializers, viewsets
-from users import views as user_view
-from timelines import views as timeline_view
+from wechattoken import views
+from users import views_user as user_view
+from timelines import views_user as timeline_view
 
+from users import views_admin as user_view_admin
+from timelines import views_admin as timeline_view_admin
+
+# 普通用户接口
 router = routers.DefaultRouter()
-# public 共有信息
-# router.register('public/users', user_view.UserProfileViewSetPUBLIC)
-router.register('club', user_view.ClubViewSet)
-router.register('interview', timeline_view.InterviewViewSet)
-router.register('interviewTimeline',
-                timeline_view.InterviewTimelineViewSet)
-router.register('timeline', timeline_view.TimelineViewSet)
-
-
-# user 用户自己的信息
 router.register('user', user_view.CurrentUserViewSet)
-# router.register('membership', user_view.MembershipViewSet)
-# router.register('userProfileClub', user_view.UserProfileClubViewSet)
+router.register('club', user_view.ClubViewSet)
+router.register('membership', user_view.MembershipViewSet)
 
-# # club 后台管理者相关的
-# router.register('instate', timeline_view.InStateViewSet)
-# router.register('admin/club', user_view.ClubViewSetADMIN, basename="admin")
-# router.register('admin/interview',
-#                 timeline_view.InterviewViewSetADMIN, basename="admin")
-# router.register('admin/interviewTimeline',
-#                 timeline_view.InterviewTimelineViewSetADMIN)
-# router.register('admin/timeline',
-#                 timeline_view.TimelineViewSetADMIN, basename="admin")
+
+# 管理者接口
+router_admin = routers.DefaultRouter()
+router_admin.register('user', user_view_admin.UserProfileViewSet)
+router_admin.register('club', user_view_admin.ClubViewSet)
+router_admin.register('membership', user_view_admin.MembershipViewSet)
+router_admin.register('interview', timeline_view_admin.InterviewViewSet)
+router_admin.register('interviewTimeline',
+                      timeline_view_admin.InterviewTimelineViewSet)
+router_admin.register('timeline', timeline_view_admin.TimelineViewSet)
+router_admin.register('instate', timeline_view_admin.InStateViewSet)
 
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),  # get current user
     path(r'api/', include(router.urls)),
-    url(r'api-auth/', include('rest_framework.urls'), name='rest_framework')
+    path(r'api-admin/', include(router_admin.urls)),
+    url(r'api-auth/', include('rest_framework.urls'), name='rest_framework'),
+    path(r'api_token_auth/', views.obtain_auth_token),
 ]

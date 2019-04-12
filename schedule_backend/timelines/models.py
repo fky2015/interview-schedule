@@ -16,7 +16,8 @@ class Interview(models.Model):
     edit_finish = models.BooleanField(default=False)  # 是否处于可编辑状态
     is_public = models.BooleanField(
         verbose_name="if it's public", default=False)
-    out_state = models.ForeignKey(Membership,on_delete=models.PROTECT)  # 面试成功后要到达的状态
+    out_state = models.ForeignKey(
+        Membership, on_delete=models.PROTECT, null=True)  # 面试成功后要到达的状态
 
     class Meta:
         order_with_respect_to = 'club'
@@ -71,6 +72,7 @@ class Timeline(models.Model):
     timeID = models.IntegerField(default=0)
     startTime = models.DateTimeField()
     duration = models.IntegerField(verbose_name="duration( /minutes)")
+    comment = models.TextField(verbose_name="comment", max_length=200,default="")
     passed = models.BooleanField(
         verbose_name="pass the interview", default=False)
 

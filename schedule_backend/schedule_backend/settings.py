@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'timelines',
     'users',
     'rest_framework',
+    'wechattoken',
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
@@ -147,6 +148,7 @@ else:
         # or allow read-only access for unauthenticated users.
         'DEFAULT_PERMISSION_CLASSES': [
             # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+            'wechattoken.authentication.WechatTokenAuthentication',
         ]
     }
 
