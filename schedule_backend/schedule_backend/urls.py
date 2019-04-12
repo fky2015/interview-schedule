@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from rest_framework import routers, serializers, viewsets
+from wechattoken import views
 from users import views_user as user_view
 from timelines import views_user as timeline_view
 
@@ -47,5 +48,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # get current user
     path(r'api/', include(router.urls)),
     path(r'api-admin/', include(router_admin.urls)),
-    url(r'api-auth/', include('rest_framework.urls'), name='rest_framework')
+    url(r'api-auth/', include('rest_framework.urls'), name='rest_framework'),
+    path(r'api_token_auth/', views.obtain_auth_token),
 ]
