@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'timelines',
     'users',
-    'rest_framework',
     'wechattoken',
+    'rest_framework',
+
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
