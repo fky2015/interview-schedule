@@ -8,18 +8,23 @@ api具体操作全部由django-rest-famework提供
 
 查看具体细节
 
-## basename规范
-
-**废弃**
-
-可以不用管这个标题是什么意思，
-
-总之就是说，接口分为
 
 - 专门针对普通用户的
 - 专门针对管理用户的 
 
-- ~~public 任意调用的接口~~
-- ~~user 用户调用该接口会获得和自己相关的信息~~
-- ~~admin 用户作为社团管理员可以调用的接口~~
+
+## 小程序
+
+小程序使用post请求将用户的code发送给该视图,obtai_auth_token会生成并返回一个token
+
+```python
+{ 'token' : '9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b' }
+```
+
+将token存储在本地,之后的请求只需要在请求头中携带Authorization即可
+
+```python
+Authorization: WToken 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
+```
+
 
