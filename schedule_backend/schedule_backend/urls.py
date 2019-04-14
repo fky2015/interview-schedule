@@ -27,13 +27,13 @@ from timelines import views_admin as timeline_view_admin
 
 # 普通用户接口
 router = routers.DefaultRouter()
-router.register('user', user_view.CurrentUserViewSet, basename='api')
-router.register('club', user_view.ClubViewSet, basename='api')
-router.register('membership', user_view.MembershipViewSet, basename='api')
-router.register('interview', timeline_view.InterviewViewSet, basename='api')
+router.register('user', user_view.CurrentUserViewSet, basename='user')
+router.register('club', user_view.ClubViewSet, basename='club/')
+router.register('membership', user_view.MembershipViewSet, basename='membership/')
+router.register('interview', timeline_view.InterviewViewSet, basename='interview/')
 router.register('interviewTimeline',
-                timeline_view.InterviewTimelineViewSet, basename='api')
-router.register('timeline', timeline_view.TimelineViewSet, basename='api')
+                timeline_view.InterviewTimelineViewSet, basename='interviewTimeline')
+router.register('timeline', timeline_view.TimelineViewSet, basename='timeline/')
 
 
 # 管理者接口
@@ -57,12 +57,12 @@ urlpatterns = [
     path(r'api_token_auth/', views.obtain_auth_token),
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         path('__debug__/', include(debug_toolbar.urls)),
 
-        # For django versions before 2.0:
-        # url(r'^__debug__/', include(debug_toolbar.urls)),
+#         # For django versions before 2.0:
+#         # url(r'^__debug__/', include(debug_toolbar.urls)),
 
-    ] + urlpatterns
+#     ] + urlpatterns
