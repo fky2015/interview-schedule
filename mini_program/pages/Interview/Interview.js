@@ -145,7 +145,7 @@ Page({
                         classInterview: 'foot',
                         footDist: 0
                     });
-                }, 0
+                }, 290
             );
         }
     },
