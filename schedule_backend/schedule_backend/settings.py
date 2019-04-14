@@ -195,5 +195,4 @@ else:
         )
     }
 
-if not DEBUG:
-    STATIC_ROOT = '/usr/share/nginx/html/static/'
+STATIC_ROOT = '/usr/share/nginx/html/static/'
