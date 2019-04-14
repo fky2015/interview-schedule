@@ -95,3 +95,4 @@ local_settings.py
 
 .env
 schedule_backend/db.sqlite3
+schedule_backend/schedule_backend/secret.py

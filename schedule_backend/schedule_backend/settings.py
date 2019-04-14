@@ -20,6 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&y&q+-uf03y!h8hmbukee4)+qvqclka&es(#$pjp5&ym4oovtw'
+WECHAT_APPID = "wx0a7c63d5eed29979"
+WECHAT_SECRET = '301b91e88894ca90e930c077b55e849a'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.getenv("DEPLOY_MOD"):
@@ -38,12 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wechattoken',
     'timelines',
     'users',
-    'wechattoken',
+
     'rest_framework',
 
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
 
 AUTH_USER_MODEL = "users.UserProfile"
 
@@ -56,6 +63,28 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE = MIDDLEWARE[:2] + \
+        ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE[2:]
+    DEBUG_TOOLBAR_PANELS = [
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalsPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+    ]
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
 
 ROOT_URLCONF = 'schedule_backend.urls'
 
@@ -140,6 +169,15 @@ if DEBUG:
     REST_FRAMEWORK = {
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
         'PAGE_SIZE': 10,
+        'DEFAULT_PERMISSION_CLASSES': [
+            # 'rest_framework.permissions.AllowAny',
+        ],
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.BasicAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            'wechattoken.authentication.WechatTokenAuthentication',
+        )
+
     }
 else:
     REST_FRAMEWORK = {
@@ -149,8 +187,13 @@ else:
         # or allow read-only access for unauthenticated users.
         'DEFAULT_PERMISSION_CLASSES': [
             # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        ],
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.BasicAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
             'wechattoken.authentication.WechatTokenAuthentication',
-        ]
+        )
     }
 
-STATIC_ROOT = '/usr/share/nginx/html/static/'
+if not DEBUG:
+    STATIC_ROOT = '/usr/share/nginx/html/static/'

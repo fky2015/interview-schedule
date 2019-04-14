@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from django.conf import settings
 from rest_framework import routers, serializers, viewsets
 from wechattoken import views
 from users import views_user as user_view
@@ -26,9 +27,13 @@ from timelines import views_admin as timeline_view_admin
 
 # 普通用户接口
 router = routers.DefaultRouter()
-router.register('user', user_view.CurrentUserViewSet)
-router.register('club', user_view.ClubViewSet)
-router.register('membership', user_view.MembershipViewSet)
+router.register('user', user_view.CurrentUserViewSet, basename='api')
+router.register('club', user_view.ClubViewSet, basename='api')
+router.register('membership', user_view.MembershipViewSet, basename='api')
+router.register('interview', timeline_view.InterviewViewSet, basename='api')
+router.register('interviewTimeline',
+                timeline_view.InterviewTimelineViewSet, basename='api')
+router.register('timeline', timeline_view.TimelineViewSet, basename='api')
 
 
 # 管理者接口
@@ -51,3 +56,13 @@ urlpatterns = [
     url(r'api-auth/', include('rest_framework.urls'), name='rest_framework'),
     path(r'api_token_auth/', views.obtain_auth_token),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+
+        # For django versions before 2.0:
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
+
+    ] + urlpatterns
