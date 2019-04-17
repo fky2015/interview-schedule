@@ -1,5 +1,5 @@
 .idea
 
 **/*__pycache__
-
+./web_front_end/vuetify_1/node_modules
 schedule_backend/image
