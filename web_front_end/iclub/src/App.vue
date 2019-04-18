@@ -2,25 +2,21 @@
   <v-app>
     <tool-bar></tool-bar>
     <router-view/>
-    
   </v-app>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld'
-import ToolBar from './components/ToolBar'
+import HelloWorld from "./components/HelloWorld";
+import ToolBar from "./components/ToolBar";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HelloWorld,
     ToolBar
   },
-  data () {
-    return {
-      //
-    }
+  data() {
+    return {};
   }
-}
+};
 </script>
 
 

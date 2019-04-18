@@ -1,21 +1,28 @@
 <template>
-    <v-container class="yellow lighten--3">
-        <v-layout column>
-            <v-parallax src="http://pic.rmb.bdstatic.com/95722cd48dc2b3c6bc571116a7da5c94.jpeg">
-                <v-layout align-center column justify-center>
-                    <h1 class="display-3 font-weight-bold mb-3">
-                        社团广场
-                    </h1>
-                </v-layout>
-            </v-parallax>
-        </v-layout>
-    </v-container>
+  <v-container class="container elevation-3">
+    <v-layout align-center column>
+      <h1 class="display-3" id="title">
+        社团广场
+        <hr class="title-underline">
+      </h1>
+      <hr class="title-underline">
+    </v-layout>
+    <card-info v-for="i in 10" :key="i"></card-info>
+  </v-container>
 </template>
 <script>
+import CardInfo from "../components/CardInfo";
 export default {
-    
-}
+  components: {
+    CardInfo
+  }
+};
 </script>
 <style>
-
+#title {
+  padding: 10px;
+}
+.title-underline {
+  border: 1px solid;
+}
 </style>

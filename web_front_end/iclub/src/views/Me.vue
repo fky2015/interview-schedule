@@ -1,17 +1,17 @@
 <template>
-    <v-container class="yellow">
-        <v-layout column align-center>
-            <v-avatar>
-                <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" alt="avatar">
-            </v-avatar>
-        </v-layout>
-    </v-container>    
+  <v-container class="yellow">
+    <v-layout column align-center>
+      <v-avatar>
+        <img
+          src="http://img.touxiangzhan.com/upload/image/4a1490838412n2103307902t15.jpg"
+          alt="avatar"
+        >
+      </v-avatar>
+    </v-layout>
+  </v-container>
 </template>
 <script>
-export default {
-    
-}
+export default {};
 </script>
 <style>
-
 </style>
