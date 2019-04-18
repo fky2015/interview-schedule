@@ -1,10 +1,11 @@
 <template>
   <v-toolbar>
+    
     <v-toolbar-title class="headline">
-      <span class="font-weight-bold">社团面试系统</span>
+      <span class="font-weight-bold">i社团</span>
     </v-toolbar-title>
-
-    <v-btn outline href="#/" class="red--text text--lighten--1">
+    
+    <v-btn outline href="#/" class="red--text text--lighten-1">
       <span>广场</span>
     </v-btn>
 
@@ -21,9 +22,11 @@
       href="https://github.com/vuetifyjs/vuetify/releases/latest"
       class="red--text text--lighten--1"
     >
-      <span>登陆</span>
+    <span>登陆</span>
     </v-btn>
+    
   </v-toolbar>
+  
 </template>
 <script>
 export default {
