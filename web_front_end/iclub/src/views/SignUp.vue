@@ -21,6 +21,7 @@
                   ></v-text-field>
 
                   <v-text-field
+                    color="red"
                     prepend-icon="email"
                     v-model="email"
                     :rules="emailRules"
@@ -29,6 +30,7 @@
                   ></v-text-field>
 
                   <v-text-field
+                    color="red"
                     v-model="password"
                     :rules="passwordRules"
                     label="密码"
@@ -41,6 +43,7 @@
                   ></v-text-field>
 
                   <v-text-field
+                    color="red"
                     v-model="confirm_password"
                     :rules="confirmPasswordRules"
                     label="确认密码"
@@ -48,10 +51,11 @@
                     prepend-icon="lock"
                     :append-icon="showPassword ? 'visibility' : 'visibility_off'"
                     :type="showPassword ? 'text' : 'password'"
-                    @click:append="resetConfirmPassword()"
+                    @click:append="showPassword = !showPassword"
                   ></v-text-field>
 
                   <v-checkbox
+                    color="red"
                     v-model="checkbox"
                     :rules="[v => !!v || '必须同意才能继续']"
                     label="勾选以同意免责协定"
