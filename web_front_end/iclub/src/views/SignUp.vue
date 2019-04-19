@@ -12,6 +12,7 @@
               <v-card-text>
                 <v-form ref="form" v-model="valid" lazy-validation>
                   <v-text-field
+                    color="red"
                     prepend-icon="person"
                     v-model="name"
                     :rules="nameRules"
