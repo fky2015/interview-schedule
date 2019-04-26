@@ -1,7 +1,5 @@
 Django
 djangorestframework
 Pillow
-psycopg2
 pytz
-uwsgi
 requests
