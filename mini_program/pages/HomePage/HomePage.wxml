@@ -16,6 +16,7 @@
             <image class='image' src='../../lib/pv1.jpeg' mode='aspectFill'  
             bindtap='gotoNotice'>
                 <view class='title'>
+                    <text class='category'>开发者说</text>
                     <text class="text">Hello world! \n欢迎使用我们的小程序！</text>
                 </view>
             </image>
@@ -25,7 +26,8 @@
             <image class='image' src='../../lib/pv4.jpeg' mode='aspectFill'  
             bindtap='gotoNotice'>
                 <view class='title'>
-                    <text class="text">开发者说：\n如何成为一个合格的肝帝？</text>
+                    <text class='category'>开发者说</text>
+                    <text class="text">如何成为一个合格的肝帝？</text>
                 </view>
             </image>
         </view>
@@ -34,6 +36,7 @@
             <image class='image' src='../../lib/pv2.jpg' mode='aspectFill'
             bindtap='gotoNotice'>
                 <view class='title'>
+                    <text class='category'>社团新闻</text>
                     <text class="text">学生电视中心\n招新了！</text>
                 </view>
             </image>
@@ -43,6 +46,7 @@
             <image class='image' src='../../lib/pv3.png' mode='aspectFill'
             bindtap='gotoNotice'>
                 <view class='title'>
+                    <text class='category'>了解我们</text>
                     <text class="text">这是一份网络开拓者协会各部门的详细介绍，请查收！</text>
                 </view>
             </image>

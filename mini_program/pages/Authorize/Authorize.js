@@ -48,7 +48,7 @@ Page({
                 if(res.authSetting['scope.userInfo']) {
                     that.setData({
                         hasUserInfo: true
-                    })
+                    });
                     console.log(that.data.hasUserInfo);
 
                     wx.getUserInfo({
@@ -58,18 +58,30 @@ Page({
                         }
                     })
 
+                    wx.login({
+                        success: function (res) {
+                            wx.request({
+                                url: 'https://dev.fkynjyq.com/api_token_auth/', //接口地址
+                                method: 'POST',
+                                data: { code: res.code },
+                                header: {
+                                    'content-type': 'application/json' //为适应post方法
+                                },
+                                success: function (res) {
+                                    console.log(res.data)
+                                    console.log(app.globalData.openid);
+                                }
+                            })
+                        }
+                    })
+
                     setTimeout(
                         function () {
                             wx.switchTab({
                                 url: '../HomePage/HomePage',
                             })
                         }, 2000
-                    ) //该部分在完成login页面后要取消注释
-
-                    //下面的跳转api要在之后注释掉，此处增加是为了方便调试
-                    /*wx.navigateTo({
-                        url: '../LogIn/LogIn',
-                    })*/
+                    );
                 }
 
                 else {
