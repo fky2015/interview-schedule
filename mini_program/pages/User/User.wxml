@@ -1,0 +1,62 @@
+<!--pages/User/User.wxml-->
+<view class='back'>
+
+    <view class="userInfo">
+        <image class="userInfoAvatar" src="{{avatarUrl}}" mode="cover"></image>
+        <text class="userInfoName">{{name}}
+            <text class='myClub'>我的社团</text>
+        </text>
+
+        <view class='topButton' bindtap='gotoMyInterview' hover-class='hoverBtn'>
+            我的面试
+            <view class='arrow' hover-class='hoverArrow'>
+                <view class='blank' hover-class='hoverBlank'></view>
+            </view>
+        </view>
+    </view>
+
+    <view class='usersClub'>
+        <view class='club'>
+            <image class='clubImage' src='../../lib/pv2.jpg' 
+            mode='aspectFill'></image>
+            <text class='clubName'>学生电视中心</text>  
+        </view>
+
+        <view class='club'>
+            <image class='clubImage' src='../../lib/pv3.png' 
+            mode='aspectFill'></image>
+            <text class='clubName'>网络开拓者协会</text>
+        </view>
+
+        <view class='club'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <view class='clubName'>学生电视中心</view>
+        </view>
+
+        <view class='club'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <view class='clubName'>学生电视中心</view>
+        </view>
+
+        <view class='club'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <view class='clubName'>学生电视中心</view>
+        </view>
+
+        <view class='club'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <view class='clubName'>学生电视中心</view>
+        </view>
+
+        <view class='club'>
+            <image class='clubImage' src='../../lib/pv2.jpg'
+            mode='aspectFill'></image>
+            <view class='clubName'>学生电视中心</view>
+        </view>
+    </view>
+
+</view>

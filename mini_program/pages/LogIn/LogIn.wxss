@@ -1,0 +1,70 @@
+/* pages/LogIn/LogIn.wxss */
+
+.back{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 150rpx;
+    width: 70vw;
+    position: absolute;
+    top: 50rpx;
+    background-color: #ffffff;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 200rpx;
+    background-color: #eeeeee;
+}
+
+.sectionName{
+    position: relative;
+    top: 10rpx;
+    margin-left: 30rpx;
+}
+
+.input{
+    height: 90rpx;
+    width: 75vw;
+    margin-top: 10rpx;
+    border: 1px #aaaaaa solid;
+    border-radius: 10rpx;
+    background-color: white;
+}
+
+.btnView{
+    align-items: center;
+    height: 110rpx;
+    width: 70vw;
+    position: relative;
+    top: 100rpx;
+    left: 23rpx;
+    color: #000000;
+    background-color: #eeeeee;
+}
+
+.btn{
+    background-color: #dddddd;
+    color: #000000;
+}
+
+.btn::after{
+    border: 3px solid #333333;
+}
+
+.hoverBtn{
+    background-color: #aaaaaa;
+}

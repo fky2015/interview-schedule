@@ -1,0 +1,38 @@
+version: "2"
+services:
+  app:
+    image: fkynjyq/interview_schedule.web:master
+    restart: always
+    ports:
+      - 10101:80
+    depends_on:
+      - db
+    environment:
+        DEPLOY_MOD: 1
+        VIRTUAL_HOST: dev.fkynjyq.com
+        LETSENCRYPT_HOST: dev.fkynjyq.com
+        LETSENCRYPT_MAIL: mail@fkynjyq.com
+    networks:
+      - default
+      - nginx-proxy
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: myapp
+  docs:
+    image: fkynjyq/interview_schedule.docs:master
+    restart: always
+    ports:
+      - 12333:80
+    environment:
+      VIRTUAL_HOST: devdocs.fkynjyq.com
+      LETSENCRYPT_HOST: devdocs.fkynjyq.com
+      LETSENCRYPT_MAIL: mail@fkynjyq.com
+    networks:
+      - default
+      - nginx-proxy
+networks:
+  nginx-proxy:
+    external: true

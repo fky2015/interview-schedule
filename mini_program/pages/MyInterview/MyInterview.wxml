@@ -1,0 +1,59 @@
+<!--pages/MyInterview/MyInterview.wxml-->
+<view class='back'>
+     
+    <view class='items'>
+        <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+            <view class='infomation'>
+                <text class='club'>学生电视中心</text>
+                <text class='title'>秋季面试第一场</text>
+                <text class='dateTime'>2019年9月20日 9:00-9:10</text>
+                <text class='place'>地点：2B-201</text>
+            </view>
+        </image>
+    </view>
+
+    <view class='items'>
+        <image class='logo' src='../../lib/pv3.png' mode='aspectFill'>
+            <view class='infomation'>
+                <text class='club'>网络开拓者协会</text>
+                <text class='title'>秋季面试第一场</text>
+                <text class='dateTime'>2019年9月20日 9:00-9:10</text>
+                <text class='place'>地点：2B-201</text>
+            </view>
+        </image>
+    </view>
+
+    <view class='items'>
+        <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+            <view class='infomation'>
+                <text class='club'>学生电视中心</text>
+                <text class='title'>秋季面试第一场</text>
+                <text class='dateTime'>2019年9月20日 9:00-9:10</text>
+                <text class='place'>地点：2B-201</text>
+            </view>
+        </image>
+    </view>
+
+    <view class='items'>
+        <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+            <view class='infomation'>
+                <text class='club'>学生电视中心</text>
+                <text class='title'>秋季面试第一场</text>
+                <text class='dateTime'>2019年9月20日 9:00-9:10</text>
+                <text class='place'>地点：2B-201</text>
+            </view>
+        </image>
+    </view>
+
+    <view class='items'>
+        <image class='logo' src='../../lib/pv2.jpg' mode='aspectFill'>
+            <view class='infomation'>
+                <text class='club'>学生电视中心</text>
+                <text class='title'>秋季面试第一场</text>
+                <text class='dateTime'>2019年9月20日 9:00-9:10</text>
+                <text class='place'>地点：2B-201</text>
+            </view>
+        </image>
+    </view>
+
+</view>

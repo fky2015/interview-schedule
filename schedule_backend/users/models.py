@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-
 # Create your models here.
 
-# 采用继承AbstractUser 的方式，而不是使用 OneToOneFiled
+# 用户
 
 
 class UserProfile(AbstractUser):
@@ -14,49 +12,80 @@ class UserProfile(AbstractUser):
         ('secret', '保密'),
 
     )
+    # 学号是username
     intro = models.TextField(verbose_name="self introduction", blank=True)
-    real_name = models.CharField(verbose_name="real name", max_length=50)
+    realname = models.CharField(verbose_name="real name", max_length=50)
     gender = models.CharField(
         verbose_name="性别", choices=GENDER_CHOICE, default='secret', max_length=8)
-    studentID = models.CharField(verbose_name="student id", max_length=10, help_text='学号，一般来说是十位（BIT）')
     wechat_openID = models.CharField(max_length=100, blank=True)
-    mobile = models.CharField(max_length=11)
+    mobile = models.CharField(max_length=11, unique=True)
     avatar = models.ImageField(upload_to='image', blank=True,
                                null=True, default="image/default.png", max_length=100)
 
     class Meta:
         verbose_name = "user information"
         verbose_name_plural = verbose_name
-        ordering = ['studentID']
+        ordering = ['id']
 
     def __str__(self):
         return self.username
 
 
+# 社团
 class Club(models.Model):
-    userProfile = models.ManyToManyField(UserProfile)
-    name = models.CharField(verbose_name="社团名称", max_length=100)
+    VERIFY_CHOICE = (
+        ('unverified', '验证中'),
+        ('failed', '未通过'),
+        ('pass', '通过'),
+    )
+
+    # userProfile = models.ManyToManyField(UserProfile)
+    name = models.CharField(verbose_name="社团名称", max_length=100, unique=True)
     intro = models.TextField(verbose_name="self_introduction", blank=True)
     avatar = models.ImageField(
         upload_to='image', blank=True, null=True, max_length=100)
+    verified = models.CharField(
+        verbose_name="验证状态", choices=VERIFY_CHOICE, default='unverified', max_length=10)  # TODO
+
+    class Meta():
+        verbose_name = 'club'
+        verbose_name_plural = "clubs"
 
     def __str__(self):
         return self.name
 
 
-# 存在的意义尚不明确，尤其是被面试的关系不应当在里面体现
+# Many to Many 的表，存放Membership
+class UserProfileClub(models.Model):
+    userProfile = models.ForeignKey(
+        UserProfile, related_name="userProfileClub", on_delete=models.CASCADE)
+    club = models.ForeignKey(
+        Club, related_name="userProfileClub", on_delete=models.CASCADE)
+    membership = models.ForeignKey("Membership", related_name="userProfileClub", on_delete=models.SET_NULL, blank=True,
+                                   null=True,)  # 当存在这条，而membership为NULL和不存在这条有什么区别呢
+
+    class Meta:
+        unique_together = ('userProfile', 'club')  # 多列联合唯一性约束
+
+    def __str__(self):
+        return '['+str(self.userProfile) + ']-[' + str(self.club)+']'
 
 
 class Membership(models.Model):
-    MEMBERSHIP_LEVEL = (
-        ('interviewer', '面试者'),
-        ('interviewee', '被面试者')
-    )  # TODO: 加入更合理的选项
-    userProfile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    date_joined = models.DateField()
-    level = models.CharField(max_length=12, choices=MEMBERSHIP_LEVEL)
+    # 外键： Club interview
+    club = models.ForeignKey(
+        Club, related_name="membership", on_delete=models.CASCADE)  # 一个 社团有多个角色
+    # 名称唯一
+    name = models.CharField(verbose_name="关系名称", max_length=50)
+    is_admin = models.BooleanField(verbose_name="是否为社团管理者", default=False)
+    # can_schedule = models.BooleanField(verbose_name="是否可以安排面试", default=False)
+    # can_export = models.BooleanField(verbose_name="是否可以导出信息", default=False)
+    date_created = models.DateField(auto_now=True)
 
-    class Meta():
+    class Meta:
         verbose_name = 'membership'
         verbose_name_plural = verbose_name
+        unique_together = ('club', 'name')  # 多列联合唯一性约束
+
+    def __str__(self):
+        return f"{self.club} - {self.name}"

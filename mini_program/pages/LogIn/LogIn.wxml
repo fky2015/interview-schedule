@@ -1,0 +1,37 @@
+<!--pages/LogIn/LogIn.wxml-->
+<view class='back'>
+
+    <view class='title'>
+        <text style='color: black; font-size: 55rpx'>用户注册</text>
+    </view>
+
+    <form class='form'>
+
+        <text class='sectionName' style='color: #222222; font-size: 30rpx;'>姓名</text>
+        <view class='input'>
+            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的真实姓名' name="userName" maxlength='10'></input>
+        </view>
+
+        <text class='sectionName' style='color: #222222; font-size: 30rpx;'>学号</text>
+        <view class='input'>
+            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的真实学号' name="studentID" maxlength='10'></input>
+        </view>
+
+        <text class='sectionName' style='color: #222222; font-size: 30rpx;'>手机号码</text>
+        <view class='input'>
+            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的11位手机号码' name="phoneNumber" maxlength='11'></input>
+        </view>
+
+        <text class='sectionName' style='color: #222222; font-size: 30rpx;'>电子邮箱</text>
+        <view class='input'>
+            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='example@gmail.com' name="userName"></input>
+        </view>
+
+        <view class="btnView">
+            <!--<button class='btn' hover-class='hoverBtn' formType="submit">注册</button> 完成后取消该语句的注释-->
+            <button class='btn' hover-class='hoverBtn' bindtap='skipToHome'>注册</button>
+        </view>
+
+    </form>
+
+</view>
