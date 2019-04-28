@@ -21,6 +21,15 @@ services:
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: myapp
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 10102:8080
+    environment:
+        VIRTUAL_HOST: db.fkynjyq.com
+        LETSENCRYPT_HOST: db.fkynjyq.com
+        LETSENCRYPT_MAIL: mail@fkynjyq.com
   docs:
     image: fkynjyq/interview_schedule.docs:master
     restart: always
