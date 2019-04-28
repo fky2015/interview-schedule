@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'wechattoken',
     'timelines',
     'users',
-
+    'feed',
     'rest_framework',
 
 ]
