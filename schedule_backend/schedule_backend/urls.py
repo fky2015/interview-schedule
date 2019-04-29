@@ -25,6 +25,9 @@ from timelines import views_user as timeline_view
 from users import views_admin as user_view_admin
 from timelines import views_admin as timeline_view_admin
 
+from .view import redirect_view
+import django_cas_ng.views
+
 # 普通用户接口
 router = routers.DefaultRouter()
 router.register('user', user_view.CurrentUserViewSet, basename='user')
@@ -50,11 +53,14 @@ router_admin.register('instate', timeline_view_admin.InStateViewSet)
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [
+    path(r'',redirect_view),
     path('admin/', admin.site.urls),  # get current user
     path(r'api/', include(router.urls)),
     path(r'api-admin/', include(router_admin.urls)),
     url(r'api-auth/', include('rest_framework.urls'), name='rest_framework'),
     path(r'api_token_auth/', views.obtain_auth_token),
+     path('accounts/login', django_cas_ng.views.LoginView.as_view(), name='cas_ng_login'),
+    path('accounts/logout', django_cas_ng.views.LogoutView.as_view(), name='cas_ng_logout'),
 ]
 
 # if settings.DEBUG:

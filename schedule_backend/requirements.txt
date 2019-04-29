@@ -3,3 +3,4 @@ djangorestframework
 Pillow
 pytz
 requests
+django_cas_ng
