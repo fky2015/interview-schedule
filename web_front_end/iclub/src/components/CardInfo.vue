@@ -18,13 +18,13 @@
                 <v-flex>
                   <h1 class="font-weight-thin" shrink>
                     学生电视中心
-                    <hr class>
+                    <hr class />
                   </h1>
                 </v-flex>
               </v-layout>
             </v-flex>
             <v-flex>
-              <br>
+              <br />
             </v-flex>
             <v-flex>
               <span>
@@ -36,12 +36,16 @@
         </v-card-title>
 
         <v-card-actions>
-          <v-spacer/>
-          <v-btn depressed href="#/sign-up" class="red lighten-1 white--text">更多</v-btn>
-          <v-btn depressed href="#/sign-up" class="red lighten-1 white--text">加入</v-btn>
-          <v-spacer/>
+          <v-spacer />
+          <v-btn depressed href="#/sign-up" class="red lighten-1 white--text"
+            >更多</v-btn
+          >
+          <v-btn depressed href="#/sign-up" class="red lighten-1 white--text"
+            >加入</v-btn
+          >
+          <v-spacer />
         </v-card-actions>
-        <br>
+        <br />
       </v-card>
     </v-hover>
   </v-container>
@@ -58,5 +62,4 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>

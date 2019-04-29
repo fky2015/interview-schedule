@@ -3,9 +3,9 @@
     <v-layout align-center column>
       <h1 class="display-3" id="title">
         社团广场
-        <hr class="title-underline">
+        <hr class="title-underline" />
       </h1>
-      <hr class="title-underline">
+      <hr class="title-underline" />
     </v-layout>
     <card-info v-for="i in 10" :key="i"></card-info>
   </v-container>
