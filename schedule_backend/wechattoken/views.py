@@ -25,20 +25,26 @@ class ObtainAuthToken(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
+        print("==============requrest start============")
         serializer = self.serializer_class(data=request.data)
+        print(serializer)
         serializer.is_valid(raise_exception=True)
+        print("serializer is valid")
         openid = serializer.validated_data['openid']
+        print(openid)
         session_key = serializer.validated_data['session_key']
-
+        print(session_key)
         user, _ = User.objects.get_or_create(
             username=openid,
             defaults={'password': openid}
         )
+        print(user)
         token, _ = Token.objects.update_or_create(
             user=user, openid=openid,
             defaults={'session_key': session_key, 'key': ''}
         )
-
+        print(token)
+        print("=============request end==============")
         return Response({'token': token.key})
 
 
