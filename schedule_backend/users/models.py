@@ -18,7 +18,7 @@ class UserProfile(AbstractUser):
     gender = models.CharField(
         verbose_name="性别", choices=GENDER_CHOICE, default='secret', max_length=8)
     wechat_openID = models.CharField(max_length=100, blank=True)
-    mobile = models.CharField(max_length=11, unique=True)
+    mobile = models.CharField(max_length=11, blank=True)
     avatar = models.ImageField(upload_to='image', blank=True,
                                null=True, default="image/default.png", max_length=100)
 
