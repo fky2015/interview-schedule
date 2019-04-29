@@ -138,6 +138,7 @@
 .hover{
     transform: scale(0.95, 0.95);
     transition: 300ms;
+    transition-delay: 10ms;
 }
 
 .logo{
