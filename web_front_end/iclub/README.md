@@ -1,4 +1,4 @@
-# about-page
+# iclub
 
 ## Project setup
 ```
