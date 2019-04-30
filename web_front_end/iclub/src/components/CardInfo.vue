@@ -37,7 +37,7 @@
 
         <v-card-actions>
           <v-spacer />
-          <v-btn depressed href="#/sign-up" class="red lighten-1 white--text"
+          <v-btn depressed href="#/club-info" class="red lighten-1 white--text"
             >更多</v-btn
           >
           <v-btn depressed href="#/sign-up" class="red lighten-1 white--text"

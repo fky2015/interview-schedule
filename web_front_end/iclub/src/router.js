@@ -33,9 +33,14 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/Square.vue")
     },
     {
-      path: "/me",
+      path: "/user-info/me",
       name: "me",
       component: () => import(/* webpackChunkName: "about" */ "./views/UserInfo.vue")
+    },
+    {
+      path: "/club-info",
+      name: "club-info",
+      component: () => import(/* webpackChunkName: "about" */ "./views/ClubInfo.vue")
     }
   ]
 });

@@ -4,32 +4,37 @@
       <v-flex>
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 8 : 2}`">
-            <v-img :src="wallpaperUrl" alt="social-pictures" class="elevation-1"></v-img>
+            <v-card-title>
+              <v-layout column justify-center>
+                <v-flex>
+                  <p class="display-3 font-weight-thin">{{clubName}}</p>
+                </v-flex>
+                <v-flex>
+                  <hr>
+                </v-flex>
+              </v-layout>
+            </v-card-title>
+            <v-img :src="wallpaperUrl" alt="social-pictures" class="elevation-1">
+              <v-avatar size="256" class="elevation-2" tile>
+                <v-img :src="avatarUrl"></v-img>
+              </v-avatar>
+            </v-img>
 
             <v-card-title class="cardTitle">
               <v-layout column justify-center align-center>
                 <v-flex>
                   <v-layout column justify-center align-center>
-                    <v-flex class shrink>
-                      <v-avatar size="256" class="elevation-2">
-                        <v-img :src="avatarUrl"></v-img>
-                      </v-avatar>
-                    </v-flex>
-                    <v-flex>
-                      <br>
-                      <p class="font-weight-thin display-2" shrink>{{userNickName}}</p>
-                      <hr>
-                    </v-flex>
-                    <v-layout column justify-start class="">
+                    <v-layout column justify-start class>
                       <v-layout row align-center>
                         <v-icon class="margin10">person</v-icon>
-                        <span class="font-weight-bold">{{userRealName}}</span>
+                        <span class="font-weight-bold">社团负责人:</span>
+                        <span class="font-weight-bold">{{clubCoordinator}}</span>
                       </v-layout>
                       <v-layout row align-center>
                         <v-icon class="margin10">email</v-icon>
                         <span class="font-weight-bold">{{userEmail}}</span>
                       </v-layout>
-                      <v-layout row align-center class="">
+                      <v-layout row align-center class>
                         <v-icon class="margin10">phone</v-icon>
                         <span class="font-weight-bold">{{userTelephone}}</span>
                       </v-layout>
@@ -38,7 +43,7 @@
                 </v-flex>
 
                 <v-flex>
-                    <br>
+                  <br>
                   <p>{{userSelfIntrodction}}</p>
                 </v-flex>
               </v-layout>
@@ -60,6 +65,8 @@
 <script>
 export default {
   data: () => ({
+    clubName: "学生电视中心",
+    clubCoordinator: "赵四",
     wallpaperUrl: "http://upload.art.ifeng.com/2017/0425/1493105660290.jpg",
     avatarUrl:
       "http://img.touxiangzhan.com/upload/image/4a1490838412n2103307902t15.jpg",
@@ -74,9 +81,9 @@ export default {
 </script>
 <style>
 .cardTitle {
-  margin-top: -150px;
+  margin-top: 0px;
 }
-.margin10{
-    margin: 5px;
+.margin10 {
+  margin: 5px;
 }
 </style>
