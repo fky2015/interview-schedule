@@ -4,21 +4,16 @@
       <v-flex>
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 8 : 2}`">
-            <v-card-title>
-              <v-layout column justify-center>
+            <v-card>
+              <v-layout column justify-center align-center>
+                <v-avatar size="256" tile class="margin10">
+                  <v-img :src="avatarUrl"></v-img>
+                </v-avatar>
                 <v-flex>
                   <p class="display-3 font-weight-thin">{{clubName}}</p>
                 </v-flex>
-                <v-flex>
-                  <hr>
-                </v-flex>
               </v-layout>
-            </v-card-title>
-            <v-img :src="wallpaperUrl" alt="social-pictures" class="elevation-1">
-              <v-avatar size="256" class="elevation-2" tile>
-                <v-img :src="avatarUrl"></v-img>
-              </v-avatar>
-            </v-img>
+            </v-card>
 
             <v-card-title class="cardTitle">
               <v-layout column justify-center align-center>
