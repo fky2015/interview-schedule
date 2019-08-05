@@ -1,5 +1,8 @@
 <!--pages/HomePage/HomePage.wxml-->
 <view class='back'>
+
+    <view wx:if="{{showMask}}" class='mask' animation='{{showAni}}'></view>
+
     <view class='topBar'>
         <view class='plaza'>广场</view>
         <view class='topButton' bindtap='gotoClubList' hover-class='hoverBtn'>

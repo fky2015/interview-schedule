@@ -5,7 +5,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        showAni: {},
+        showMask: 1
     },
 
     /**
@@ -19,7 +20,26 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
+        var that = this;
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease',
+            delay: 0
+        })
 
+        that.showAni = animation;
+        animation.opacity(0).step();
+        that.setData({
+            showAni: animation.export()
+        });
+
+        setTimeout(
+            function () {
+                that.setData({
+                    showMask: 0
+                })
+            }, 200
+        )
     },
 
     /**
