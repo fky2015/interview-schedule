@@ -15,7 +15,7 @@ before_install:
  
 
 install:
-  - sudo apt-get install -y -qq pip
+  - echo "install something"
 
   # missing test stage
 
