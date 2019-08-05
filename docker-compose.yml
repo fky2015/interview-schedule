@@ -1,7 +1,7 @@
 version: "2"
 services:
   app:
-    image: fkynjyq/interview_schedule.web:master
+    image: fkynjyq/interview_schedule.web:deploy
     restart: always
     ports:
       - 10101:80
@@ -21,6 +21,8 @@ services:
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: myapp
+    volumes: 
+      - interview-schedule-pgdata:/var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always
@@ -31,7 +33,7 @@ services:
         LETSENCRYPT_HOST: db.fkynjyq.com
         LETSENCRYPT_MAIL: mail@fkynjyq.com
   docs:
-    image: fkynjyq/interview_schedule.docs:master
+    image: fkynjyq/interview_schedule.docs:deploy
     restart: always
     ports:
       - 12333:80
@@ -45,3 +47,6 @@ services:
 networks:
   nginx-proxy:
     external: true
+
+volumes:
+  interview-schedule-pgdata:
