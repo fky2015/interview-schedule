@@ -5,14 +5,35 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        hiddenAni: {},
+        zIndex: 0
     },
 
     //该函数用于跳转至主页便于调试，请在上线之前将其注释掉
     skipToHome: function () {
-        wx.switchTab({
-            url: '../HomePage/HomePage',
+        var that = this;
+        var animation = wx.createAnimation({
+            duration: 300,
+            timingFunction: 'ease',
         })
+
+        that.setData({
+            zIndex: 1
+        })
+
+        that.hiddenAni = animation;
+        animation.opacity(1).step();
+        that.setData({
+            hiddenAni: animation.export()
+        });
+
+        setTimeout(
+            function () {
+                wx.switchTab({
+                    url: '../HomePage/HomePage',
+                })
+            }, 300
+        )
     },
 
     /**
@@ -33,7 +54,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        console.log(this.data.hideMask);
     },
 
     /**

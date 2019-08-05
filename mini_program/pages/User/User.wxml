@@ -3,16 +3,18 @@
 
     <view class="userInfo">
         <image class="userInfoAvatar" src="{{avatarUrl}}" mode="cover"></image>
-        <text class="userInfoName">{{name}}
-            <text class='myClub'>我的社团</text>
-        </text>
+        <button wx:if="{{!hasUserInfo}}" class='authorize' hover-class='hoverAuth' open-type='getUserInfo' bindgetuserinfo='bindGetUserInfo'>点击授权</button>
+        <text wx:if="{{hasUserInfo}}" class="userInfoName">{{name}}</text>
+    </view>
 
-        <view class='topButton' bindtap='gotoMyInterview' hover-class='hoverBtn'>
-            我的面试
-            <view class='arrow' hover-class='hoverArrow'>
-                <view class='blank' hover-class='hoverBlank'></view>
+    <view class="topBar">
+            <text class='myClub'>我的社团</text>
+            <view class='topButton' bindtap='gotoMyInterview' hover-class='hoverBtn'>
+                我的面试
+                <view class='arrow' hover-class='hoverArrow'>
+                    <view class='blank' hover-class='hoverBlank'></view>
+                </view>
             </view>
-        </view>
     </view>
 
     <view class='usersClub'>
