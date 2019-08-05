@@ -24,8 +24,6 @@ script:
   - echo "test required."
 
 before_deploy:
-  on:
-    branch: deploy
   - sudo apt-get install -y -qq yarn 
   - cd docs && yarn && yarn run docs:build && cd ..
   - docker build -t fkynjyq/interview_schedule.docs:$TRAVIS_BRANCH ./docs       
@@ -34,6 +32,12 @@ before_deploy:
 
 deploy:
   - ssh travis@59.110.233.235 "(cd interview-schedule && bash update_deploy.sh)"
+
+stages:
+  - name: before_deploy
+    if: branch = deploy
+  - name: deploy
+    if: branch = deploy
 
 addons:
   ssh_known_hosts: 59.110.233.235
