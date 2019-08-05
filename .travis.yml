@@ -31,7 +31,10 @@ before_deploy:
   - bash docker_push.sh
 
 deploy:
-  - ssh travis@59.110.233.235 "(cd interview-schedule && bash update_deploy.sh)"
+  provider: script
+  on:
+    branch: deploy
+  script: ssh travis@59.110.233.235 "(cd interview-schedule && bash update_deploy.sh)"
 
 stages:
   - name: before_deploy
