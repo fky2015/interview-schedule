@@ -8,3 +8,6 @@ git pull
 $DOSE down
 $DOSE pull
 $DOSE up -d
+
+echo success
+echo $?
