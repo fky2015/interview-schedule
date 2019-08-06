@@ -41,13 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cas_ng',
     'wechattoken',
+    'rest_framework',
+    'drf_yasg',
     'timelines',
     'users',
     'feed',
-    'rest_framework',
-
 ]
 
 # if DEBUG:
@@ -61,7 +60,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_cas_ng.middleware.CASMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -200,11 +198,6 @@ else:
 STATIC_ROOT = '/usr/share/nginx/html/static/'
 
 
-CAS_SERVER_URL = "https://login.bit.edu.cn/devcas/"
-CAS_LOGIN_MSG = None
-CAS_LOGGED_MSG = None
-
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'django_cas_ng.backends.CASBackend',
 )
