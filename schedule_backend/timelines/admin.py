@@ -4,3 +4,4 @@ from .models import Interview, InterviewTimeline, Timeline
 
 admin.site.register(InterviewTimeline)
 admin.site.register(Timeline)
+admin.site.register(Interview)

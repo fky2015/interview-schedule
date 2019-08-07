@@ -90,8 +90,9 @@ ROOT_URLCONF = 'schedule_backend.urls'
 
 TEMPLATES = [
     {
+
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')] + [os.path.abspath(os.path.join(BASE_DIR, os.pardir, 'web_front_end', 'admin', 'dist'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -164,6 +165,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.abspath(os.path.join(BASE_DIR, os.pardir, 'web_front_end','admin','dist',)),
+]
+
 # reat_framework
 if DEBUG:
     REST_FRAMEWORK = {
@@ -187,6 +192,7 @@ else:
         # or allow read-only access for unauthenticated users.
         'DEFAULT_PERMISSION_CLASSES': [
             # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+            'rest_framework.permissions.AllowAny',
         ],
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework.authentication.BasicAuthentication',
@@ -201,3 +207,6 @@ STATIC_ROOT = '/usr/share/nginx/html/static/'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+
+# redirect to '/' once login
+LOGIN_REDIRECT_URL = '/'

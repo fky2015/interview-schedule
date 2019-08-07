@@ -7,6 +7,7 @@ from .serializer import UserProfileSerializerADMIN, \
     ClubSerializerADMIN, MembershipSerializerADMIN
 
 from timelines.models import Interview, Timeline
+from timelines.serializer import InterviewSerializerADMIN
 from rest_framework.decorators import action, api_view
 from django.db.models import Q
 from django.db import transaction  # 原子性
@@ -51,6 +52,18 @@ class ClubViewSet(viewsets.ModelViewSet):
         else:
             return Response({"msg": "denied"})
 
+    # TODO
+    @action(detail=True, methods=['GET'])
+    def interview(self, request, pk=None):
+        """获得所有的面试与面试表"""
+        queryset = Interview.objects.filter(club__pk=pk)
+        
+        serializer = InterviewSerializerADMIN(
+            queryset, many=True, context={     'request': request
+            }
+        )
+        return Response(serializer.data)
+
     @transaction.atomic
     def perform_create(self, serializer):
         """默认创建社团管理员和普通用户两种角色，会默认建立自己与社团的管理员关系"""
@@ -73,7 +86,7 @@ class ClubViewSet(viewsets.ModelViewSet):
         """得到用户自己"""
         return self.request.user
 
-    def query_restrain(self, queryset)->queryset:
+    def query_restrain(self, queryset) -> queryset:
         """基本的query集合约束，非常有用"""
         return queryset.filter(userProfileClub__userProfile=self.request.user, userProfileClub__membership__is_admin=True)
 
@@ -110,7 +123,7 @@ class MembershipViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-    def query_restrain(self, queryset)->queryset:
+    def query_restrain(self, queryset) -> queryset:
         """基本的query集合约束，非常有用"""
         return queryset.filter(club__userProfileClub__userProfile=self.request.user,
                                club__userProfileClub__membership__is_admin=True)

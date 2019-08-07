@@ -25,7 +25,7 @@ from timelines import views_user as timeline_view
 from users import views_admin as user_view_admin
 from timelines import views_admin as timeline_view_admin
 
-from .view import redirect_view
+from .view import redirect_view,management
 
 
 from rest_framework import permissions
@@ -36,16 +36,21 @@ from drf_yasg import openapi
 # 普通用户接口
 router = routers.DefaultRouter()
 router.register('user', user_view.CurrentUserViewSet, basename='user')
-router.register('club', user_view.ClubViewSet, basename='club/')
-router.register('membership', user_view.MembershipViewSet, basename='membership/')
-router.register('interview', timeline_view.InterviewViewSet, basename='interview/')
+router.register('club', user_view.ClubViewSet, basename='club')
+router.register('membership', user_view.MembershipViewSet,
+                basename='membership/')
+router.register('interview', timeline_view.InterviewViewSet,
+                basename='interview/')
 router.register('interviewTimeline',
                 timeline_view.InterviewTimelineViewSet, basename='interviewTimeline')
-router.register('timeline', timeline_view.TimelineViewSet, basename='timeline/')
+router.register('timeline', timeline_view.TimelineViewSet,
+                basename='timeline/')
 
 
 # 管理者接口
 router_admin = routers.DefaultRouter()
+# UserProfileClub 目前是测试阶段为了暴露相关接口给admin
+router_admin.register('user-club',user_view.UserProfileClubViewSet)
 router_admin.register('user', user_view_admin.UserProfileViewSet)
 router_admin.register('club', user_view_admin.ClubViewSet)
 router_admin.register('membership', user_view_admin.MembershipViewSet)
@@ -58,7 +63,9 @@ router_admin.register('instate', timeline_view_admin.InStateViewSet)
 # Wire up our API using automatic URL routing
 # additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path(r'',redirect_view),
+    path(r'', redirect_view),
+    path(r'manage',management),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),  # get current user
     path(r'api/', include(router.urls)),
     path(r'api-admin/', include(router_admin.urls)),
@@ -68,22 +75,25 @@ urlpatterns = [
 
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Snippets API",
-      default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns += [
-   url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-   url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-   url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    url(r'^swagger(?P<format>\.json|\.yaml)$',
+        schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger/$', schema_view.with_ui('swagger',
+                                           cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^redoc/$', schema_view.with_ui('redoc',
+                                         cache_timeout=0), name='schema-redoc'),
 ]
 # if settings.DEBUG:
 #     import debug_toolbar

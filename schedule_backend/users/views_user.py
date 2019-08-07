@@ -5,7 +5,8 @@ from rest_framework import viewsets, views
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .serializer import UserProfileSerializerUSER, \
     UserProfileSerializerUSER, ClubSerializerUSER, \
-    UserProfileClubSerializerUSER, MembershipSerializerUSER
+    UserProfileClubSerializerUSER, MembershipSerializerUSER, \
+    ClubSerializerADMIN
 from timelines.serializer import InterviewSerializerUSER, \
     TimelineSerializerUSER
 from timelines.models import Interview, Timeline
@@ -31,7 +32,7 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
         elif self.action in ['destroy']:
             permission_classes = [IsAdminUser]
         else:
-            permission_classes = [AllowAny]
+            permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
     def get_object(self):
@@ -39,6 +40,22 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+
+    # attention! for admin.
+    # attention! for admin.
+    # attention! for admin.
+    @action(detail=False, methods=['GET'])
+    def owned_clubs(self, request, pk=None):
+        """自己是哪些社团的管理员"""
+        queryset = UserProfileClub.objects.filter(
+            userProfile=request.user, membership__is_admin=True)
+        queryset = [q.club for q in queryset]
+        print(queryset)
+        print(type(queryset))
+        serializer = ClubSerializerADMIN(
+            queryset, many=True,  context={'request': request}
+        )
+        return Response(serializer.data)
 
     @action(detail=False, methods=['GET'])
     def timeline(self, request, pk=None):
@@ -103,12 +120,10 @@ class ClubViewSet(viewsets.ModelViewSet):
         )
         return Response(serializer.data)
 
-
-
     def get_user(self):
         return UserProfile.objects.get(username=self.request.user)
 
-    def query_restrain(self, queryset)->queryset:
+    def query_restrain(self, queryset) -> queryset:
         return queryset.filter(verified="pass")
 
     def get_object_or_404(self, queryset, *filter_args, **filter_kwargs):
@@ -120,7 +135,6 @@ class ClubViewSet(viewsets.ModelViewSet):
         """list 时进行自定义的过滤"""
         queryset = super().get_queryset()
         return self.query_restrain(queryset)
-
 
 
 class UserProfileClubViewSet(viewsets.ModelViewSet):

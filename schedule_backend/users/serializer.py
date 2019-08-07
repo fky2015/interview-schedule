@@ -16,6 +16,7 @@ class ClubSerializerUSER(serializers.HyperlinkedModelSerializer):
         model = Club
         fields = ('url',
                   'name', 'intro', 'avatar')
+        read_only_fields = ('name', 'intro', 'avatar')
 
 
 class UserProfileClubSerializerUSER(serializers.HyperlinkedModelSerializer):
@@ -28,7 +29,7 @@ class UserProfileClubSerializerUSER(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfileClub
         fields = (
-            'url', 'club', 'membership'
+            'url', 'club'
         )
 
 
@@ -62,7 +63,7 @@ class ClubSerializerADMIN(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Club
         fields = ('url',
-                  'name', 'intro', 'avatar')
+                  'name', 'intro','avatar')
 
 
 class MembershipSerializerADMIN(serializers.HyperlinkedModelSerializer):
