@@ -20,9 +20,16 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
+        
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
         var that = this;
         var animation = wx.createAnimation({
-            duration: 200,
+            duration: 300,
             timingFunction: 'ease',
             delay: 0
         })
@@ -38,15 +45,8 @@ Page({
                 that.setData({
                     showMask: 0
                 })
-            }, 200
+            }, 300
         )
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
     },
 
     /**

@@ -8,6 +8,15 @@
     min-height: 100vh;
     color: #000000;
     background-color: #ffffff;
+    z-index: 2;
+}
+
+.backPic{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     z-index: 0;
 }
 
@@ -24,63 +33,89 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 150rpx;
-    width: 70vw;
+    height: 200rpx;
+    width: 100vw;
     position: absolute;
-    top: 50rpx;
-    background-color: #ffffff;
-    z-index: 0;
+    background-color: rgba(50,50,50,0.6);
+    z-index: 2;
 }
 
 .form{
     display: flex;
-    justify-content: center;
+    position: fixed;
     height: 100vh;
     width: 100vw;
     margin-top: 200rpx;
-    background-color: #eeeeee;
-    z-index: 0;
+    background-color: rgba(50,50,50,0.6);
+    z-index: 2;
+}
+
+.formView{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 400vw;
+}
+
+.section{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100rpx;
+    margin-left: 12vw;
+    margin-right: 11vw;
 }
 
 .sectionName{
-    position: relative;
-    top: 10rpx;
-    margin-left: 30rpx;
-    z-index: 0;
+    margin-left: 3vw;
+    color: #dddddd;
+    font-size: 35rpx;
+    z-index: 2;
 }
 
 .input{
     height: 90rpx;
-    width: 75vw;
-    margin-top: 10rpx;
+    width: 76vw;
+    margin-top: 20rpx;
     border: 1px #aaaaaa solid;
     border-radius: 10rpx;
-    background-color: white;
-    z-index: 0;
+    background-color: rgba(200,200,200,0.7);
+    z-index: 2;
 }
 
-.btnView{
+.btnForwardView{
     align-items: center;
     height: 110rpx;
     width: 70vw;
-    position: relative;
-    top: 100rpx;
-    left: 23rpx;
+    position: fixed;
+    top: 600rpx;
+    right: 15vw;
     color: #000000;
-    background-color: #eeeeee;
-    z-index: 0;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2;
+}
+
+.btnBackwardView{
+    align-items: center;
+    height: 110rpx;
+    width: 70vw;
+    position: fixed;
+    top: 750rpx;
+    right: 15vw;
+    color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2;
 }
 
 .btn{
-    background-color: #dddddd;
-    color: #000000;
-    z-index: 0;
+    background-color: rgba(29, 131, 254, 0.8);
+    color: #ffffff;
+    z-index: 2;
 }
 
 .btn::after{
-    border: 3px solid #333333;
+    border: 3px solid #c7dffe;
 }
 
 .hoverBtn{
-    background-color: #aaaaaa;
+    background-color: #c7dffe;
 }

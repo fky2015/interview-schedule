@@ -1,39 +1,64 @@
 <!--pages/LogIn/LogIn.wxml-->
+
+
 <view class='mask' style="z-index: {{zIndex}};" animation='{{hiddenAni}}' ></view>
 
 <view class='back'>
 
     <view class='title'>
-        <view style='color: black; font-size: 55rpx'>用户注册</view>
+        <view style='color: black; font-size: 55rpx; font-weight: 500; color: #dddddd; margin-top: 80rpx;'>用户注册</view>
     </view>
 
     <form class='form'>
+        <view class='formView' animation='{{sweepAni}}'>
 
-        <view class='sectionName' style='color: #222222; font-size: 30rpx;'>姓名</view>
-        <view class='input'>
-            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的真实姓名' name="userName" maxlength='10'></input>
+
+            <view class='section'>
+                <view class='sectionName'>姓名 1/4</view>
+                <view class='input'>
+                    <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的真实姓名' name="userName" maxlength='10'></input>
+                </view>
+            </view>
+
+            <view class='section'>
+                <view class='sectionName'>学号 2/4</view>
+                <view class='input'>
+                    <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的真实学号' name="studentID" maxlength='10'></input>
+                </view>
+            </view>
+
+            <view class='section'>
+                <view class='sectionName'>手机号码 3/4</view>
+                <view class='input'>
+                    <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的手机号码' name="phoneNumber" maxlength='11'></input>
+                </view>
+            </view>
+
+            <view class='section'>
+                <view class='sectionName'>电子邮箱 4/4</view>
+                <view class='input'>
+                    <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='example@gmail.com' name="userName"></input>
+                </view>
+            </view>
+
         </view>
 
-        <view class='sectionName' style='color: #222222; font-size: 30rpx;'>学号</view>
-        <view class='input'>
-            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的真实学号' name="studentID" maxlength='10'></input>
+        <view class="btnForwardView">
+            <button class='btn' hover-class='hoverBtn' bindtap='skipToHome'>{{btn}}</button>
         </view>
 
-        <view class='sectionName' style='color: #222222; font-size: 30rpx;'>手机号码</view>
-        <view class='input'>
-            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='请输入您的11位手机号码' name="phoneNumber" maxlength='11'></input>
+        <view wx:if='{{showBackwardBtn}}' class="btnBackwardView" style="opacity: {{btnOpacity}};" animation='{{btnBackwardAni}}'>
+            <button class='btn' hover-class='hoverBtn' bindtap='return'>返回</button>
         </view>
-
-        <view class='sectionName' style='color: #222222; font-size: 30rpx;'>电子邮箱</view>
-        <view class='input'>
-            <input style='margin-left:30rpx; height:90rpx; width:100%;' placeholder='example@gmail.com' name="userName"></input>
-        </view>
-
-        <view class="btnView">
-            <!--<button class='btn' hover-class='hoverBtn' formType="submit">注册</button> 完成后取消该语句的注释-->
-            <button class='btn' hover-class='hoverBtn' bindtap='skipToHome'>注册</button>
-        </view>
-
+        
     </form>
+
+    <swiper autoplay="true" interval="3500" duration="500" class="backPic">
+        <block wx:for="{{imgUrls}}">
+            <swiper-item>
+               <image class="backPic" src="{{item}}" mode="scaleToFill"></image>
+            </swiper-item>
+        </block>
+    </swiper>
 
 </view>

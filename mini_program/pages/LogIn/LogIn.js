@@ -5,42 +5,181 @@ Page({
      * 页面的初始数据
      */
     data: {
+        windowWidth: 0,
+        times: 0,
+        sweepAni: {},
         hiddenAni: {},
-        zIndex: 0
+        zIndex: 1,
+        imgUrls: [
+            '/lib/1.jpg',
+            '/lib/2.jpg',
+            '/lib/3.jpg',
+            '/lib/4.jpg',
+            '/lib/5.jpg',
+        ],
+        btn: '继续',
+        showBackwardBtn: 0,
+        btnOpacity: 0
     },
 
     //该函数用于跳转至主页便于调试，请在上线之前将其注释掉
     skipToHome: function () {
         var that = this;
+        var time = this.data.times;
+
+        this.setData({
+            times: time + 1
+        })
+
+        time = time + 1;
+
+        if(time != 4){
+
+            if(time != 3){
+                this.setData({
+                    btn: '继续'
+                });
+            }
+            else{
+                this.setData({
+                    btn: '完成!'
+                });
+            }
+            
+            var distance = - this.data.windowWidth * this.data.times;
+
+            var animation = wx.createAnimation({
+                duration: 300,
+                timingFunction: 'ease'
+            });
+
+            this.sweepAni = animation;
+            animation.translateX(distance).step();
+            this.setData({
+                sweepAni: animation.export()
+            });
+        }
+
+        else{
+            var animation = wx.createAnimation({
+                duration: 300,
+                timingFunction: 'ease',
+            })
+
+            this.setData({
+                zIndex: 3
+            })
+
+            this.hiddenAni = animation;
+            animation.opacity(1).step();
+            this.setData({
+                hiddenAni: animation.export()
+            });
+
+            setTimeout(
+                function () {
+                    wx.switchTab({
+                        url: '../HomePage/HomePage',
+                    })
+                }, 300
+            );
+        }
+
+        if (time == 1) {
+            this.setData({
+                showBackwardBtn: 1
+            })
+
+            var animation = wx.createAnimation({
+                duration: 300,
+                timingFunction: 'ease',
+            })
+
+            this.btnBackwardAni = animation;
+            animation.opacity(1).step();
+            this.setData({
+                btnBackwardAni: animation.export()
+            });
+
+            setTimeout(
+                function () {
+                    that.setData({
+                        btnOpacity: 1
+                    })
+                }, 300
+            );
+        }
+    },
+
+    return: function () {
+        var that = this;
+        var time = this.data.times;
+
+        this.setData({
+            times: time - 1
+        })
+
+        time = time - 1;
+
+        if (time != 3) {
+            this.setData({
+                btn: '继续'
+            });
+        }
+        else {
+            this.setData({
+                btn: '完成!'
+            });
+        }
+
+        var distance = - this.data.windowWidth * this.data.times;
+
         var animation = wx.createAnimation({
             duration: 300,
-            timingFunction: 'ease',
-        })
-
-        that.setData({
-            zIndex: 1
-        })
-
-        that.hiddenAni = animation;
-        animation.opacity(1).step();
-        that.setData({
-            hiddenAni: animation.export()
+            timingFunction: 'ease'
         });
 
-        setTimeout(
-            function () {
-                wx.switchTab({
-                    url: '../HomePage/HomePage',
-                })
-            }, 300
-        )
+        this.sweepAni = animation;
+        animation.translateX(distance).step();
+        this.setData({
+            sweepAni: animation.export()
+        });
+
+        if(time == 0){
+            var animation = wx.createAnimation({
+                duration: 300,
+                timingFunction: 'ease',
+            })
+
+            this.btnBackwardAni = animation;
+            animation.opacity(0).step();
+            this.setData({
+                btnBackwardAni: animation.export()
+            });
+
+            setTimeout(
+                function () {
+                    that.setData({
+                        btnOpacity: 0,
+                        showBackwardBtn: 0
+                    })
+                }, 300
+            );
+        }
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        var that = this;
 
+        wx.getSystemInfo({
+            success: function (res) {
+                that.data.windowWidth = res.windowWidth;
+                console.log(that.data.windowWidth);
+            },
+        });
     },
 
     /**
@@ -54,7 +193,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        console.log(this.data.hideMask);
+
     },
 
     /**

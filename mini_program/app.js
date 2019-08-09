@@ -8,7 +8,7 @@ App({
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    wx.setStorageSync('logs', logs);
     
     /*
     //登陆
@@ -69,6 +69,7 @@ App({
   },
 
     globalData: {
+        windowWidth: 0,
         hasUserInfo: false,
         userInfo: null,
         userName: '',
