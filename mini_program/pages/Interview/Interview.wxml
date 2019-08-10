@@ -1,5 +1,5 @@
 <!--pages/Interview/Interview.wxml-->
-<view hidden='{{hideTimeline}}' class='mask' style='animation-name: {{animateMask}}; -webkit-animation-name: {{animateMask}};'></view>
+<view hidden='{{hideTimeline}}' class='mask' style='animation-name: {{animateMask}}; -webkit-animation-name: {{animateMask}}; background-color: rgba({{bgcolor}},0.7)'></view>
 
 <view class='back'>
 

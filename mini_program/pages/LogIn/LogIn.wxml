@@ -44,11 +44,11 @@
         </view>
 
         <view class="btnForwardView">
-            <button class='btn' hover-class='hoverBtn' bindtap='skipToHome'>{{btn}}</button>
+            <button class='btn' hover-class='hoverBtn' bindtap='forward'>{{btn}}</button>
         </view>
 
-        <view wx:if='{{showBackwardBtn}}' class="btnBackwardView" style="opacity: {{btnOpacity}};" animation='{{btnBackwardAni}}'>
-            <button class='btn' hover-class='hoverBtn' bindtap='return'>返回</button>
+        <view wx:hidden='{{hideBackwardBtn}}' class="btnBackwardView" style="opacity: {{btnOpacity}};" animation='{{btnBackwardAni}}'>
+            <button class='btn' hover-class='hoverBtn' bindtap='backward'>返回</button>
         </view>
         
     </form>

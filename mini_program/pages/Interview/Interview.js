@@ -14,7 +14,10 @@ Page({
         head: [],
         foot: [],
         interview: [{ title: '秋季面试第一场', dateTime: '2019年9月20日 9:00-11:30', place: '2B-201', id: 1 }, { title: '秋季面试第二场', dateTime: '2019年9月21日 9:00-11:30', place: '2B-202', id: 2 }, { title: '秋季面试第三场', dateTime: '2019年9月22日 9:00-11:30', place: '2B-203', id: 3 }, { title: '秋季面试第四场', dateTime: '2019年9月23日 9:00-11:30', place: '2B-204', id: 4 }, { title: '秋季面试第五场', dateTime: '2019年9月24日 9:00-11:30', place: '2B-205', id: 5 }, { title: '秋季面试第六场', dateTime: '2019年9月25日 9:00-11:30', place: '2B-206', id: 6 }, { title: '秋季面试第七场', dateTime: '2019年9月26日 9:00-11:30', place: '2B-207', id: 7}],
-        timeline: ['9:00-9:10', '9:10-9:20', '9:20-9:30', '9:30-9:40', '9:40-9:50', '9:50-10:00']
+        timeline: ['9:00-9:10', '9:10-9:20', '9:20-9:30', '9:30-9:40', '9:40-9:50', '9:50-10:00'],
+        color: ['244,164,180', '150,150,150', '144,212,216', '255,236,180', '137,223,196', '159,221,249'],
+        bgcolor: '',
+        times: 0
     },
 
     /**
@@ -87,9 +90,21 @@ Page({
 
         var that = this;
         var n = e.currentTarget.dataset.id;
+        var time = this.data.times;
 
         if(this.data.hideTimeline == true) {
             var views = { head: [], foot: [] };
+
+            if (this.data.times == 5) {
+                this.setData({
+                    times: 0
+                });
+            }
+            else {
+                this.setData({
+                    times: time + 1
+                });
+            }
 
             views = this.split(this.data.interview, n);
 
@@ -99,7 +114,8 @@ Page({
                 containDist: this.containerDistance(n),
                 footDist: this.footDistance(this.data.timeline),
                 classInterview: 'footMoved',
-                animateMask: 'showMask'
+                animateMask: 'showMask',
+                bgcolor: this.data.color[this.data.times]
             });
 
             wx.setNavigationBarTitle({

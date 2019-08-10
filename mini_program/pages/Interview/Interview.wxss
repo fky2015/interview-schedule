@@ -7,7 +7,6 @@
     position: fixed;
     width: 100vw;
     min-height: 100vh;
-    background-color: rgba(0,0,0,0.7);
     animation-duration: 300ms;
     animation-timing-function: ease;
     animation-iteration-count: 1; 

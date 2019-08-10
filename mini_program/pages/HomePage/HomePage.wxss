@@ -87,6 +87,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: 300ms;
+}
+
+.hoverNotice{
+    transform: scale(0.95, 0.95);
+    transition: 300ms;
+    transition-delay: 10ms;
 }
 
 .image{
@@ -95,14 +102,6 @@
     margin: 30rpx;
     border-radius: 35rpx;
     box-shadow: 5rpx 5rpx 10rpx 10rpx #aaaaaa;
-    transition: 300ms;
-    transition-delay: 10ms;
-}
-
-.hoverNotice{
-    transform: scale(0.95, 0.95);
-    transition: 300ms;
-    transition-delay: 10ms;
 }
 
 .title{

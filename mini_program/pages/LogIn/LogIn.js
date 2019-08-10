@@ -18,12 +18,14 @@ Page({
             '/lib/5.jpg',
         ],
         btn: '继续',
-        showBackwardBtn: 0,
+        hideBackwardBtn: 1,
         btnOpacity: 0
     },
 
-    //该函数用于跳转至主页便于调试，请在上线之前将其注释掉
-    skipToHome: function () {
+    /**
+     * 点击前进按钮
+     */
+    forward: function () {
         var that = this;
         var time = this.data.times;
 
@@ -87,7 +89,7 @@ Page({
 
         if (time == 1) {
             this.setData({
-                showBackwardBtn: 1
+                hideBackwardBtn: 0
             })
 
             var animation = wx.createAnimation({
@@ -111,7 +113,10 @@ Page({
         }
     },
 
-    return: function () {
+    /**
+     * 点击后退按钮
+     */
+    backward: function () {
         var that = this;
         var time = this.data.times;
 
@@ -161,7 +166,7 @@ Page({
                 function () {
                     that.setData({
                         btnOpacity: 0,
-                        showBackwardBtn: 0
+                        hideBackwardBtn: 1
                     })
                 }, 300
             );
