@@ -17,7 +17,7 @@ class Interview(models.Model):
     is_public = models.BooleanField(
         verbose_name="if it's public", default=False)
     out_state = models.ForeignKey(
-        Membership, on_delete=models.PROTECT, null=True)  # 面试成功后要到达的状态
+        Membership, on_delete=models.PROTECT, blank=True, null=True)  # 面试成功后要到达的状态
 
     class Meta:
         order_with_respect_to = 'club'
@@ -25,16 +25,15 @@ class Interview(models.Model):
     def __str__(self):
         return f'{self.club} - {self.title}'
 
-# 只有处于in_state 状态中的成员才能选择该面试，通过者
-# 会移动到 out_state 状态
-
 
 class InState(models.Model):
+    """只有处于in_state 状态中的成员才能选择该面试，通过者
+    会移动到 out_state 状态"""
     interview = models.ForeignKey(
         Interview, related_name="in_state", on_delete=models.CASCADE
     )
     membership = models.ForeignKey(
-        Membership, on_delete=models.CASCADE
+        Membership, related_name="in_state", on_delete=models.CASCADE
     )
 
     class Meta:
@@ -43,15 +42,16 @@ class InState(models.Model):
     def __str__(self):
         return f"{self.interview}-{self.membership}"
 
-# 记录场面试的面试表
-# 面试表是指一次面试中某一个有具体地点和时间长度的面试
-
 
 class InterviewTimeline(models.Model):
+    """记录场面试的面试表
+    面试表是指一次面试中某一个有具体地点和时间长度的面试"""
+
     interview = models.ForeignKey(
-        Interview, related_name="InterviewTimeline", on_delete=models.CASCADE)
-    location = models.TextField(max_length=100)
-    title = models.CharField(max_length=100)
+        Interview, related_name="interviewTimeline", on_delete=models.CASCADE)
+    location = models.CharField(verbose_name="面试地点", max_length=100)
+    remarks = models.TextField(verbose_name="备注", max_length=100)
+    date = models.DateField(verbose_name="日期")
 
     class Meta:
         order_with_respect_to = 'interview'
@@ -65,18 +65,23 @@ class InterviewTimeline(models.Model):
 
 
 class Timeline(models.Model):
-    interviewTimeline = models.ForeignKey(
-        InterviewTimeline, on_delete=models.CASCADE)
+    interviewTimeline = models.ForeignKey(InterviewTimeline,
+                                          related_name="timeline",
+                                          on_delete=models.CASCADE)
     user = models.ForeignKey(
-        UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
-    timeID = models.IntegerField(default=0)
-    startTime = models.DateTimeField()
+        UserProfile, related_name='timeline', on_delete=models.SET_NULL, null=True, blank=True)
+    timeID = models.IntegerField(
+        default=0, verbose_name="时间ID", help_text="用于帮助区分统一时间段的不同时间片")
+    startTime = models.TimeField(verbose_name="开始时间")
     duration = models.IntegerField(verbose_name="duration( /minutes)")
-    comment = models.TextField(verbose_name="comment", max_length=200,default="")
+    intro = models.TextField('自我介绍', blank=True, null=True)
+    comment = models.TextField(
+        verbose_name="comment", max_length=200, default="")
     passed = models.BooleanField(
         verbose_name="pass the interview", default=False)
 
     class Meta:
+        pass
         unique_together = ('interviewTimeline', 'user')  # 多列联合唯一性约束
         # 一个人在一个面试场最多只能报名一次
 

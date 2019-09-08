@@ -5,7 +5,8 @@ from rest_framework import viewsets, views
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .serializer import UserProfileSerializerUSER, \
     UserProfileSerializerUSER, ClubSerializerUSER, \
-    UserProfileClubSerializerUSER, MembershipSerializerUSER
+    UserProfileClubSerializerADMIN, MembershipSerializerUSER, \
+    ClubSerializerADMIN
 from timelines.serializer import InterviewSerializerUSER, \
     TimelineSerializerUSER
 from timelines.models import Interview, Timeline
@@ -31,7 +32,7 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
         elif self.action in ['destroy']:
             permission_classes = [IsAdminUser]
         else:
-            permission_classes = [AllowAny]
+            permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
     def get_object(self):
@@ -39,6 +40,7 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+
 
     @action(detail=False, methods=['GET'])
     def timeline(self, request, pk=None):
@@ -103,12 +105,10 @@ class ClubViewSet(viewsets.ModelViewSet):
         )
         return Response(serializer.data)
 
-
-
     def get_user(self):
         return UserProfile.objects.get(username=self.request.user)
 
-    def query_restrain(self, queryset)->queryset:
+    def query_restrain(self, queryset) -> queryset:
         return queryset.filter(verified="pass")
 
     def get_object_or_404(self, queryset, *filter_args, **filter_kwargs):
@@ -122,16 +122,15 @@ class ClubViewSet(viewsets.ModelViewSet):
         return self.query_restrain(queryset)
 
 
-
 class UserProfileClubViewSet(viewsets.ModelViewSet):
     """将被废弃"""
     queryset = UserProfileClub.objects.all()
-    serializer_class = UserProfileClubSerializerUSER
+    serializer_class = UserProfileClubSerializerADMIN
     permission_classes = (AllowAny,)
 
     def list(self, request):
         queryset = UserProfileClub.objects.filter(userProfile=request.user)
-        serializer = UserProfileClubSerializerUSER(
+        serializer = UserProfileClubSerializerADMIN(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
 

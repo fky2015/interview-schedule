@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .validators import validate_mobile
 # Create your models here.
 
 # 用户
 
 
 class UserProfile(AbstractUser):
+    """记录用户信息"""
     GENDER_CHOICE = (
         ('male', '男'),
         ('female', '女'),
@@ -13,17 +15,21 @@ class UserProfile(AbstractUser):
 
     )
     # 学号是username
-    intro = models.TextField(verbose_name="self introduction", blank=True)
-    realname = models.CharField(verbose_name="real name", max_length=50)
+    intro = models.TextField(
+        verbose_name="自我介绍", blank=True, help_text="用简短的话语介绍自己，可选。")
+    realname = models.CharField(verbose_name="真实姓名", max_length=50)
     gender = models.CharField(
         verbose_name="性别", choices=GENDER_CHOICE, default='secret', max_length=8)
-    wechat_openID = models.CharField(max_length=100, blank=True)
-    mobile = models.CharField(max_length=11, blank=True)
-    avatar = models.ImageField(upload_to='image', blank=True,
+    wechat_openID = models.CharField(
+        verbose_name="wechat openID", help_text="用于微信小程序登录", max_length=100, blank=True)
+    mobile = models.CharField(
+        verbose_name="手机号", help_text="帮助社团联系到你", max_length=11, blank=True, validators=[validate_mobile])
+    # TODO: 了解 Image 细节
+    avatar = models.ImageField(verbose_name="个性头像", upload_to='image', blank=True,
                                null=True, default="image/default.png", max_length=100)
 
     class Meta:
-        verbose_name = "user information"
+        verbose_name = "用户信息"
         verbose_name_plural = verbose_name
         ordering = ['id']
 
@@ -33,6 +39,7 @@ class UserProfile(AbstractUser):
 
 # 社团
 class Club(models.Model):
+    """社团"""
     VERIFY_CHOICE = (
         ('unverified', '验证中'),
         ('failed', '未通过'),
@@ -41,7 +48,7 @@ class Club(models.Model):
 
     # userProfile = models.ManyToManyField(UserProfile)
     name = models.CharField(verbose_name="社团名称", max_length=100, unique=True)
-    intro = models.TextField(verbose_name="self_introduction", blank=True)
+    intro = models.TextField(verbose_name="社团简介", blank=True)
     avatar = models.ImageField(
         upload_to='image', blank=True, null=True, max_length=100)
     verified = models.CharField(
