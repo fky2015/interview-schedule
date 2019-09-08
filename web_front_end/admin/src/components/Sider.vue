@@ -1,75 +1,98 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app>
-    <!-- <v-list dense>
-      <v-list-item>
-        <v-list-item-action>
-          <v-icon>home</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>用户信息</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-action>
-          <v-icon>contact_mail</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>社团</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list> -->
+  <div>
+    <v-list>
+      <Interview
+        v-for="(d, index) in interview"
+        :key="index"
+        :data="d"
+        :index="index"
+      />
+    </v-list>
+    <v-dialog v-model="new_interview_display" width="500">
+      <template v-slot:activator="{ on }">
+        <v-btn text block color="red lighten-2" dark v-on="on">新建面试</v-btn>
+      </template>
+      <v-card>
+        <v-card-title class="headline grey lighten-2" primary-title
+          >新建面试</v-card-title
+        >
 
-    <Interview v-for="(d, index) in data" :key="index" :data="d" />
-    <router-link to="/home"> test</router-link>
-    <router-link to="/about"> test</router-link>
-    <router-link to="/about/2"> test</router-link>
-    <router-link to="/about/afadsfd"> test</router-link>
-    <router-link to="/about/.sdfa.fd"> test</router-link>
-  </v-navigation-drawer>
+        <v-card-text>
+          <InterviewForm :interview="new_interview" />
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="newInterview">提交</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- <router-link to="/home">test</router-link> -->
+    <!-- <router-link to="/about">test</router-link> -->
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
 import Interview from "./Sider/Interview.vue";
-export default {
+import { State } from "vuex-class";
+import InterviewForm from "@/components/forms/InterviewForm.vue";
+import { BASE_URL } from "@/globals/globals";
+
+@Component({
   components: {
-    Interview
-  },
-  data: () => ({
-    drawer: true,
-    data: [
-      {
-        url: "http://127.0.0.1:8002/api-admin/interview/9/",
-        pk: 9,
-        title: "春招",
-        edit_finish: false,
-        is_public: false,
-        InterviewTimeline: [
-          {
-            url: "http://127.0.0.1:8002/api-admin/interviewTimeline/7/",
-            pk: 7,
-            interview: "http://127.0.0.1:8002/api-admin/interview/9/",
-            location: "教室001"
-          }
-        ]
-      },
-      {
-        url: "http://127.0.0.1:8002/api-admin/interview/10/",
-        pk: 10,
-        title: "秋招-第二场",
-        edit_finish: false,
-        is_public: false,
-        InterviewTimeline: [
-          {
-            url: "http://127.0.0.1:8002/api-admin/interviewTimeline/7/",
-            pk: 7,
-            interview: "http://127.0.0.1:8002/api-admin/interview/9/",
-            location: "教室301"
-          }
-        ]
-      }
-    ]
-  })
-};
+    Interview,
+    InterviewForm
+  }
+})
+export default class Sider extends Vue {
+  @State interview: any;
+  club: string = "";
+  drawer: boolean = true;
+  new_interview_display: boolean = false;
+  new_interview: Object = {
+    title: "",
+    description: "",
+    edit_finish: false,
+    is_public: false,
+    out_state: ""
+  };
+
+  get club_url() {
+    return this.$store.state.club_url;
+  }
+
+  newInterview() {
+    this.axios
+      .post(`${BASE_URL}/api-admin/interview/`, {
+        club: this.club_url,
+        ...this.new_interview
+      })
+      .then(({ data, status }) => {
+        if (status == 201) {
+          this.interview.push(data);
+          this.$store.commit("popSuccess");
+        } else {
+          this.$store.commit("popError", data);
+        }
+      })
+      .catch(e => {
+        if (e.response && e.response.data)
+          this.$store.commit("popError", e.response.data);
+      });
+    this.new_interview_display = false;
+  }
+
+  fetch() {}
+
+  mounted() {
+    // use axios to get clubs, and update `data.clubs`,
+    // when ever update at clubs' select, update the interview accordingly.
+  }
+}
 </script>
 
 <style></style>

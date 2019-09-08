@@ -1,16 +1,19 @@
+from django.db import transaction  # 原子性
+from django.db.models import Q
 from django.shortcuts import render
-from .models import UserProfile, Club, UserProfileClub, Membership
+from rest_framework import views, viewsets
+from rest_framework.decorators import action, api_view
+from rest_framework.mixins import CreateModelMixin
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import viewsets, views
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from .serializer import UserProfileSerializerADMIN, \
-    ClubSerializerADMIN, MembershipSerializerADMIN
 
 from timelines.models import Interview, Timeline
 from timelines.serializer import InterviewSerializerADMIN
-from rest_framework.decorators import action, api_view
-from django.db.models import Q
-from django.db import transaction  # 原子性
+
+from .models import Club, Membership, UserProfile, UserProfileClub
+from .serializer import (ClubSerializerADMIN, MembershipSerializerADMIN,
+                         UserProfileSerializerADMIN)
+from django.db.models import Prefetch
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -24,6 +27,19 @@ class UserProfileViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
+    @action(detail=False, methods=['GET'])
+    def owned_clubs(self, request, pk=None):
+        """自己是哪些社团的管理员"""
+        queryset = UserProfileClub.objects.filter(
+            userProfile=request.user, membership__is_admin=True)
+        queryset = [q.club for q in queryset]
+        print(queryset)
+        print(type(queryset))
+        serializer = ClubSerializerADMIN(
+            queryset, many=True,  context={'request': request}
+        )
+        return Response(serializer.data)
+
 
 # 有机会的话整合一下吧
 
@@ -33,7 +49,6 @@ def get_userProfile_Club(user, club):
 
 
 class ClubViewSet(viewsets.ModelViewSet):
-    queryset = Club.objects.all()
     serializer_class = ClubSerializerADMIN
 
     def get_permissions(self):
@@ -52,15 +67,14 @@ class ClubViewSet(viewsets.ModelViewSet):
         else:
             return Response({"msg": "denied"})
 
-    # TODO
     @action(detail=True, methods=['GET'])
     def interview(self, request, pk=None):
         """获得所有的面试与面试表"""
         queryset = Interview.objects.filter(club__pk=pk)
-        
+
         serializer = InterviewSerializerADMIN(
-            queryset, many=True, context={     'request': request
-            }
+            queryset, many=True, context={'request': request
+                                          }
         )
         return Response(serializer.data)
 
@@ -86,7 +100,7 @@ class ClubViewSet(viewsets.ModelViewSet):
         """得到用户自己"""
         return self.request.user
 
-    def query_restrain(self, queryset) -> queryset:
+    def query_restrain(self, queryset):
         """基本的query集合约束，非常有用"""
         return queryset.filter(userProfileClub__userProfile=self.request.user, userProfileClub__membership__is_admin=True)
 
@@ -99,7 +113,7 @@ class ClubViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """list 时进行自定义的过滤，
             只列出自己管理的Club"""
-        queryset = super().get_queryset()
+        queryset = Club.objects.all()
         return self.query_restrain(queryset)
 
     @action(detail=True, methods=['GET'])
@@ -111,9 +125,36 @@ class ClubViewSet(viewsets.ModelViewSet):
         )
         return Response(serializer.data)
 
+    @action(detail=True, methods=['GET'])
+    def applicants(self, request, pk: int):
+        """获得当前社团所有报名成员"""
+        # queryset = UserProfile.objects.prefetch_related(Prefetch(
+        #     'userProfileClub',queryset=UserProfileClub.objects.filter(club=self.get_object())
+        # )).filter(userProfileClub = )
+        queryset = UserProfile.objects.prefetch_related(Prefetch(
+            'userProfileClub', queryset=UserProfileClub.objects.filter(club=self.get_object())
+        )).filter(
+            timeline__interviewTimeline__interview__club=self.get_object()
+        )
+        serializer = UserProfileSerializerADMIN(
+            queryset, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['GET'])
+    def members(self, request, pk: int):
+        """获得当前社团所有有关联的成员"""
+        queryset = UserProfile.objects.prefetch_related(Prefetch(
+            'userProfileClub', queryset=UserProfileClub.objects.filter(club=self.get_object())
+        )).filter(userProfileClub__club=self.get_object())
+        serializer = UserProfileSerializerADMIN(
+            queryset, many=True, context={'request': request}
+        )
+        return Response(serializer.data)
+
 
 class MembershipViewSet(viewsets.ModelViewSet):
-    queryset = Membership.objects.all()
+    # queryset = Membership.objects.all()
     serializer_class = MembershipSerializerADMIN
 
     def get_permissions(self):
@@ -123,18 +164,17 @@ class MembershipViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-    def query_restrain(self, queryset) -> queryset:
+    def query_restrain(self, queryset):
         """基本的query集合约束，非常有用"""
         return queryset.filter(club__userProfileClub__userProfile=self.request.user,
                                club__userProfileClub__membership__is_admin=True)
 
-    # def get_object_or_404(self, queryset, *filter_args, **filter_kwargs):
-    #     """被get_object调用，用于自定义retrieve"""
-    #     queryset = self.query_restrain(queryset)
-    #     return super().get_object_or_404(queryset, *filter_args, **filter_kwargs)
-
     def get_queryset(self):
         """list 时进行自定义的过滤，
             只列出自己管理的Club"""
-        queryset = super().get_queryset()
+        queryset = Membership.objects.all()
         return self.query_restrain(queryset)
+
+    # def perform_create(self, serializer: MembershipSerializerADMIN):
+    #     # print(serializer.validated_data)
+    #     CreateModelMixin.create(self, serializer)

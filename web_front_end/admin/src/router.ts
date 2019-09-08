@@ -1,3 +1,7 @@
+/*
+ * @Author: Feng Kaiyu
+ * @LastEditors: Feng Kaiyu
+ */
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
@@ -12,25 +16,40 @@ export default new Router({
       component: Home
     },
     {
-      path: "/about/*",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: "/interview/:index",
+      name: "interview",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import(/* webpackChunkName: "interview" */"./components/main/Interview.vue")
     },
     {
-      path: "/interview/*",
-      name:"interview",
-      component:()=>
-      import(/* webpackChunkName: "interview" */"./components/main/Interview.vue")
+      path: "/interview/:index/timeline/:inner_index",
+      name: "interview-timeline",
+      component: () =>
+        import(/* webpackChunkName: "interview-timeline" */"./components/main/InterviewTimeline.vue")
+    }, 
+    {
+      path: "/membership",
+      name: "membership",
+      component: () =>
+        import(/* webpackChunkName: "membership" */"./components/main/Membership.vue")
+    }, 
+    {
+      path: "/members",
+      name: "members",
+      component: () =>
+        import(/* webpackChunkName: "member" */"@/views/Members.vue")
     },
     {
-      path: "/interview-timeline/*",
-      name:"interview-timeline",
-      component:()=>
-      import(/* webpackChunkName: "interview-timeline" */"./components/main/InterviewTimeline.vue")
+      path: "/applicants",
+      name: "applicants",
+      component: () =>
+        import(/* webpackChunkName: "applicants" */"@/views/Applicants.vue")
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: () =>
+        import(/* webpackChunkName: "login" */"./views/login.vue")
     }
   ]
 });

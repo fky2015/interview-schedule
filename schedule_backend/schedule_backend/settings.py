@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'wechattoken',
     'rest_framework',
+    # 'rest_framework.authtoken',
+    # 'rest_auth',
     'drf_yasg',
     'timelines',
     'users',
@@ -191,8 +193,8 @@ else:
         # Use Django's standard `django.contrib.auth` permissions,
         # or allow read-only access for unauthenticated users.
         'DEFAULT_PERMISSION_CLASSES': [
-            # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-            'rest_framework.permissions.AllowAny',
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+            # 'rest_framework.permissions.AllowAny',
         ],
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework.authentication.BasicAuthentication',
@@ -203,10 +205,10 @@ else:
 
 STATIC_ROOT = '/usr/share/nginx/html/static/'
 
-
+# from rest_framework.permissions import IsAuthenticatedOrReadOnly
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
 # redirect to '/' once login
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/manage'

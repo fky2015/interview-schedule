@@ -18,9 +18,8 @@ export default {
       type: Object,
       required: true,
       default: () => ({
-        url: "http://127.0.0.1:8002/api-admin/timeline/3/",
-        interviewTimeline:
-          "http://127.0.0.1:8002/api-admin/interviewTimeline/7/",
+        url: "",
+        interviewTimeline: "",
         user: null,
         startTime: "2019-08-07T01:00:00Z",
         duration: 10,

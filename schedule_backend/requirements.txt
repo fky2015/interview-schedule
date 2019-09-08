@@ -6,3 +6,4 @@ pytz
 uwsgi
 requests
 drf-yasg
+django-rest-auth

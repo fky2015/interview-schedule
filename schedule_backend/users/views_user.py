@@ -5,7 +5,7 @@ from rest_framework import viewsets, views
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .serializer import UserProfileSerializerUSER, \
     UserProfileSerializerUSER, ClubSerializerUSER, \
-    UserProfileClubSerializerUSER, MembershipSerializerUSER, \
+    UserProfileClubSerializerADMIN, MembershipSerializerUSER, \
     ClubSerializerADMIN
 from timelines.serializer import InterviewSerializerUSER, \
     TimelineSerializerUSER
@@ -41,21 +41,6 @@ class CurrentUserViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    # attention! for admin.
-    # attention! for admin.
-    # attention! for admin.
-    @action(detail=False, methods=['GET'])
-    def owned_clubs(self, request, pk=None):
-        """自己是哪些社团的管理员"""
-        queryset = UserProfileClub.objects.filter(
-            userProfile=request.user, membership__is_admin=True)
-        queryset = [q.club for q in queryset]
-        print(queryset)
-        print(type(queryset))
-        serializer = ClubSerializerADMIN(
-            queryset, many=True,  context={'request': request}
-        )
-        return Response(serializer.data)
 
     @action(detail=False, methods=['GET'])
     def timeline(self, request, pk=None):
@@ -140,12 +125,12 @@ class ClubViewSet(viewsets.ModelViewSet):
 class UserProfileClubViewSet(viewsets.ModelViewSet):
     """将被废弃"""
     queryset = UserProfileClub.objects.all()
-    serializer_class = UserProfileClubSerializerUSER
+    serializer_class = UserProfileClubSerializerADMIN
     permission_classes = (AllowAny,)
 
     def list(self, request):
         queryset = UserProfileClub.objects.filter(userProfile=request.user)
-        serializer = UserProfileClubSerializerUSER(
+        serializer = UserProfileClubSerializerADMIN(
             queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
