@@ -26,6 +26,7 @@ script:
 before_deploy:
   - sudo apt-get install -y -qq yarn 
   - cd docs && yarn && yarn run docs:build && cd ..
+  - cd ./web_front_end/admin && yarn run build && cd ../..
   - docker build -t fkynjyq/interview_schedule.docs:$TRAVIS_BRANCH ./docs       
   - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH ./schedule_backend
   - bash docker_push.sh

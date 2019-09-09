@@ -41,13 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cas_ng',
     'wechattoken',
+    'rest_framework',
+    # 'rest_framework.authtoken',
+    # 'rest_auth',
+    'drf_yasg',
     'timelines',
     'users',
     'feed',
-    'rest_framework',
-
 ]
 
 # if DEBUG:
@@ -61,7 +62,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_cas_ng.middleware.CASMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -92,8 +92,9 @@ ROOT_URLCONF = 'schedule_backend.urls'
 
 TEMPLATES = [
     {
+
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')] + [os.path.abspath(os.path.join(BASE_DIR, os.pardir, 'web_front_end', 'admin', 'dist'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -166,6 +167,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.abspath(os.path.join(BASE_DIR, os.pardir, 'web_front_end','admin','dist',)),
+]
+
 # reat_framework
 if DEBUG:
     REST_FRAMEWORK = {
@@ -188,7 +193,8 @@ else:
         # Use Django's standard `django.contrib.auth` permissions,
         # or allow read-only access for unauthenticated users.
         'DEFAULT_PERMISSION_CLASSES': [
-            # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+            # 'rest_framework.permissions.AllowAny',
         ],
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework.authentication.BasicAuthentication',
@@ -199,12 +205,10 @@ else:
 
 STATIC_ROOT = '/usr/share/nginx/html/static/'
 
-
-CAS_SERVER_URL = "https://login.bit.edu.cn/devcas/"
-CAS_LOGIN_MSG = None
-CAS_LOGGED_MSG = None
-
+# from rest_framework.permissions import IsAuthenticatedOrReadOnly
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'django_cas_ng.backends.CASBackend',
 )
+
+# redirect to '/' once login
+LOGIN_REDIRECT_URL = '/manage'
