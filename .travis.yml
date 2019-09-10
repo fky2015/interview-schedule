@@ -30,6 +30,7 @@ script:
 
 before_deploy:
   - sudo apt-get install -y -qq yarn 
+  - nvm use 10
   - cd docs && yarn && yarn run docs:build && cd ..
   - cd ./web_front_end/admin && yarn && yarn run build && cd ../..
   - docker build -t fkynjyq/interview_schedule.docs:$TRAVIS_BRANCH ./docs       
