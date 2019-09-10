@@ -25,7 +25,7 @@ WECHAT_SECRET = '301b91e88894ca90e930c077b55e849a'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv("DEPLOY_MOD"):
+if os.getenv("DEPLOY_MOD") or os.getenv("DJANGO_PRODUCTIONs"):
     DEBUG = False
 else:
     DEBUG = True
