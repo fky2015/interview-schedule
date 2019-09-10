@@ -94,7 +94,7 @@ TEMPLATES = [
     {
 
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')] + [os.path.abspath(os.path.join(BASE_DIR, os.pardir, 'web_front_end', 'admin', 'dist'))],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,6 +106,10 @@ TEMPLATES = [
         },
     },
 ]
+
+if DEBUG:
+    TEMPLATES[0]['DIRS'] += [os.path.abspath(os.path.join(
+        BASE_DIR, os.pardir, 'web_front_end', 'admin', 'dist'))]
 
 WSGI_APPLICATION = 'schedule_backend.wsgi.application'
 
@@ -167,9 +171,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.abspath(os.path.join(BASE_DIR, os.pardir, 'web_front_end','admin','dist',)),
-]
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.abspath(os.path.join(BASE_DIR, os.pardir,
+                                     'web_front_end', 'admin', 'dist',)),
+    ]
 
 # reat_framework
 if DEBUG:
