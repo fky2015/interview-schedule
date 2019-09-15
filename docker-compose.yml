@@ -32,18 +32,18 @@ services:
         VIRTUAL_HOST: db.fkynjyq.com
         LETSENCRYPT_HOST: db.fkynjyq.com
         LETSENCRYPT_MAIL: mail@fkynjyq.com
-  docs:
-    image: fkynjyq/interview_schedule.docs:deploy
-    restart: always
-    ports:
-      - 12333:80
-    environment:
-      VIRTUAL_HOST: devdocs.fkynjyq.com
-      LETSENCRYPT_HOST: devdocs.fkynjyq.com
-      LETSENCRYPT_MAIL: mail@fkynjyq.com
-    networks:
-      - default
-      - nginx-proxy
+        #  docs:
+        #    image: fkynjyq/interview_schedule.docs:deploy
+        #    restart: always
+        #    ports:
+        #      - 12333:80
+        #    environment:
+        #      VIRTUAL_HOST: devdocs.fkynjyq.com
+        #      LETSENCRYPT_HOST: devdocs.fkynjyq.com
+        #      LETSENCRYPT_MAIL: mail@fkynjyq.com
+        #    networks:
+        #      - default
+        #      - nginx-proxy
 networks:
   nginx-proxy:
     external: true
