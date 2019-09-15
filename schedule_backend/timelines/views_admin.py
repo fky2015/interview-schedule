@@ -155,8 +155,14 @@ class TimelineViewSet(viewsets.ModelViewSet, CreateListModelMixin):
     def perform_create(self, serializer):
         obj = serializer.save()
 
-        # 如果没有相应权限，会在此步报错
-        UserProfileClub.objects.get(userProfile=self.request.user,
+        if isinstance(obj,list):
+            for o in obj:
+                # 如果没有相应权限，会在此步报错
+                UserProfileClub.objects.get(userProfile=self.request.user,
+                                    club=o.interviewTimeline.interview.club, membership__is_admin=True)           
+        else:
+            # 如果没有相应权限，会在此步报错
+            UserProfileClub.objects.get(userProfile=self.request.user,
                                     club=obj.interviewTimeline.interview.club, membership__is_admin=True)
 
 

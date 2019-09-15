@@ -115,7 +115,7 @@ export default {
       return this.getDuration(this.startTime, this.endTime) / this.duration;
     }
   },
-  props: ["url"],
+  props: ["url", "timelines"],
   methods: {
     getDuration(start, end) {
       let start_hour = parseInt(start.slice(0, 2));
@@ -165,6 +165,7 @@ export default {
           .then(({ data }) => {
             console.log(data);
             this.$store.commit("popSuccess");
+            this.timelines = this.timeline.concat(data);
           })
           .catch(e => this.$store.commit("popError", e));
         console.log(list);
