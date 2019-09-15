@@ -8,15 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 
 class AuthTokenSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=32, required=True, label=_('Code'))
-    username = serializers.CharField(max_length=32)
-    password = serializers.CharField(max_length=32)
 
     def validate(self, attrs):
         code = attrs.get('code')
-        # 获取用户名
-        username = attrs.get('username')
-        attrs['username'] = username.strip()
-        # password = attrs.get('password')
+
         result = self._credentials_validation(code)
 
         attrs['openid'] = result['openid']
