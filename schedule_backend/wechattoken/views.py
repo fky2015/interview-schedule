@@ -41,7 +41,8 @@ class ObtainAuthToken(APIView):
             # 如果是新注册的用户
             if username:
                 # 只有新注册，或者要做关联的时候才会有username
-                user, is_new_one = User.objects.get(username=username)
+                user, is_new_one = User.objects.get_or_create(
+                    username=username)
                 # 新注册
                 if is_new_one:
                     user.set_password(password)
