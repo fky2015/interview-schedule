@@ -7,7 +7,11 @@ from rest_framework import permissions
 from wechattoken.models import Token
 from wechattoken.serializers import AuthTokenSerializer
 
+import logging
+
 User = get_user_model()
+
+logger = logging.getLogger(__name__)
 
 
 class ObtainAuthToken(APIView):
@@ -55,12 +59,12 @@ class ObtainAuthToken(APIView):
                 user=user, openid=openid,
                 defaults={'session_key': session_key, 'key': ''}
             )
-            print(token)
+            logger.info(token)
             print("=============request end==============")
             return Response({'token': token.key})
         except Exception as e:
-            print(str(e))
-            print(e)
+            logger.info(str(e))
+            logger.info(e)
 
             return Response({'msg': "error" + e})
 
