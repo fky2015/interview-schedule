@@ -6,6 +6,7 @@
         params: { index }
       }"
       tag="span"
+      :key="index"
     >
       <v-list-item @click="doNothing">
         <v-list-item-title>{{ data.title }}</v-list-item-title>
@@ -28,6 +29,7 @@
             name: 'interview-timeline',
             params: { index, inner_index }
           }"
+          :key="index + '' + inner_index"
           tag="div"
         >
           <v-list-item-subtitle

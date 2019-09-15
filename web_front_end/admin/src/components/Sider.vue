@@ -29,8 +29,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- <router-link to="/home">test</router-link> -->
-    <!-- <router-link to="/about">test</router-link> -->
   </div>
 </template>
 

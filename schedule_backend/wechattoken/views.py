@@ -25,38 +25,44 @@ class ObtainAuthToken(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        openid = serializer.validated_data['openid']
-        # 再获取用户名和密码
-        username = serializer.validated_data['username']
-        password = serializer.validated_data['password']
-        session_key = serializer.validated_data['session_key']
+        try:
+            serializer = self.serializer_class(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            openid = serializer.validated_data['openid']
+            # 再获取用户名和密码
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
+            session_key = serializer.validated_data['session_key']
 
-        # 如果是新注册的用户
-        if username:
-            # 只有新注册，或者要做关联的时候才会有username
-            user, is_new_one = User.objects.get(username=username)
-            # 新注册
-            if is_new_one:
-                user.set_password(password)
-            # 关联
-            else:
-                if user.check_password(password):
-                    raise PermissionError("wrong username or password!")
-        
-        # user, _ = User.objects.get_or_create(
-        #     username=openid,
-        #     defaults={'password': openid}
-        # )
-        # print(user)
-        token, _ = Token.objects.update_or_create(
-            user=user, openid=openid,
-            defaults={'session_key': session_key, 'key': ''}
-        )
-        print(token)
-        print("=============request end==============")
-        return Response({'token': token.key})
+            # 如果是新注册的用户
+            if username:
+                # 只有新注册，或者要做关联的时候才会有username
+                user, is_new_one = User.objects.get(username=username)
+                # 新注册
+                if is_new_one:
+                    user.set_password(password)
+                # 关联
+                else:
+                    if user.check_password(password):
+                        raise PermissionError("wrong username or password!")
+
+            # user, _ = User.objects.get_or_create(
+            #     username=openid,
+            #     defaults={'password': openid}
+            # )
+            # print(user)
+            token, _ = Token.objects.update_or_create(
+                user=user, openid=openid,
+                defaults={'session_key': session_key, 'key': ''}
+            )
+            print(token)
+            print("=============request end==============")
+            return Response({'token': token.key})
+        except Exception as e:
+            print(str(e))
+            print(e)
+
+            return Response({'msg': "error" + e})
 
 
 obtain_auth_token = ObtainAuthToken.as_view()

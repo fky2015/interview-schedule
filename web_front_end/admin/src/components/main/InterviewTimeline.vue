@@ -118,7 +118,7 @@
         </template>
       </v-data-table>
     </v-container>
-    <BatchAdd :url="interviewTimeline.url" />
+    <BatchAdd :url="interviewTimeline.url" :timelines="timelines" />
   </div>
 </template>
 
@@ -181,6 +181,10 @@ export default {
   watch: {
     dialog(val) {
       val || this.close();
+    },
+    "interviewTimeline.url"() {
+      console.log("interviewTimeline changed");
+      this.initialize();
     }
   },
 
