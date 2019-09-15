@@ -158,7 +158,7 @@
     height: 180rpx;
     width: 180rpx;
     border-radius: 20rpx;
-    box-shadow: 2rpx 2rpx 5rpx 5rpx #aaaaaa;
+    box-shadow: 2rpx 2rpx 10rpx 5rpx #aaaaaa;
 }
 
 .clubName{

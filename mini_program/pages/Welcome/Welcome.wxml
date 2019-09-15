@@ -3,8 +3,17 @@
 
     <view class='mask' animation='{{hiddenAni}}' ></view>
 
-    <view class='salutatory'>
-        <text style='color: black; font-size: 65rpx; font-weight: 400' >欢迎!</text>
+    <image class='image' src="/lib/ad.jpg" mode="aspectFit"></image>
+
+    <view class="bottom">
+        <image class='logo' src="/lib/logo.png"></image>
+
+        <view class="nameBox">
+            <view class="nameCHN">学生社团系统</view>
+            <view class="nameENG">Student Society System</view>
+        </view>
     </view>
+
+    <view class="copyright">©2019 冯开宇 谢威宇 熊子淳. 保留一切权利</view>
 
 </view>

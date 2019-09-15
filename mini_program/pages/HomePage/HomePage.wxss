@@ -101,7 +101,7 @@
     height: 650rpx;
     margin: 30rpx;
     border-radius: 35rpx;
-    box-shadow: 5rpx 5rpx 10rpx 10rpx #aaaaaa;
+    box-shadow: 10rpx 10rpx 35rpx 10rpx #bbbbbb;
 }
 
 .title{

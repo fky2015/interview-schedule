@@ -16,9 +16,35 @@ Page({
     onLoad: function (options) {
         var that = this;
 
+        function animationAndJump() {
+            var animation = wx.createAnimation({
+                duration: 300,
+                timingFunction: 'ease',
+                delay: 3700
+            });
+
+            that.hiddenAni = animation;
+            animation.opacity(1).step();
+            that.setData({
+                hiddenAni: animation.export(),
+            });
+
+            setTimeout(
+                function () {
+                    wx.switchTab({
+                        url: '../HomePage/HomePage',
+                    })
+                }, 4000
+            );
+        }
+
+        wx.showLoading({
+            title: '加载中...',
+        })
+
         wx.getSetting({
             success(res) {
-                console.log(res.authSetting);
+                //console.log(res.authSetting);
                 if(res.authSetting['scope.userInfo']) {
                     wx.getUserInfo({
                         success(res) {
@@ -28,37 +54,42 @@ Page({
                             console.log(app.globalData.userInfo);
                         }
                     })
+
+                    wx.login({
+                        success: function (res) {
+                            console.log('code: ', res.code);
+                            wx.request({
+                                url: "https://dev.fkynjyq.com/api_token_auth/",
+                                method: "POST",
+                                data: {
+                                    code: res.code
+                                },
+
+                                success: function (res) {
+                                    wx.hideLoading();
+                                    animationAndJump();
+                                    console.log(res.data);
+                                },
+
+                                fail: function (res) {
+                                    wx.hideLoading();
+                                    wx.showToast({
+                                        title: '请检查网络',
+                                        icon: 'none',
+                                        duration: 2000
+                                    })
+                                }
+                            })
+                        }
+                    })
                 }
 
                 else {
                     app.globalData.userInfo = res.userInfo;
                     console.log("hasUserInfo: ", app.globalData.hasUserInfo);
+                    wx.hideLoading();
+                    animationAndJump();
                 }
-
-                var animation = wx.createAnimation({
-                    duration: 200,
-                    timingFunction: 'ease',
-                    delay: 1800
-                })
-
-                that.hiddenAni = animation;
-                animation.opacity(1).step();
-                that.setData({
-                    hiddenAni: animation.export(),
-                });
-
-                setTimeout(
-                    function () {
-                        wx.switchTab({
-                            url: '../HomePage/HomePage',
-                        })
-                    }, 2000
-                ) //该部分在完成login页面后要取消注释
-
-                //下面的跳转api要在之后注释掉，此处增加是为了方便调试
-                /*wx.navigateTo({
-                    url: '../LogIn/LogIn',
-                })*/
             }
         })
     },

@@ -10,7 +10,7 @@ Page({
         hasUserInfo: false,
         firstTimeGetUserInfo: false,
         userInfo: {},
-        name: '火云邪神',
+        name: '东方不败',
         avatarUrl: ''
     },
 
