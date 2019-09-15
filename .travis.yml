@@ -7,7 +7,7 @@ cache:
   yarn: true
   directories:
     - web_front_end/admin/node_modules
-    - docs/node_modules
+      #    - docs/node_modules
 
 sudo: required
 
@@ -34,7 +34,7 @@ before_deploy:
   - nvm install 10 && nvm use 10
     #  - cd docs && yarn && yarn run docs:build && cd ..
   - cd ./web_front_end/admin && yarn && yarn run build && cd ../..
-  - docker build -t fkynjyq/interview_schedule.docs:$TRAVIS_BRANCH ./docs       
+    # - docker build -t fkynjyq/interview_schedule.docs:$TRAVIS_BRANCH ./docs       
   - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH ./schedule_backend
   - bash docker_push.sh
 
