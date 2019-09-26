@@ -3,7 +3,7 @@ RUN mkdir -p /usr/src/app
 RUN mkdir -p /usr/src/web_frond_end/admin/dist
 WORKDIR /usr/src/app
 COPY schedule_backend /usr/src/app
-COPY web_front_end /usr/src/web_frond_end
+COPY web_front_end /usr/src/web_front_end
 
 # Use sed because of potential file owner issue
 
