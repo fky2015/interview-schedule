@@ -35,7 +35,7 @@ before_deploy:
     #  - cd docs && yarn && yarn run docs:build && cd ..
   - cd ./web_front_end/admin && yarn && yarn run build && cd ../..
     # - docker build -t fkynjyq/interview_schedule.docs:$TRAVIS_BRANCH ./docs       
-  - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH ./schedule_backend
+  - docker build -t fkynjyq/interview_schedule.web:$TRAVIS_BRANCH .
   - bash docker_push.sh
 
 deploy:
