@@ -17,8 +17,8 @@ RUN apt-get update && \
 ENV DJANGO_PRODUCTION=1
 
 
-COPY deploy/nginx-app.conf /etc/nginx/sites-available/default
-COPY deploy/supervisor-app.conf /etc/supervisor/conf.d/
+COPY schedule_backend/deploy/nginx-app.conf /etc/nginx/sites-available/default
+COPY schedule_backend/deploy/supervisor-app.conf /etc/supervisor/conf.d/
 EXPOSE 80
 ENTRYPOINT [ "/bin/bash", "deploy/entrypoint.sh" ]
 CMD ["supervisord", "-n"]
