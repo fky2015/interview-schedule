@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
+      <v-btn color="primary" dark v-on="on">批量添加</v-btn>
     </template>
     <v-card>
       <v-card-title>
@@ -77,12 +77,12 @@
         </v-form>
         <div>一共可面试 - {{ repeat }} - 人</div>
       </v-card-text>
-      <v-card-action>
+      <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="error" class="mr-4" @click="dialog = false">取消</v-btn>
 
         <v-btn color="success" @click="submit">确认</v-btn>
-      </v-card-action>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -139,6 +139,10 @@ export default {
     },
     submit() {
       if (this.validate()) {
+        if (this.repeat < 1) {
+          this.$store.commit("popError", "请修改 开始/结束 时间");
+          return;
+        }
         let list = [];
         let startTime = new Date();
         startTime.setHours(this.startTime.slice(0, 2));

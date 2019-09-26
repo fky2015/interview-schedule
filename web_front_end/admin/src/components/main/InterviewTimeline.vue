@@ -10,13 +10,13 @@
       >
         <template v-slot:top>
           <v-toolbar flat color="white">
-            <v-toolbar-title>My CRUD</v-toolbar-title>
+            <v-toolbar-title>时间片管理</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <div class="flex-grow-1"></div>
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" dark class="mb-2" v-on="on"
-                  >New Item</v-btn
+                  >新建时间片</v-btn
                 >
               </template>
               <v-card>
@@ -26,17 +26,6 @@
 
                 <v-card-text>
                   <v-container>
-                    <!--       {
-        text: "开始时间",
-        align: "left",
-        sortable: false,
-        value: "startTime"
-      },
-      { text: "长度", value: "duration" },
-      { text: "用户", value: "user" },
-      { text: "是否通过", value: "passed" },
-                    { text: "timeID", value: "timeID" },-->
-
                     <v-row>
                       <v-col cols="12" sm="6" md="4">
                         <v-menu
@@ -118,7 +107,18 @@
         </template>
       </v-data-table>
     </v-container>
-    <BatchAdd :url="interviewTimeline.url" :timelines="timelines" />
+    <v-container>
+      <v-card>
+        <v-card-title>
+          其他操作
+        </v-card-title>
+        <v-card-actions>
+          <v-icon>mdi-heart</v-icon>
+          <v-btn>完成面试</v-btn>
+          <BatchAdd :url="interviewTimeline.url" :timelines="timelines" />
+        </v-card-actions>
+      </v-card>
+    </v-container>
   </div>
 </template>
 
@@ -175,7 +175,7 @@ export default {
     },
 
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "新建时间片" : "编辑时间片";
     }
   },
   watch: {
@@ -229,7 +229,6 @@ export default {
     },
 
     save() {
-      // TODO: axios
       if (this.editedIndex > -1) {
         // update
         let ei = this.editedIndex;
