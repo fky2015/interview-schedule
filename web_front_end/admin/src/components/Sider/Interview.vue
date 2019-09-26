@@ -13,17 +13,13 @@
       </v-list-item>
     </router-link>
 
-    <v-list-item
-      @click="doNothing"
+    <template
       v-if="
         Array.isArray(data.interviewTimeline) &&
           data.interviewTimeline.length > 0
       "
     >
-      <v-list-item-content
-        v-for="(room, inner_index) in data.interviewTimeline"
-        :key="inner_index"
-      >
+      <template v-for="(room, inner_index) in data.interviewTimeline">
         <router-link
           :to="{
             name: 'interview-timeline',
@@ -32,13 +28,16 @@
           :key="index + '' + inner_index"
           tag="div"
         >
-          <v-list-item-subtitle
-            >&nbsp;&nbsp;&nbsp; {{ room.location }}</v-list-item-subtitle
-          >
-        </router-link>
-      </v-list-item-content>
-    </v-list-item>
-    {{ data }}
+          <v-list-item @click="doNothing">
+            <v-list-item-content>
+              <v-list-item-subtitle
+                >&nbsp;&nbsp;&nbsp; {{ room.location }}</v-list-item-subtitle
+              >
+            </v-list-item-content>
+          </v-list-item></router-link
+        >
+      </template>
+    </template>
   </div>
 </template>
 

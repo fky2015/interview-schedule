@@ -77,11 +77,11 @@ export default class Hello extends Vue {
   clubs: Array<Club> = [];
   drawer = true;
   headers = [
-    {
-      text: "个人",
-      icon: "account",
-      link: ""
-    },
+    // {
+    //   text: "个人",
+    //   icon: "account",
+    //   link: ""
+    // },
     {
       text: "身份",
       icon: "shield-account",
@@ -90,12 +90,12 @@ export default class Hello extends Vue {
     {
       text: "社团",
       icon: "home-heart",
-      link: "applicant"
+      link: "/applicant"
     },
     {
       text: "成员",
       icon: "account-group",
-      link: "members"
+      link: "/members"
     }
   ];
   // TODO: 成员是社团已有的所有成员 MEMBER
