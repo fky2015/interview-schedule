@@ -5,9 +5,10 @@ pwd
 
 git pull
 
-$DOSE down
 $DOSE pull app
-$DOSE up -d
+$DOSE stop app
+$DOSE rm -f app
+$DOSE up -d app
 
 echo success
 echo $?
