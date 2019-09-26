@@ -105,6 +105,10 @@ TEMPLATES = [
 if DEBUG:
     TEMPLATES[0]['DIRS'] += [os.path.abspath(os.path.join(
         BASE_DIR, os.pardir, 'web_front_end', 'admin', 'dist'))]
+else:
+    #  '/usr/share/nginx/html/static/'
+    TEMPLATES[0]['DIRS'] += [os.path.abspath(os.path.join(
+        '/usr', 'share', 'nginx', 'html', 'static', 'admin', 'dist'))]
 
 WSGI_APPLICATION = 'schedule_backend.wsgi.application'
 
