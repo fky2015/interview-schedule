@@ -8,7 +8,7 @@ class UserProfileSerializerUSER(serializers.HyperlinkedModelSerializer):
         model = UserProfile
         fields = ('url',
                   'username', 'realname', 'wechat_openID',
-                  'email', 'mobile')
+                  'email', 'mobile', 'avatar')
 
 
 class ClubSerializerUSER(serializers.HyperlinkedModelSerializer):
