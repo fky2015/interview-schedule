@@ -16,6 +16,7 @@ RUN apt-get update && \
     python manage.py collectstatic --noinput
 ENV DJANGO_PRODUCTION=1
 
+COPY ./schedule_backend/media /usr/share/nginx/html
 
 COPY schedule_backend/deploy/nginx-app.conf /etc/nginx/sites-available/default
 COPY schedule_backend/deploy/supervisor-app.conf /etc/supervisor/conf.d/

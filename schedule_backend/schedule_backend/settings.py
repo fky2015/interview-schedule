@@ -217,3 +217,10 @@ AUTHENTICATION_BACKENDS = (
 
 # redirect to '/' once login
 LOGIN_REDIRECT_URL = '/manage'
+
+MEDIA_URL = '/media/'
+
+if DEBUG:
+    MEDIA_ROOT = 'media/'
+else:
+    MEDIA_ROOT = '/usr/share/nginx/html/media/'

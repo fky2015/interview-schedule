@@ -25,8 +25,8 @@ class UserProfile(AbstractUser):
     mobile = models.CharField(
         verbose_name="手机号", help_text="帮助社团联系到你", max_length=11, blank=True, validators=[validate_mobile])
     # TODO: 了解 Image 细节
-    avatar = models.ImageField(verbose_name="个性头像", upload_to='image', blank=True,
-                               null=True, default="image/default.png", max_length=100)
+    avatar = models.ImageField(verbose_name="头像", upload_to='image/%Y-%m-%d', blank=True,
+                               null=True, default="image/default.png", max_length=None)
 
     class Meta:
         verbose_name = "用户信息"

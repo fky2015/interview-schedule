@@ -1,0 +1,4 @@
+media/*
+!media/image
+media/image/*
+!media/image/default.jpg
