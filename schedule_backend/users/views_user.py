@@ -13,6 +13,9 @@ from timelines.models import Interview, Timeline
 from rest_framework.decorators import action, api_view
 from django.db.models import Q
 from django.db import transaction  # 原子性
+import logging
+
+logger = logging.getLogger('django')
 
 # user类别
 
@@ -84,29 +87,18 @@ class ClubViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['GET'])
     def interview(self, request, pk=None):
         """获得该club的所有你可见的面试"""
+        # 也就是普通用户可见的状态
         # edit_finish == False 必不可见
         # is_public 控制 无关系情况下是否可见
         # in_state 控制有关系情况下
+
         queryset = Interview.objects.filter(club__pk=pk,
-                                            edit_finish=True)
-        me = UserProfile.objects.get(username=request.user)
-        # get 在未取得情况下会直接excption
-        userProfileClub_queryset = UserProfileClub.objects.filter(
-            userProfile=me, club__pk=pk)
-        if userProfileClub_queryset.count() > 0 and userProfileClub_queryset[0].membership:
-            # if membership exist
-            queryset = queryset.filter(
-                in_state__membership=userProfileClub_queryset[0].membership)
-        else:
-            queryset = queryset.filter(is_public=True)
+                                            is_public=True)
 
         serializer = InterviewSerializerUSER(
             queryset, many=True, context={'request': request}
         )
         return Response(serializer.data)
-
-    def get_user(self):
-        return UserProfile.objects.get(username=self.request.user)
 
     def query_restrain(self, queryset) -> queryset:
         return queryset.filter(verified="pass")

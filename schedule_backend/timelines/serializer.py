@@ -13,7 +13,8 @@ class InterviewSerializerUSER(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Interview
         fields = ('url', 'club', 'title', 'description',
-                  'edit_finish', 'is_public', 'out_state')
+                  'edit_finish', 'out_state')
+        # read_only_fields = (,)
 
 
 class InterviewTimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
@@ -92,8 +93,8 @@ class InterviewSerializerADMIN(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Interview
-        fields = ('url',  'pk', 'club', 'title', 'description', 'edit_finish',
-                  'is_public', 'interviewTimeline', 'out_state')
+        fields = ('url',  'pk', 'club', 'title', 'description', 'edit_finish', 'is_public',
+                  'interviewTimeline', 'out_state')
         read_only_fields = ('url', 'pk', 'interviewTimeline',)
 
 
