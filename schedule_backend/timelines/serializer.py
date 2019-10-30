@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from users.serializer import (ClubSerializerCustom, MembershipSerializerCustom,
                               MembershipSerializerUSER,
-                              UserProfileSerializerCustom)
+                              UserProfileSerializerCustom, UserProfileSerializerADMIN, UserProfileSerializerUSER)
 
 from .models import InState, Interview, InterviewTimeline, Timeline
 
@@ -120,6 +120,16 @@ class TimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'interviewTimeline', 'user',
                   'startTime', 'duration', 'passed', 'comment', 'timeID')
 
+class TimelineSerializerADMINApplicant(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name="admin-timeline-detail")
+    user = UserProfileSerializerUSER(allow_null=True)
+    interviewTimeline = InterviewTimelineSerializerADMIN()
+
+    class Meta:
+        model = Timeline
+        fields = ('url', 'interviewTimeline', 'user',
+                  'startTime', 'duration', 'passed', 'comment', 'timeID')
 
 class InStateSerializerADMIN(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(

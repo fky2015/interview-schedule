@@ -90,7 +90,7 @@ export default class Hello extends Vue {
     {
       text: "社团",
       icon: "home-heart",
-      link: "/applicant"
+      link: "/applicants"
     },
     {
       text: "成员",
