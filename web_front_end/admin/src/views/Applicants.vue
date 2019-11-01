@@ -25,10 +25,14 @@
         {{ item.interviewTimeline.location }}
       </template>
     </v-data-table>
+    <v-card-actions>
+      <v-btn block @click="exportData">导出</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import { exportCSV } from "@/utils/utils";
 export default {
   data: () => ({
     search: "",
@@ -73,6 +77,34 @@ export default {
         typeof (value === "string") &&
         JSON.stringify(value).indexOf(search) !== -1
       );
+    },
+    exportData() {
+      // export to csv
+      let rows = this.applicants.map(v => [
+        v.user.username,
+        v.user.realname,
+        v.user.studentNumber,
+        v.user.email,
+        v.user.mobile,
+        v.location,
+        v.date,
+        v.startTime,
+        v.duration,
+        v.comment
+      ]);
+      headers = [
+        "用户名",
+        "姓名",
+        "学号",
+        "邮箱",
+        "手机号",
+        "面试地点",
+        "面试日期",
+        "开始时间",
+        "持续时间",
+        "自我评价"
+      ];
+      exportCSV(rows, headers);
     }
   },
   watch: {
