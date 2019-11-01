@@ -15,9 +15,16 @@ import os
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} {module}.{funcName} {lineno:3} {levelname:7} => {message}',
+            'style': '{',
+        }
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter':'verbose',
         },
     },
     'loggers': {
@@ -36,8 +43,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&y&q+-uf03y!h8hmbukee4)+qvqclka&es(#$pjp5&ym4oovtw'
-WECHAT_APPID = "wx0a7c63d5eed29979"
-WECHAT_SECRET = '301b91e88894ca90e930c077b55e849a'
+WECHAT_APPID = os.getenv("WECHAT_APPID") or "wx0a7c63d5eed29979"
+WECHAT_SECRET = os.getenv(
+    "WECHAT_SECRET") or '301b91e88894ca90e930c077b55e849a'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

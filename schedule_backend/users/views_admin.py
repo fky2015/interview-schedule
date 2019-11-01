@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
 from timelines.models import Interview, Timeline
-from timelines.serializer import InterviewSerializerADMIN
+from timelines.serializer import InterviewSerializerADMIN, TimelineSerializerADMINApplicant
 
 from .models import Club, Membership, UserProfile, UserProfileClub
 from .serializer import (ClubSerializerADMIN, MembershipSerializerADMIN,
@@ -131,12 +131,17 @@ class ClubViewSet(viewsets.ModelViewSet):
         # queryset = UserProfile.objects.prefetch_related(Prefetch(
         #     'userProfileClub',queryset=UserProfileClub.objects.filter(club=self.get_object())
         # )).filter(userProfileClub = )
-        queryset = UserProfile.objects.prefetch_related(Prefetch(
-            'userProfileClub', queryset=UserProfileClub.objects.filter(club=self.get_object())
-        )).filter(
-            timeline__interviewTimeline__interview__club=self.get_object()
-        )
-        serializer = UserProfileSerializerADMIN(
+        # queryset = UserProfile.objects.prefetch_related(Prefetch(
+        #     'userProfileClub', queryset=UserProfileClub.objects.filter(club=self.get_object())
+        # )).filter(
+        #     timeline__interviewTimeline__interview__club=self.get_object()
+        # )
+        # serializer = UserProfileSerializerADMIN(
+        #     queryset, many=True, context={'request': request}
+        # )
+        queryset = Timeline.objects.filter(
+            interviewTimeline__interview__club=pk).exclude(user=None)
+        serializer = TimelineSerializerADMINApplicant(
             queryset, many=True, context={'request': request}
         )
         return Response(serializer.data)

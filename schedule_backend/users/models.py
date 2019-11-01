@@ -20,8 +20,9 @@ class UserProfile(AbstractUser):
     realname = models.CharField(verbose_name="真实姓名", max_length=50)
     gender = models.CharField(
         verbose_name="性别", choices=GENDER_CHOICE, default='secret', max_length=8)
-    wechat_openID = models.CharField(
-        verbose_name="wechat openID", help_text="用于微信小程序登录", max_length=100, blank=True)
+    studentNumber = models.CharField(
+        verbose_name="学号", max_length=20, blank=True, default=''
+    )
     mobile = models.CharField(
         verbose_name="手机号", help_text="帮助社团联系到你", max_length=11, blank=True, validators=[validate_mobile])
     # TODO: 了解 Image 细节
