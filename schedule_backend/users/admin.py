@@ -6,11 +6,11 @@ from .models import UserProfile, Club, UserProfileClub, Membership
 # Register your models here.
 class UserProfileAdmin(admin.ModelAdmin):
     fields = (
-        'username', 'password', 'mobile', 'realname',
+        'username', 'mobile', 'realname',
         'is_staff', 'is_active',
         'email', 'first_name', 'last_name',
         'intro', 'gender',
-        'wechat_openID', 'groups'
+        'studentNumber'
     )
 
 
