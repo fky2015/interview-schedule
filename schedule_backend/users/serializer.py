@@ -7,7 +7,7 @@ class UserProfileSerializerUSER(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('url',
-                  'username', 'realname', 'wechat_openID',
+                  'username', 'realname', 'studentNumber',
                   'email', 'mobile', 'avatar')
 
 
