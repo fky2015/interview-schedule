@@ -6,6 +6,8 @@ from rest_framework import permissions
 
 from wechattoken.models import Token
 from wechattoken.serializers import AuthTokenSerializer
+from users.serializer import UserProfileSerializerADMIN
+
 
 import logging
 
@@ -54,7 +56,15 @@ class ObtainAuthToken(APIView):
             user=user, openid=openid,
             defaults={'session_key': session_key, 'key': ''}
         )
-        return Response({'token': token.key})
+
+        serializer = UserProfileSerializerADMIN(
+            user, context={'request': request}
+        )
+        return Response(
+            {
+                'token': token.key,
+                'user': serializer.data
+            })
 
 
 obtain_auth_token = ObtainAuthToken.as_view()
