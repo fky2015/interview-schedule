@@ -12,6 +12,8 @@ services:
         VIRTUAL_HOST: dev.fkynjyq.com
         LETSENCRYPT_HOST: dev.fkynjyq.com
         LETSENCRYPT_MAIL: mail@fkynjyq.com
+    volumes:
+      - ./.data/media:/usr/share/nginx/html/media
     networks:
       - default
       - nginx-proxy
@@ -22,7 +24,7 @@ services:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: myapp
     volumes: 
-      - interview-schedule-pgdata:/var/lib/postgresql/data
+      - ./.data/pgdata:/var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always
