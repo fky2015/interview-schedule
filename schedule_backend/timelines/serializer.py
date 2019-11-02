@@ -7,13 +7,32 @@ from users.serializer import (ClubSerializerCustom, MembershipSerializerCustom,
 from .models import InState, Interview, InterviewTimeline, Timeline
 
 
+class TimelineSerializerUserCustom(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Timeline
+        fields = ('url', 'startTime', 'duration')
+
+
+class InterviewTimelineSerializerUserCustom(serializers.HyperlinkedModelSerializer):
+    timeline = TimelineSerializerUserCustom(read_only=True, many=True)
+
+    class Meta:
+        model = InterviewTimeline
+        fields = ('url', 'location', 'date',
+                  'startTime', 'endTime', 'timeline')
+
+
 class InterviewSerializerUSER(serializers.HyperlinkedModelSerializer):
-    # out_state = MembershipSerializerUSER(read_only=True)
+    out_state = MembershipSerializerUSER(read_only=True)
+    # interviewTimeline = serializers.SlugRelatedField(
+    # read_only=True, slug_field='location', many=True)
+    interviewTimeline = InterviewTimelineSerializerUserCustom(
+        many=True, read_only=True)
 
     class Meta:
         model = Interview
         fields = ('url', 'club', 'title', 'description',
-                  'edit_finish', 'out_state')
+                  'edit_finish', 'out_state', 'interviewTimeline')
         # read_only_fields = (,)
 
 
@@ -120,6 +139,7 @@ class TimelineSerializerADMIN(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'interviewTimeline', 'user',
                   'startTime', 'duration', 'passed', 'comment', 'timeID')
 
+
 class TimelineSerializerADMINApplicant(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name="admin-timeline-detail")
@@ -130,6 +150,7 @@ class TimelineSerializerADMINApplicant(serializers.HyperlinkedModelSerializer):
         model = Timeline
         fields = ('url', 'interviewTimeline', 'user',
                   'startTime', 'duration', 'passed', 'comment', 'timeID')
+
 
 class InStateSerializerADMIN(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(
