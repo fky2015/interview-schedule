@@ -6,14 +6,14 @@ from rest_framework import permissions
 
 from wechattoken.models import Token
 from wechattoken.serializers import AuthTokenSerializer
-from users.serializer import UserProfileSerializerADMIN
+from users.serializer import UserProfileSerializerADMIN, UserProfileSerializerUSER
 
 
 import logging
 
 User = get_user_model()
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 class ObtainAuthToken(APIView):
@@ -31,10 +31,13 @@ class ObtainAuthToken(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
+
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
+
         openid = serializer.validated_data['openid']
         session_key = serializer.validated_data['session_key']
+
         # # 如果是新注册的用户
         # if username:
         #     # 只有新注册，或者要做关联的时候才会有username
@@ -47,17 +50,28 @@ class ObtainAuthToken(APIView):
         #     else:
         #         if user.check_password(password):
         #             raise PermissionError("wrong username or password!")
-        user, _ = User.objects.get_or_create(
-            username=openid,
-            defaults={'password': openid}
-        )
-        # print(user)
+        try:
+            user = User.objects.get(
+                username=openid,
+                password=openid,
+            )
+            # defaults={'password': openid}
+
+        except User.DoesNotExist:
+            # 可以新建用户
+            user_serializer = UserProfileSerializerUSER(data=request.data)
+            user_serializer.is_valid(raise_exception=True)
+            data = {**user_serializer.validated_data}
+            data['username'] = openid
+            data['password'] = openid
+            user = User.objects.create(**data)
+
         token, _ = Token.objects.update_or_create(
             user=user, openid=openid,
             defaults={'session_key': session_key, 'key': ''}
         )
 
-        serializer = UserProfileSerializerADMIN(
+        serializer = UserProfileSerializerUSER(
             user, context={'request': request}
         )
         return Response(
