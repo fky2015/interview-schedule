@@ -14,12 +14,12 @@ class TimelineSerializerUserCustom(serializers.HyperlinkedModelSerializer):
 
 
 class InterviewTimelineSerializerUserCustom(serializers.HyperlinkedModelSerializer):
-    timeline = TimelineSerializerUserCustom(read_only=True, many=True)
+    # timeline = TimelineSerializerUserCustom(read_only=True, many=True)
 
     class Meta:
         model = InterviewTimeline
         fields = ('url', 'location', 'date',
-                  'startTime', 'endTime', 'timeline')
+                  'startTime', 'endTime')
 
 
 class InterviewSerializerUSER(serializers.HyperlinkedModelSerializer):
