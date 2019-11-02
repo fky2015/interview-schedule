@@ -52,6 +52,8 @@ class InterviewTimeline(models.Model):
     location = models.CharField(verbose_name="面试地点", max_length=100)
     remarks = models.TextField(verbose_name="备注", max_length=100)
     date = models.DateField(verbose_name="日期")
+    startTime = models.TimeField(verbose_name='开始时间', default="18:30")
+    endTime = models.TimeField(verbose_name='结束时间', default="21:00")
 
     class Meta:
         order_with_respect_to = 'interview'
