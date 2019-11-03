@@ -8,7 +8,7 @@ from users.models import Membership
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from django.db import transaction  # 原子性
 
 
@@ -80,8 +80,10 @@ class TimelineViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def get_permissions(self):
-        if self.action in ['list', 'retrieve', 'apply', 'cancel']:
+        if self.action in ['list', 'retrieve']:
             permission_classes = [AllowAny]
+        elif self.action in ['apply', 'cancel']:
+            permission_classes = [IsAuthenticated]
         else:
             permission_classes = [IsAdminUser]
         return [permission() for permission in permission_classes]
@@ -102,12 +104,12 @@ class TimelineViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["GET"])
     def apply(self, request, pk=None):
         """报名该时间段"""
-        a = self.get_object()
-        if a.user == None:
-            a.user = request.user
-            a.save()
+        timeline = self.get_object()
+        if timeline.user == None:
+            timeline.user = request.user
+            timeline.save()
             return Response({"msg": "报名成功"})
-        elif a.user == request.user:
+        elif timeline.user == request.user:
             return Response({"msg": "已报名"})
         return Response({"msg": "无法报名"})
 
