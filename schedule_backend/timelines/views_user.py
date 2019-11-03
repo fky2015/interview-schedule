@@ -17,8 +17,6 @@ class InterviewViewSet(viewsets.ModelViewSet):
     queryset = Interview.objects.all()
     serializer_class = InterviewSerializerUSER
 
-
-
     def get_permissions(self):
         if self.action in ['list', 'retrieve', 'interviewTimeline']:
             permission_classes = [AllowAny]
@@ -99,20 +97,22 @@ class TimelineViewSet(viewsets.ModelViewSet):
             print(a)
             return Response({"msg": "成功取消"})
 
-        return Response({"msg": "you are not the user"})
+        raise ValueError({"msg": "你并不是该用户"})
 
     @action(detail=True, methods=["GET"])
     def apply(self, request, pk=None):
         """报名该时间段"""
         timeline = self.get_object()
-        if timeline.user == None:
-            timeline.user = request.user
-            timeline.save()
-            return Response({"msg": "报名成功"})
-        elif timeline.user == request.user:
-            return Response({"msg": "已报名"})
-        return Response({"msg": "无法报名"})
-
+        try:
+            if timeline.user == None:
+                timeline.user = request.user
+                timeline.save()
+                return Response({"msg": "报名成功"})
+            elif timeline.user == request.user:
+                raise ValueError({"msg": "您已经报名"})
+            raise ValueError({"msg": "无法报名"})
+        except:
+            raise ValueError({"msg": "您已报名其他时间"})
 
 # class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
 #     queryset = InterviewTimeline.objects.all()
