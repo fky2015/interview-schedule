@@ -3,8 +3,6 @@ services:
   app:
     image: fkynjyq/interview_schedule.web:deploy
     restart: always
-    ports:
-      - 10101:80
     depends_on:
       - db
     environment:
