@@ -9,7 +9,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
-from django.db import transaction  # 原子性
+from django.db import transaction, IntegrityError  # 原子性
 
 
 class InterviewViewSet(viewsets.ModelViewSet):
@@ -111,8 +111,10 @@ class TimelineViewSet(viewsets.ModelViewSet):
             elif timeline.user == request.user:
                 raise ValueError({"msg": "您已经报名"})
             raise ValueError({"msg": "无法报名"})
-        except:
+        except IntegrityError as e:
             raise ValueError({"msg": "您已报名其他时间"})
+        finally:
+            raise ValueError({"msg": "无法报名"})
 
 # class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
 #     queryset = InterviewTimeline.objects.all()
