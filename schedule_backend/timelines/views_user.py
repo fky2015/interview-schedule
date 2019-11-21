@@ -110,12 +110,11 @@ class TimelineViewSet(viewsets.ModelViewSet):
                 return Response({"msg": "报名成功"})
             elif timeline.user == request.user:
                 raise ValueError({"msg": "您已经报名"})
-            raise ValueError({"msg": "无法报名"})
+            raise ValueError({"msg": "已有他人报名"})
         except IntegrityError as e:
             raise ValueError({"msg": "您已报名其他时间"})
         finally:
-            raise ValueError({"msg": "无法报名"})
-
+            pass
 # class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
 #     queryset = InterviewTimeline.objects.all()
 #     serializer_class = InterviewTimelineSerializerADMIN
