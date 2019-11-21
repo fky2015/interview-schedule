@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from django.db import transaction, IntegrityError  # 原子性
-
+from rest_framework.validators import ValidationError
 
 class InterviewViewSet(viewsets.ModelViewSet):
     """面试"""
@@ -97,7 +97,7 @@ class TimelineViewSet(viewsets.ModelViewSet):
             print(a)
             return Response({"msg": "成功取消"})
 
-        raise ValueError({"msg": "你并不是该用户"})
+        raise ValidationError(detail = {"msg": "你并不是该用户"})
 
     @action(detail=True, methods=["GET"])
     def apply(self, request, pk=None):
@@ -109,10 +109,10 @@ class TimelineViewSet(viewsets.ModelViewSet):
                 timeline.save()
                 return Response({"msg": "报名成功"})
             elif timeline.user == request.user:
-                raise ValueError({"msg": "您已经报名"})
-            raise ValueError({"msg": "已有他人报名"})
+                raise ValidationError(detail = {"msg": "您已经报名"})
+            raise ValidationError(detail = {"msg": "已有他人报名"})
         except IntegrityError as e:
-            raise ValueError({"msg": "您已报名其他时间"})
+            raise ValidationError(detail = {"msg": "您已报名其他时间"})
         finally:
             pass
 # class InterviewTimelineViewSetADMIN(viewsets.ModelViewSet):
