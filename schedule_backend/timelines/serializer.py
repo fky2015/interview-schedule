@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.serializer import (ClubSerializerCustom, MembershipSerializerCustom,
+from users.serializer import (ClubSerializerCustom, ClubSerializerUSER, MembershipSerializerCustom,
                               MembershipSerializerUSER,
                               UserProfileSerializerCustom, UserProfileSerializerADMIN, UserProfileSerializerUSER)
 
@@ -35,10 +35,15 @@ class InterviewSerializerUSER(serializers.HyperlinkedModelSerializer):
                   'edit_finish', 'out_state', 'interviewTimeline')
         # read_only_fields = (,)
 
+class InterviewSerializerUSERUP(serializers.HyperlinkedModelSerializer):
+    club = ClubSerializerUSER(read_only=True)
+    class Meta:
+        model = Interview
+        fields = ('url', 'club', 'title', )
 
 class InterviewTimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
 
-    # interview = InterviewSerializerPUBLIC()
+    interview = InterviewSerializerUSERUP(read_only=True)
 
     class Meta:
         model = InterviewTimeline
@@ -51,12 +56,13 @@ class TimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
     """用于user查看自己的timeline"""
 
     interviewTimeline = InterviewTimelineSerializerUSER(read_only=True)
+    # club
     # TODO may be 换成 USER的？
 
     class Meta:
         model = Timeline
         fields = ('url', 'interviewTimeline', 'user',
-                  'startTime', 'duration', 'timeID')
+                  'startTime', 'duration', 'timeID',)
 
 
 class TimelineSerializerPUBLIC(serializers.HyperlinkedModelSerializer):
