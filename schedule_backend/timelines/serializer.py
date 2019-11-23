@@ -47,7 +47,7 @@ class InterviewTimelineSerializerUSER(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = InterviewTimeline
-        fields = ('url', 'interview', 'location')
+        fields = ('url', 'interview', 'location', 'date')
 
 # 仅仅被用户使用的话，不需要user这个field
 
