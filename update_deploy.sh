@@ -1,3 +1,4 @@
+set -e
 DOSE=docker-compose
 
 echo "current dir:"
@@ -9,6 +10,3 @@ $DOSE pull app
 $DOSE stop app
 $DOSE rm -f app
 $DOSE up -d app
-
-echo success
-echo $?

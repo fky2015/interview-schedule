@@ -56,7 +56,8 @@ class InterviewTimeline(models.Model):
     endTime = models.TimeField(verbose_name='结束时间', default="21:00")
 
     class Meta:
-        order_with_respect_to = 'interview'
+        # order_with_respect_to = 'interview'
+        ordering = ['date', 'startTime']
 
     def __str__(self):
         return f'{self.interview}-{self.location}'
@@ -83,7 +84,7 @@ class Timeline(models.Model):
         verbose_name="pass the interview", default=False)
 
     class Meta:
-        pass
+        ordering = ('startTime','timeID')
         unique_together = ('interviewTimeline', 'user')  # 多列联合唯一性约束
         # 一个人在一个面试场最多只能报名一次
 
